@@ -46,12 +46,12 @@ export function CTABanner() {
   }
 
   const inputCls =
-    "border border-gray-200 rounded-lg px-4 py-3 w-full focus:outline-none focus:ring-2 focus:ring-[#1B3A6B] text-sm bg-white text-gray-800 transition-shadow hover:border-gray-300 focus:shadow-md";
+    "border border-gray-200 rounded-lg px-4 py-3 w-full focus:outline-none focus:ring-2 focus:ring-[#1E3A6E] text-sm bg-white text-gray-800 transition-shadow hover:border-gray-300 focus:shadow-md";
 
   return (
     <section
       ref={sectionRef}
-      className="relative w-full min-h-[480px] sm:min-h-[540px] flex items-end overflow-hidden pt-12 sm:pt-16 pb-24 sm:pb-28 md:pb-32"
+      className="relative w-full min-h-[580px] sm:min-h-[660px] flex items-end overflow-hidden pt-16 sm:pt-20 pb-28 sm:pb-32 md:pb-36"
       style={{
         backgroundImage: `url('https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=1600&q=80')`,
         backgroundSize: "cover",
@@ -127,9 +127,9 @@ export function CTABanner() {
                 <path d="M 38 132 Q 150 170 290 132 T 420 148 L 420 174 L 390 174
                          Q 388 181 382 181 L 348 181 Q 342 181 338 185 L 142 185
                          Q 138 185 132 181 L 102 181 Q 96 181 92 185 L 38 185 Z"
-                  fill="#1B3A6B" />
+                  fill="#1E3A6E" />
                 <path d="M 38 122 Q 150 160 290 122 T 420 138 L 420 144
-                         Q 290 128 150 166 T 38 128 Z" fill="#F97316" />
+                         Q 290 128 150 166 T 38 128 Z" fill="#F5C842" />
                 <image href={logo} x="72" y="70" width="135" height="45"
                   preserveAspectRatio="xMidYMid meet" />
                 <circle cx="288" cy="92" r="10" fill="#1e293b" opacity="0.3" />
@@ -183,10 +183,18 @@ export function CTABanner() {
 
           {/* Right Column — contact card */}
           <div className="lg:col-span-5 w-full flex justify-center lg:justify-end self-center">
-            <div className="bg-white rounded-2xl shadow-2xl p-8 border border-slate-100/50 w-full max-w-[440px] hover:shadow-[0_20px_50px_rgba(0,0,0,0.3)] transition-all duration-300">
-              <h2 className="text-2xl font-bold text-[#1B3A6B]">{opts.cta_heading}</h2>
-              <p className="text-[#F97316] font-semibold text-lg mt-1">{opts.cta_subheading}</p>
-              <p className="text-gray-600 text-sm mt-1 mb-6">{opts.cta_body}</p>
+            <div className="bg-white rounded-2xl shadow-2xl border-2 border-[#1E3A7B]/20 w-full max-w-[520px] hover:shadow-[0_20px_50px_rgba(0,0,0,0.3)] transition-all duration-300 overflow-hidden">
+              {/* Blue gradient header strip */}
+              <div
+                className="px-10 py-7"
+                style={{ background: "linear-gradient(135deg, #1E3A6E 0%, #6B9FE4 100%)" }}
+              >
+                <h2 className="text-3xl font-bold text-white">{opts.cta_heading}</h2>
+                <p className="text-[#FFB800] font-semibold text-lg mt-1.5">{opts.cta_subheading}</p>
+              </div>
+
+              <div className="p-10">
+              <p className="text-gray-600 text-base mb-6">{opts.cta_body}</p>
 
               <form onSubmit={handleSubmit} className="space-y-4">
                 <input
@@ -223,11 +231,13 @@ export function CTABanner() {
 
                 <button
                   type="submit"
-                  className="w-full bg-[#1B3A6B] hover:bg-[#152d54] hover:shadow-[0_4px_12px_rgba(27,58,107,0.3)] text-white font-bold py-3 rounded-lg transition-all text-sm tracking-wide active:scale-[0.98]"
+                  className="w-full font-bold py-4 rounded-xl transition-all text-base tracking-widest active:scale-[0.98] text-white hover:opacity-90 shadow-lg"
+                  style={{ background: "linear-gradient(135deg, #1E3A6E 0%, #6B9FE4 100%)" }}
                 >
-                  CONTACT US
+                  CONTACT US TODAY
                 </button>
               </form>
+              </div>
             </div>
           </div>
 

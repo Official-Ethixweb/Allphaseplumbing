@@ -28,7 +28,7 @@ function PostCard({ post }: { post: WPPost }) {
   const img = post._embedded?.["wp:featuredmedia"]?.[0]?.source_url;
   const cat = post._embedded?.["wp:term"]?.[0]?.[0]?.name;
   return (
-    <article className="group rounded-xl overflow-hidden border-2 border-[#1B3A6B] bg-white/80 backdrop-blur-sm shadow-md hover:shadow-[0_8px_30px_rgba(27,58,107,0.25)] hover:-translate-y-1 transition-all duration-300 cursor-pointer">
+    <article className="group rounded-xl overflow-hidden border-2 border-[#1E3A7B] bg-white/80 backdrop-blur-sm shadow-md hover:shadow-[0_8px_30px_rgba(30,58,110,0.25)] hover:-translate-y-1 transition-all duration-300 cursor-pointer">
       <div className="aspect-[16/10] bg-primary relative overflow-hidden">
         {img ? (
           <img
@@ -51,7 +51,7 @@ function PostCard({ post }: { post: WPPost }) {
           </span>
         )}
         <h3
-          className="text-lg font-bold text-primary mb-3 line-clamp-2"
+          className="text-xl font-bold text-primary mb-3 line-clamp-2"
           dangerouslySetInnerHTML={{ __html: post.title.rendered }}
         />
         <Link
@@ -69,7 +69,7 @@ function PostCard({ post }: { post: WPPost }) {
 function PlaceholderCard({ i }: { i: number }) {
   const data = PLACEHOLDER_DATA[i];
   return (
-    <article className="group rounded-xl overflow-hidden border-2 border-[#1B3A6B] bg-white/80 backdrop-blur-sm shadow-md hover:shadow-[0_8px_30px_rgba(27,58,107,0.25)] hover:-translate-y-1 transition-all duration-300 cursor-pointer">
+    <article className="group rounded-xl overflow-hidden border-2 border-[#1E3A7B] bg-white/80 backdrop-blur-sm shadow-md hover:shadow-[0_8px_30px_rgba(30,58,110,0.25)] hover:-translate-y-1 transition-all duration-300 cursor-pointer">
       <div className="aspect-[16/10] bg-primary relative overflow-hidden">
         <img
           src={data.img}
@@ -83,7 +83,7 @@ function PlaceholderCard({ i }: { i: number }) {
         <span className="inline-block text-xs font-semibold uppercase tracking-wider text-accent mb-3">
           Plumbing Tips
         </span>
-        <h3 className="text-lg font-bold text-primary mb-3 line-clamp-2">{data.title}</h3>
+        <h3 className="text-xl font-bold text-primary mb-3 line-clamp-2">{data.title}</h3>
         <Link
           to="/blog"
           className="inline-flex items-center gap-1 text-sm font-semibold text-accent hover:gap-2 transition-all"
@@ -130,7 +130,7 @@ export function BlogPreview() {
             Array.from({ length: 3 }).map((_, i) => (
               <div
                 key={i}
-                className="rounded-xl border-2 border-[#1B3A6B]/30 bg-white/60 backdrop-blur-sm animate-pulse h-80"
+                className="rounded-xl border-2 border-[#1E3A7B]/30 bg-white/60 backdrop-blur-sm animate-pulse h-80"
               />
             ))
           ) : posts.length > 0 ? (

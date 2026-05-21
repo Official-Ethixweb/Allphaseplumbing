@@ -55,11 +55,11 @@ export function Coupons() {
               Outer wrapper: overflow-visible so the circular notches can
               bleed outside, flex-col so GlareHover stretches to full height.
             */
-            <div key={c.code} className="relative flex flex-col">
+            <div key={c.code} className="relative flex flex-col h-[185px]">
               {/* Left circular notch */}
-              <div className="absolute -left-2 top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-secondary/60 z-20 border border-[#1B3A6B]/20" />
+              <div className="absolute -left-2 top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-secondary/60 z-20 border border-[#1E3A7B]/20" />
               {/* Right circular notch */}
-              <div className="absolute -right-2 top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-secondary/60 z-20 border border-[#1B3A6B]/20" />
+              <div className="absolute -right-2 top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-secondary/60 z-20 border border-[#1E3A7B]/20" />
 
               <GlareHover
                 width="100%"
@@ -72,14 +72,14 @@ export function Coupons() {
                 glareAngle={-45}
                 glareSize={300}
                 transitionDuration={650}
-                className="flex-1 shadow-md hover:shadow-[0_8px_30px_rgba(27,58,107,0.25)] hover:-translate-y-1 transition-all duration-300"
-                style={{ border: '2px solid #1B3A6B', borderRadius: '0.75rem', minHeight: 140 }}
+                className="flex-1 shadow-md hover:shadow-[0_8px_30px_rgba(30,58,110,0.25)] hover:-translate-y-1 transition-all duration-300"
+                style={{ border: '2px solid #1E3A7B', borderRadius: '0.75rem' }}
               >
-                {/* Ticket row — fixed min-height so all cards are equal */}
-                <div className="w-full flex" style={{ minHeight: 140 }}>
+                {/* Ticket row — self-stretch overrides GlareHover's grid place-items-center so all cards fill the fixed height equally */}
+                <div className="w-full h-full flex self-stretch">
 
                   {/* Left stub — navy, 30% width */}
-                  <div className="flex flex-col items-center justify-center w-[30%] bg-[#1B3A6B] py-6 px-3 border-r-2 border-dashed border-white/40 shrink-0 self-stretch">
+                  <div className="flex flex-col items-center justify-center w-[30%] bg-[#1E3A6E] py-6 px-3 border-r-2 border-dashed border-white/40 shrink-0 self-stretch">
                     <c.icon className="size-7 text-white mb-2" />
                     <span className="text-2xl font-black text-white leading-none tracking-tight">
                       {c.value}
@@ -95,7 +95,7 @@ export function Coupons() {
                     </span>
                     <Link
                       to="/coupons"
-                      className="inline-flex items-center gap-1 text-[#F97316] font-semibold text-sm mt-3 hover:gap-2 transition-all"
+                      className="inline-flex items-center gap-1 text-[#F5C842] font-semibold text-sm mt-3 hover:gap-2 transition-all"
                     >
                       CLAIM OFFER <ArrowRight className="size-3.5" />
                     </Link>

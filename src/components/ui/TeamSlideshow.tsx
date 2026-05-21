@@ -34,7 +34,7 @@ export function TeamSlideshow() {
   }, []);
 
   return (
-    <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden border-2 border-[#1B3A6B] shadow-lg bg-slate-950">
+    <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden border-2 border-[#1E3A7B] shadow-lg bg-slate-950">
       {/* Sliding Track */}
       <div 
         className="flex w-full h-full transition-transform duration-700 ease-in-out"

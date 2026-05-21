@@ -1,86 +1,213 @@
-import { useState } from "react";
-import { MapPin, ChevronDown } from "lucide-react";
+import { Link } from "@tanstack/react-router";
+import { MapPin } from "lucide-react";
 import { useSiteOptions } from "@/hooks/use-site-options";
+import { useEffect, useRef } from "react";
+
+/* ── Leaflet dynamic import (avoids SSR issues) ───────────────────────────── */
+declare global {
+  interface Window {
+    L: typeof import("leaflet");
+  }
+}
+
+function ServiceMap() {
+  const mapRef = useRef<HTMLDivElement>(null);
+  const mapInstanceRef = useRef<import("leaflet").Map | null>(null);
+
+  useEffect(() => {
+    if (!mapRef.current || mapInstanceRef.current) return;
+
+    // Dynamically import Leaflet to avoid SSR issues
+    import("leaflet").then((L) => {
+      if (!mapRef.current || mapInstanceRef.current) return;
+
+      /* ── Leaflet CSS ── */
+      if (!document.getElementById("leaflet-css")) {
+        const link = document.createElement("link");
+        link.id = "leaflet-css";
+        link.rel = "stylesheet";
+        link.href = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css";
+        document.head.appendChild(link);
+      }
+
+      const map = L.map(mapRef.current, {
+        center: [47.52, -122.18],
+        zoom: 10,
+        scrollWheelZoom: false,
+        zoomControl: true,
+      });
+      mapInstanceRef.current = map;
+
+      /* ── Tile layer (CartoDB light — crisp & neutral) ── */
+      L.tileLayer(
+        "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+        {
+          attribution:
+            '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/">CARTO</a>',
+          maxZoom: 19,
+        }
+      ).addTo(map);
+
+      /* ── Service-area polygon (King + southern Pierce) in navy blue ── */
+      const serviceAreaCoords: [number, number][] = [
+        // Approximate boundary of Greater Seattle service area
+        // North Seattle
+        [47.77, -122.42],
+        [47.77, -122.05],
+        // East: Redmond, Bellevue, Renton
+        [47.68, -122.04],
+        [47.60, -121.97],
+        [47.49, -122.03],
+        // South: Auburn, Federal Way, Tacoma
+        [47.32, -122.03],
+        [47.24, -122.13],
+        [47.22, -122.32],
+        [47.26, -122.52],
+        // West: Vashon area shoreline
+        [47.35, -122.58],
+        [47.48, -122.55],
+        // NW Seattle
+        [47.62, -122.52],
+        [47.73, -122.48],
+        [47.77, -122.42],
+      ];
+
+      const polygon = L.polygon(serviceAreaCoords, {
+        color: "#1E3A6E",
+        weight: 2.5,
+        fillColor: "#1E3A6E",
+        fillOpacity: 0.22,
+      }).addTo(map);
+
+      /* ── Company pin ── */
+      const pin = L.divIcon({
+        className: "",
+        html: `<div style="
+          background: linear-gradient(135deg,#1E3A6E,#4A7BC4);
+          color:#fff;
+          border-radius:50% 50% 50% 0;
+          transform:rotate(-45deg);
+          width:32px;height:32px;
+          border:3px solid #F5C842;
+          box-shadow:0 3px 10px rgba(0,0,0,0.4);
+          display:flex;align-items:center;justify-content:center;">
+          <span style="transform:rotate(45deg);font-size:14px;">📍</span>
+        </div>`,
+        iconSize: [32, 32],
+        iconAnchor: [16, 32],
+        popupAnchor: [0, -36],
+      });
+
+      L.marker([47.4729, -122.2171], { icon: pin })
+        .addTo(map)
+        .bindPopup(
+          `<div style="font-family:Inter,sans-serif;font-weight:700;color:#1E3A6E;font-size:13px;line-height:1.4">
+            All Phase Plumbing<br>
+            <span style="font-weight:400;color:#555;font-size:12px">Tukwila, WA · (206) 772-6077</span>
+          </div>`,
+          { maxWidth: 220 }
+        )
+        .openPopup();
+
+      /* ── Fit map to polygon ── */
+      map.fitBounds(polygon.getBounds(), { padding: [32, 32] });
+    });
+
+    return () => {
+      if (mapInstanceRef.current) {
+        mapInstanceRef.current.remove();
+        mapInstanceRef.current = null;
+      }
+    };
+  }, []);
+
+  return (
+    <div
+      ref={mapRef}
+      className="w-full h-full"
+      style={{ minHeight: 480, zIndex: 0 }}
+    />
+  );
+}
 
 export function ServiceArea() {
-  const [open, setOpen] = useState(false);
   const opts = useSiteOptions();
   const cities = opts.service_area_cities;
 
   return (
-    <section className="py-20 bg-secondary/40">
-      <div className="container mx-auto px-4">
-        <div className="max-w-3xl mb-8">
-          <span className="inline-block text-xs font-semibold uppercase tracking-widest text-accent mb-3">
+    <section
+      className="py-20 relative overflow-hidden"
+      style={{ background: "linear-gradient(135deg, #0f2246 0%, #1E3A6E 40%, #2d5fa8 75%, #4A7BC4 100%)" }}
+    >
+      {/* Subtle dot pattern overlay */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-[0.07]"
+        style={{
+          backgroundImage: "radial-gradient(circle, #ffffff 1px, transparent 1px)",
+          backgroundSize: "26px 26px",
+        }}
+        aria-hidden="true"
+      />
+
+      <div className="relative z-10 container mx-auto px-4">
+
+        {/* Heading — white text on gradient bg */}
+        <div className="max-w-3xl mb-10">
+          <span className="inline-block text-xs font-bold uppercase tracking-widest text-[#F5C842] mb-3">
             Service Area
           </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary">
-            Proudly serving the{" "}
-            <span className="font-display-italic text-accent">Puget Sound region.</span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white">
+            Serving the Greater{" "}
+            <span className="font-display-italic text-[#F5C842]">Seattle Area.</span>
           </h2>
+          <p className="mt-4 text-lg text-white/75 max-w-2xl">
+            Licensed plumbers dispatched same-day across King &amp; Pierce counties. If you're in any of these areas, we can be there today.
+          </p>
         </div>
 
-        {/* Toggle button */}
-        <button
-          type="button"
-          onClick={() => setOpen((prev) => !prev)}
-          aria-expanded={open}
-          className="flex items-center gap-3 mb-6 px-5 py-3 rounded-xl border-2 border-[#1B3A6B]
-                     bg-white/80 backdrop-blur-sm shadow-md cursor-pointer select-none
-                     hover:shadow-[0_8px_30px_rgba(27,58,107,0.18)] hover:-translate-y-0.5
-                     transition-all duration-300"
-        >
-          <MapPin className="size-5 text-[#1B3A6B] shrink-0" />
-          <span className="font-semibold text-[#1B3A6B] text-sm tracking-wide">
-            Find All Places Near Me
-          </span>
-          <ChevronDown
-            className={`size-4 text-[#1B3A6B] ml-1 transition-transform duration-300 ${
-              open ? "-rotate-180" : "rotate-0"
-            }`}
-          />
-        </button>
+        {/* Two-column layout: map LEFT, city list RIGHT */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
 
-        <div
-          className="overflow-hidden transition-[max-height,opacity] duration-500 ease-in-out"
-          style={{ maxHeight: open ? "900px" : "0px", opacity: open ? 1 : 0 }}
-        >
-          <div className="grid lg:grid-cols-2 gap-8 items-start pt-2 pb-2">
-            {/* Google Map */}
-            <div className="relative rounded-2xl overflow-hidden border-2 border-[#1B3A6B] shadow-md bg-white/80 backdrop-blur-sm">
-              <iframe
-                title="All Phase Plumbing service area map"
-                src="https://maps.google.com/maps?q=Tukwila,WA&t=&z=10&ie=UTF8&iwloc=&output=embed"
-                width="100%"
-                height="380"
-                style={{ border: 0, display: "block" }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              />
+          {/* ── LEFT: Map — isolation:isolate keeps Leaflet z-indexes contained ── */}
+          <div
+            className="rounded-2xl overflow-hidden border-2 border-white/25 shadow-2xl bg-white order-2 lg:order-1"
+            style={{ isolation: "isolate", position: "relative" }}
+          >
+            <ServiceMap />
+          </div>
+
+          {/* ── RIGHT: City list ── */}
+          <div
+            className="rounded-2xl border border-white/20 p-8 order-1 lg:order-2"
+            style={{ background: "rgba(255,255,255,0.10)", backdropFilter: "blur(12px)" }}
+          >
+            <div className="grid grid-cols-2 gap-x-6 gap-y-1">
+              {cities.map((city) => (
+                <Link
+                  key={city}
+                  to="/service-area"
+                  className="flex items-center gap-2 py-3 border-b border-white/15 text-white font-semibold text-base hover:text-[#F5C842] transition-colors group"
+                >
+                  <MapPin className="size-4 text-[#F5C842] shrink-0 group-hover:scale-110 transition-transform" />
+                  {city}, WA
+                </Link>
+              ))}
             </div>
 
-            {/* City list */}
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl border-2 border-[#1B3A6B] shadow-md p-6">
-              <div className="grid grid-cols-2 gap-x-6 gap-y-1.5 text-sm">
-                {cities.map((c) => (
-                  <div
-                    key={c}
-                    className="flex items-center gap-1.5 border-b border-border py-2 text-foreground"
-                  >
-                    <MapPin className="size-3 text-accent shrink-0" />
-                    {c}, WA
-                  </div>
-                ))}
-              </div>
+            {/* CTA row */}
+            <div className="mt-8 pt-6 border-t border-white/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <p className="text-base text-white/65 italic">
+                Don't see your city? Call us — we likely serve your area.
+              </p>
               <a
-                href="#book"
-                className="mt-6 inline-flex items-center justify-center rounded-lg bg-accent px-6 py-3 text-sm font-semibold text-accent-foreground hover:opacity-90 transition-opacity shadow-md"
+                href="tel:+12067726077"
+                className="inline-flex items-center justify-center rounded-xl px-6 py-3 text-base font-bold text-[#1E3A6E] bg-white hover:bg-[#F5C842] hover:text-[#1E3A6E] transition-all shadow-md"
               >
                 Book Online Now
               </a>
             </div>
           </div>
+
         </div>
       </div>
     </section>

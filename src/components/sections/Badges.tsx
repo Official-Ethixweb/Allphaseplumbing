@@ -176,7 +176,7 @@ export function Badges() {
           {BADGES.map((b) => (
             <div
               key={b.label}
-              className="flex flex-col items-center gap-3 rounded-xl border-2 bg-white/80 backdrop-blur-sm p-5 shadow-md hover:shadow-[0_8px_30px_rgba(27,58,107,0.2)] hover:-translate-y-1 transition-all duration-300 cursor-default"
+              className="flex flex-col items-center gap-3 rounded-xl border-2 bg-white/80 backdrop-blur-sm p-5 shadow-md hover:shadow-[0_8px_30px_rgba(30,58,110,0.2)] hover:-translate-y-1 transition-all duration-300 cursor-default"
               style={{ borderColor: b.border }}
             >
               {/* Badge SVG — height constrained so all three appear same visual size */}
@@ -184,8 +184,8 @@ export function Badges() {
                 <b.BadgeIcon />
               </div>
               <div className="text-center">
-                <div className="font-bold text-primary text-sm leading-snug">{b.label}</div>
-                <div className="text-xs text-muted-foreground mt-0.5">{b.sub}</div>
+                <div className="font-bold text-primary text-base leading-snug">{b.label}</div>
+                <div className="text-sm text-muted-foreground mt-1">{b.sub}</div>
               </div>
             </div>
           ))}

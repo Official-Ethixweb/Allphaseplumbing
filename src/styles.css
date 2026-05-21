@@ -26,6 +26,8 @@
   --radius-2xl: calc(var(--radius) + 8px);
   --radius-3xl: calc(var(--radius) + 12px);
   --radius-4xl: calc(var(--radius) + 16px);
+  --color-medium-blue: var(--medium-blue);
+  --color-gold: var(--gold);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -69,15 +71,19 @@
   --card-foreground: oklch(0.205 0.04 260);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.205 0.04 260);
-  /* Brand: navy #1B3A6B */
-  --primary: oklch(0.34 0.09 256);
+  /* Brand: dark navy #1E3A6E */
+  --primary: oklch(0.30 0.091 258);
   --primary-foreground: oklch(0.99 0 0);
-  --secondary: oklch(0.96 0.01 250);
-  --secondary-foreground: oklch(0.34 0.09 256);
-  --muted: oklch(0.97 0.005 250);
-  --muted-foreground: oklch(0.5 0.02 257);
-  /* Accent: orange #F97316 */
-  --accent: oklch(0.72 0.18 47);
+  /* Section alternate bg: light grey #F4F6F8 */
+  --secondary: oklch(0.97 0.004 243);
+  --secondary-foreground: oklch(0.30 0.091 258);
+  --muted: oklch(0.97 0.005 243);
+  --muted-foreground: oklch(0.50 0.02 257);
+  /* Accent: yellow #F5C842 */
+  --accent: oklch(0.851 0.154 90);
+  /* Brand tokens */
+  --medium-blue: oklch(0.70 0.115 252);  /* #6B9FE4 */
+  --gold: oklch(0.80 0.190 79);           /* #FFB800 */
   --accent-foreground: oklch(0.99 0 0);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.984 0.003 247.858);
@@ -168,15 +174,15 @@
   background: oklch(0.96 0.01 250);
 }
 ::-webkit-scrollbar-thumb {
-  background: #1B3A6B;
+  background: #1E3A6E;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #152d54;
+  background: #152a55;
 }
 * {
   scrollbar-width: thin;
-  scrollbar-color: #1B3A6B oklch(0.96 0.01 250);
+  scrollbar-color: #1E3A6E oklch(0.96 0.01 250);
 }
 
 @layer base {
@@ -188,18 +194,21 @@
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+    font-size: 18px;
+    line-height: 1.65;
     -webkit-font-smoothing: antialiased;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+    font-family: "Merriweather", Georgia, serif;
     letter-spacing: -0.02em;
+    line-height: 1.15;
   }
 
   .font-display-italic {
     font-family: "Playfair Display", Georgia, serif;
     font-style: italic;
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: -0.01em;
   }
 }
@@ -272,6 +281,35 @@
 .animate-van-headlight {
   animation: headlightGlow 2.2s cubic-bezier(0.16, 1, 0.3, 1) forwards,
              lightPulse 4s ease-in-out infinite 2.2s;
+}
+
+/* ─── Leaflet z-index containment — prevent map from escaping sticky header ── */
+/* The outer div uses isolation:isolate which already scopes things, but these  */
+/* explicit overrides act as a second guard.                                     */
+.leaflet-pane          { z-index: 4  !important; }
+.leaflet-tile-pane     { z-index: 2  !important; }
+.leaflet-overlay-pane  { z-index: 4  !important; }
+.leaflet-shadow-pane   { z-index: 5  !important; }
+.leaflet-marker-pane   { z-index: 6  !important; }
+.leaflet-tooltip-pane  { z-index: 7  !important; }
+.leaflet-popup-pane    { z-index: 8  !important; }
+.leaflet-top,
+.leaflet-bottom        { z-index: 9  !important; }
+
+/* ─── Global rounded-corners boost ─────────────────────────────────────── */
+/* Every explicit rounded-2xl or rounded-xl gets slightly rounder edges    */
+.rounded-xl  { border-radius: 1rem   !important; }
+.rounded-2xl { border-radius: 1.25rem !important; }
+.rounded-lg  { border-radius: 0.75rem !important; }
+
+/* ─── Plumbing tool slide-in (CustomerQuote) ────────────────────────────── */
+@keyframes toolSlideLeft {
+  from { transform: translateY(-50%) translateX(-140px); opacity: 0; }
+  to   { transform: translateY(-50%) translateX(0);      opacity: 1; }
+}
+@keyframes toolSlideRight {
+  from { transform: translateY(-50%) translateX(140px);  opacity: 0; }
+  to   { transform: translateY(-50%) translateX(0);      opacity: 1; }
 }
 
 /* Road Styling Utilities */

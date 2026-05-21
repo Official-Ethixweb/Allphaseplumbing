@@ -5,6 +5,7 @@ import { Hero } from "@/components/sections/Hero";
 import { Services } from "@/components/sections/Services";
 import { WhyUs } from "@/components/sections/WhyUs";
 import { Badges } from "@/components/sections/Badges";
+import { CustomerQuote } from "@/components/sections/CustomerQuote";
 import { Coupons } from "@/components/sections/Coupons";
 import { TeamSection } from "@/components/sections/TeamSection";
 import { ServiceArea } from "@/components/sections/ServiceArea";
@@ -32,6 +33,7 @@ function Index() {
         <Services />
         <WhyUs />
         <Badges />
+        <CustomerQuote />
         <Coupons />
         <TeamSection />
         <ServiceArea />
