@@ -47,7 +47,7 @@ export function CTABanner() {
   }
 
   const inputCls =
-    "border border-gray-200 rounded-lg px-4 py-3 w-full focus:outline-none focus:ring-2 focus:ring-[#1E3A6E] text-sm bg-white text-gray-800 transition-shadow hover:border-gray-300 focus:shadow-md";
+    "border border-gray-200 rounded-lg px-4 py-3 w-full focus:outline-none focus:ring-2 focus:ring-[#1E3A6E] text-[21px] bg-white text-gray-800 transition-shadow hover:border-gray-300 focus:shadow-md";
 
   return (
     <section
@@ -104,12 +104,12 @@ export function CTABanner() {
                 className="px-10 py-7"
                 style={{ background: "linear-gradient(135deg, #1E3A6E 0%, #6B9FE4 100%)" }}
               >
-                <h2 className="text-3xl font-bold text-white text-center">{opts.cta_heading}</h2>
-                <p className="text-[#FFB800] font-semibold text-lg mt-1.5 text-center">{opts.cta_subheading}</p>
+                <h2 className="text-[45px] font-bold text-white text-center">{opts.cta_heading}</h2>
+                <p className="text-[#FFB800] font-semibold text-[27px] mt-1.5 text-center">{opts.cta_subheading}</p>
               </div>
 
               <div className="p-10">
-              <p className="text-gray-600 text-base mb-6">{opts.cta_body}</p>
+              <p className="text-gray-600 text-[24px] mb-6">{opts.cta_body}</p>
 
               <form onSubmit={handleSubmit} className="space-y-4">
                 <input
@@ -139,7 +139,7 @@ export function CTABanner() {
                   ))}
                 </select>
 
-                <p className="text-[11px] text-gray-400 leading-relaxed">
+                <p className="text-[17px] text-gray-400 leading-relaxed">
                   By submitting this form you consent to receive messages from All Phase
                   Plumbing. Msg &amp; data rates may apply. Reply STOP to unsubscribe.
                 </p>
@@ -147,7 +147,7 @@ export function CTABanner() {
                 <StarBorder
                   type="submit"
                   className="block w-full active:scale-[0.98] transition-all"
-                  innerClassName="text-base font-bold text-white tracking-widest w-full"
+                  innerClassName="text-[24px] font-bold text-white tracking-widest w-full"
                   innerStyle={{ background: "linear-gradient(135deg, #1E3A6E 0%, #6B9FE4 100%)", border: "none", padding: "16px 24px" }}
                 >
                   CONTACT US TODAY

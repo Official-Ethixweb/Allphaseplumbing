@@ -146,14 +146,14 @@ export function Header() {
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between gap-6 py-3">
             <Link to="/" className="shrink-0">
-              <img src={logo} alt="All Phase Plumbing" className="h-[68px] w-auto object-contain" />
+              <img src={logo} alt="All Phase Plumbing" className="h-[136px] w-auto object-contain" />
             </Link>
 
             <div className="hidden lg:flex flex-col items-center leading-tight">
-              <span className="text-[#1E3A6E] font-extrabold text-[15px] tracking-wide">
+              <span className="text-[#1E3A6E] font-extrabold text-[22px] tracking-wide">
                 Licensed &amp; Insured
               </span>
-              <span className="text-[#6B9FE4] font-semibold text-sm mt-0.5">Available 24/7</span>
+              <span className="text-[#6B9FE4] font-semibold text-[21px] mt-0.5">Available 24/7</span>
             </div>
 
             <div className="flex items-center gap-3">
@@ -161,10 +161,9 @@ export function Header() {
                 as="a"
                 href={opts.phone_href}
                 className="hidden md:inline-block active:scale-[0.98] transition-all duration-200"
-                innerClassName="flex items-center gap-2.5 text-lg font-extrabold text-white tracking-wide"
-                innerStyle={{ background: "linear-gradient(135deg,#1E3A6E 0%,#2d5fa8 100%)", border: "none", padding: "12px 24px" }}
+                innerClassName="flex items-center justify-center font-extrabold text-white whitespace-nowrap"
+                innerStyle={{ background: "linear-gradient(135deg,#1E3A6E 0%,#2d5fa8 100%)", border: "none", padding: "7px 16px", fontSize: "27px" }}
               >
-                <Phone className="size-5 shrink-0" />
                 {opts.phone}
               </StarBorder>
 
@@ -195,7 +194,7 @@ export function Header() {
                 <Link
                   to={item.to}
                   activeOptions={{ exact: item.exact ?? false }}
-                  className="flex items-center gap-1 px-3.5 py-3 text-[14.5px] font-semibold text-[#1E3A6E]
+                  className="flex items-center gap-1 px-3.5 py-3 text-[22px] font-semibold text-[#1E3A6E]
                              rounded-md transition-all duration-200 hover:bg-[#1E3A6E] hover:text-white"
                   activeProps={{ className: "!bg-[#1E3A6E] !text-white" }}
                 >
@@ -228,8 +227,8 @@ export function Header() {
                     key={sub.to + sub.label}
                     to={sub.to}
                     onClick={() => setOpenNav(null)}
-                    className="block py-2.5 px-1 text-sm font-semibold text-[#1E3A6E]
-                               border-b border-gray-100 hover:text-[#4A7BC4] hover:pl-3
+                    className="flex items-center min-h-[44px] px-2 text-[22px] font-semibold text-[#1E3A6E]
+                               border-b border-gray-100 hover:text-[#4A7BC4] hover:pl-4
                                transition-all duration-150"
                   >
                     {sub.label}

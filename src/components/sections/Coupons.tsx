@@ -55,7 +55,7 @@ export function Coupons() {
               Outer wrapper: overflow-visible so the circular notches can
               bleed outside, flex-col so GlareHover stretches to full height.
             */
-            <div key={c.code} className="relative flex flex-col h-[185px]">
+            <div key={c.code} className="relative flex flex-col h-[220px]">
               {/* Left circular notch */}
               <div className="absolute -left-2 top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-secondary/60 z-20 border border-[#1E3A7B]/20" />
               {/* Right circular notch */}
@@ -79,7 +79,7 @@ export function Coupons() {
                 <div className="w-full h-full flex self-stretch">
 
                   {/* Left stub — navy, 30% width */}
-                  <div className="flex flex-col items-center justify-center w-[30%] bg-[#1E3A6E] py-6 px-3 border-r-2 border-dashed border-white/40 shrink-0 self-stretch">
+                  <div className="flex flex-col items-center justify-center w-[30%] bg-[#1E3A6E] px-3 border-r-2 border-dashed border-white/40 shrink-0 self-stretch">
                     <c.icon className="size-7 text-white mb-2" />
                     <span className="text-2xl font-black text-white leading-none tracking-tight">
                       {c.value}
@@ -87,15 +87,15 @@ export function Coupons() {
                   </div>
 
                   {/* Right body — white, 70% width */}
-                  <div className="flex-1 bg-white py-5 px-4 flex flex-col justify-center self-stretch">
-                    <h3 className="font-bold text-gray-900 text-base leading-snug">{c.title}</h3>
-                    <p className="text-xs text-gray-500 mt-1 leading-relaxed">{c.desc}</p>
+                  <div className="flex-1 bg-white py-4 px-4 flex flex-col justify-center self-stretch">
+                    <h3 className="font-bold text-gray-900 text-[17px] leading-snug">{c.title}</h3>
+                    <p className="text-[13px] text-gray-500 mt-1 leading-relaxed">{c.desc}</p>
                     <span className="inline-block bg-gray-100 text-gray-600 text-xs font-mono px-2 py-1 rounded mt-2 w-fit">
                       {c.code}
                     </span>
                     <Link
                       to="/coupons"
-                      className="inline-flex items-center gap-1 text-[#F5C842] font-semibold text-sm mt-3 hover:gap-2 transition-all"
+                      className="inline-flex items-center gap-1 text-[#F5C842] font-semibold text-sm mt-2 hover:gap-2 transition-all"
                     >
                       CLAIM OFFER <ArrowRight className="size-3.5" />
                     </Link>
