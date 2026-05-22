@@ -28,21 +28,22 @@ export function TopBar() {
           href="https://www.google.com/search?q=All+Phase+Plumbing+Tukwila+WA+reviews"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-2 px-5 py-2.5 bg-[#6B9FE4] text-white hover:bg-[#5b8fd3] transition-colors duration-200 shrink-0 whitespace-nowrap"
+          className="flex items-center justify-center gap-2 py-4 bg-[#6B9FE4] text-white hover:bg-[#5b8fd3] transition-colors duration-200 whitespace-nowrap"
+          style={{ width: "30%" }}
         >
           <div className="flex gap-0.5">
             {Array.from({ length: 5 }).map((_, i) => (
-              <Star key={i} className="size-3.5 fill-[#FFB800] text-[#FFB800]" />
+              <Star key={i} className="size-4 fill-[#FFB800] text-[#FFB800]" />
             ))}
           </div>
-          <span className="hidden sm:inline tracking-wide">Read Our Reviews ›</span>
+          <span className="hidden sm:inline tracking-wide text-sm font-bold">Read Our Reviews ›</span>
         </a>
 
         {/* ── CENTER — Find All Phase Near Me ── */}
-        <div ref={dropRef} className="relative flex-1">
+        <div ref={dropRef} className="relative" style={{ width: "40%" }}>
           <button
             onClick={() => setNearMeOpen((p) => !p)}
-            className="flex items-center justify-center gap-2 w-full h-full px-6 py-2.5 bg-[#1E3A6E] text-white hover:bg-[#162e58] transition-colors duration-200 tracking-wide font-semibold"
+            className="flex items-center justify-center gap-2 w-full h-full px-4 py-4 bg-[#1E3A6E] text-white hover:bg-[#162e58] transition-colors duration-200 tracking-wide font-semibold text-sm"
           >
             <span>Find All Phase Near Me</span>
             <ChevronDown
@@ -97,17 +98,17 @@ export function TopBar() {
         </div>
 
         {/* ── RIGHT — Coupons | Book Online Now ── */}
-        <div className="flex items-stretch shrink-0 bg-[#8fb3d9] divide-x divide-[#1E3A6E]/20">
+        <div className="flex items-stretch bg-[#8fb3d9] divide-x divide-[#1E3A6E]/20" style={{ width: "30%" }}>
           <Link
             to="/coupons"
-            className="flex items-center gap-2 px-5 py-2.5 text-[#1E3A6E] font-bold hover:bg-[#1E3A6E]/15 transition-colors duration-200 whitespace-nowrap"
+            className="flex items-center justify-center gap-2 flex-1 px-6 py-4 text-[#1E3A6E] font-bold hover:bg-[#1E3A6E]/15 transition-colors duration-200 whitespace-nowrap text-sm"
           >
             <Ticket className="size-4 shrink-0" />
             <span className="hidden sm:inline">Coupons</span>
           </Link>
           <a
             href="tel:+12067726077"
-            className="flex items-center gap-2 px-5 py-2.5 text-[#1E3A6E] font-bold hover:bg-[#1E3A6E]/15 transition-colors duration-200 whitespace-nowrap"
+            className="flex items-center justify-center gap-2 flex-1 px-6 py-4 text-[#1E3A6E] font-bold hover:bg-[#1E3A6E]/15 transition-colors duration-200 whitespace-nowrap text-sm"
           >
             <CalendarCheck className="size-4 shrink-0" />
             <span className="hidden sm:inline">Book Online Now</span>

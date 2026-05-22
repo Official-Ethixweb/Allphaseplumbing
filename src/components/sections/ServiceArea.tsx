@@ -205,9 +205,9 @@ export function ServiceArea() {
                 href="tel:+12067726077"
                 className="inline-block transition-all"
                 innerClassName="text-base font-bold text-[#1E3A6E]"
-                innerStyle={{ background: "white", border: "none", padding: "12px 24px" }}
+                innerStyle={{ background: "white", border: "none", padding: "12px 24px", color: "#1E3A6E", whiteSpace: "nowrap" }}
               >
-                Book Online Now
+                Book Online
               </StarBorder>
             </div>
           </div>

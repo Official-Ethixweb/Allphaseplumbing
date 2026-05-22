@@ -30,7 +30,7 @@ export function Coupons() {
   return (
     <section className="py-20 bg-secondary/40">
       <div className="container mx-auto px-4">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
+        <div className="flex flex-col items-center text-center gap-4 mb-12">
           <div>
             <span className="inline-block text-xs font-semibold uppercase tracking-widest text-accent mb-3">
               Homeowner Coupons

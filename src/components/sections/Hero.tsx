@@ -238,7 +238,7 @@ export function Hero() {
                     innerClassName="text-base font-bold text-white w-full"
                     innerStyle={{ background: "linear-gradient(135deg, #1E3A6E 0%, #4A7BC4 100%)", border: "none", padding: "12px 16px" }}
                   >
-                    Submit and Continue
+                    Submit
                   </StarBorder>
                 </div>
 
