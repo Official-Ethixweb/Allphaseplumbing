@@ -1,204 +1,280 @@
-import { ShieldCheck, Clock, Star } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
+import { ShieldCheck, Clock, Star, Home, Building2 } from "lucide-react";
+import { StarBorder } from "@/components/ui/StarBorder";
 import mascot from "@/assets/mascot.png";
-import seattleBg from "@/assets/seattle-skyline.jpg";
+import seattlePoster from "@/assets/seattle-skyline.jpg";
 import { useSiteOptions } from "@/hooks/use-site-options";
-
-const SERVICES = [
-  "Plumbing Repair",
-  "Drain Cleaning",
-  "Water Heater",
-  "Sewer Services",
-  "Emergency Service",
-  "Other",
-];
 
 export function Hero() {
   const opts = useSiteOptions();
+  const [serviceType, setServiceType] = useState<"residential" | "commercial">("residential");
+  const [smsOptIn, setSmsOptIn] = useState(false);
+  const [mascotIn, setMascotIn] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  /* Mascot slides up on first paint */
+  useEffect(() => {
+    const t = setTimeout(() => setMascotIn(true), 120);
+    return () => clearTimeout(t);
+  }, []);
+
+  /* Lazy-start the video after first paint so it never blocks LCP */
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    const id = requestIdleCallback
+      ? requestIdleCallback(() => { v.load(); v.play().catch(() => {}); }, { timeout: 1500 })
+      : setTimeout(() => { v.load(); v.play().catch(() => {}); }, 400);
+    return () => (requestIdleCallback ? cancelIdleCallback(id as number) : clearTimeout(id as number));
+  }, []);
 
   return (
-    <section className="relative min-h-[680px] lg:min-h-[740px] overflow-hidden">
+    <section className="relative overflow-hidden bg-[#cdd9e8] min-h-[820px]">
 
-      {/* ── Background layers ── */}
-      {/* 1. Full-bleed Seattle skyline photo */}
-      <div
-        className="absolute inset-0 z-0 bg-center bg-cover pointer-events-none select-none"
-        style={{ backgroundImage: `url('${seattleBg}')` }}
+      {/* ── Video background — served from /public, never bundled ── */}
+      <video
+        ref={videoRef}
+        muted
+        loop
+        playsInline
+        preload="none"
+        poster={seattlePoster}
+        className="absolute inset-0 w-full h-full object-cover pointer-events-none select-none"
         aria-hidden="true"
-      />
+      >
+        <source src="/videos/seattle-bg.mp4" type="video/mp4" />
+      </video>
 
-      {/* 2. Dark gradient overlay — heavy on the left so text pops, lighter right */}
+      {/* ── White overlay at 55% — makes text readable, gives the airy look ── */}
       <div
-        className="absolute inset-0 z-0 pointer-events-none"
-        style={{
-          background:
-            "linear-gradient(105deg, rgba(10,20,45,0.82) 0%, rgba(10,20,45,0.65) 45%, rgba(10,20,45,0.40) 100%)",
-        }}
-        aria-hidden="true"
-      />
-
-      {/* 3. Bottom fade for form card readability */}
-      <div
-        className="absolute inset-0 z-0 pointer-events-none"
-        style={{
-          background:
-            "linear-gradient(to top, rgba(10,20,45,0.55) 0%, transparent 40%)",
-        }}
+        className="absolute inset-0 pointer-events-none"
+        style={{ background: "rgba(255,255,255,0.55)" }}
         aria-hidden="true"
       />
 
       {/* ── Content ── */}
-      <div className="relative z-10 container mx-auto px-4 pt-10 pb-16 lg:pt-14 lg:pb-24">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+      <div className="relative z-10 container mx-auto px-4 pt-28 pb-0">
 
-          {/* ── Left column ────────────────────────────────────── */}
-          <div>
-            <span
-              className="inline-block text-sm font-bold uppercase tracking-widest text-[#6B9FE4] mb-4"
-              style={{ textShadow: "0 1px 6px rgba(0,0,0,0.7)" }}
-            >
+        {/* ── Two-column: text LEFT  ·  mascot RIGHT ── */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-end">
+
+          {/* LEFT — hero copy */}
+          <div className="pb-20">
+
+            <span className="text-[#1E3A6E] font-bold text-[17px] tracking-wide">
               {opts.hero_eyebrow}
             </span>
 
             <h1
-              className="text-5xl sm:text-6xl lg:text-[72px] text-white leading-[1.05]"
-              style={{
-                fontFamily: "'Poppins', sans-serif",
-                fontWeight: 900,
-                textShadow: "2px 2px 12px rgba(0,0,0,0.85), 0 0 30px rgba(0,0,0,0.5)",
-              }}
+              className="mt-3 text-5xl sm:text-6xl lg:text-[72px] text-[#1E3A6E] leading-[1.05]"
+              style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 900 }}
             >
               {opts.hero_title}{" "}
               <span
-                className="text-[#F5C842]"
                 style={{
                   fontFamily: "'Poppins', sans-serif",
                   fontWeight: 900,
                   fontStyle: "italic",
-                  textShadow: "2px 2px 12px rgba(0,0,0,0.85)",
+                  color: "#1E3A6E",
                 }}
               >
                 {opts.hero_italic}
               </span>
             </h1>
 
-            <p
-              className="mt-5 text-xl sm:text-2xl text-white/90 max-w-xl leading-relaxed font-medium"
-              style={{ textShadow: "1px 1px 8px rgba(0,0,0,0.8)" }}
-            >
+            <p className="mt-5 text-xl sm:text-2xl text-gray-700 max-w-lg leading-relaxed font-medium">
               {opts.hero_subtitle}
             </p>
 
             {/* Trust pills */}
-            <div className="mt-6 flex flex-wrap gap-3">
-              <span className="inline-flex items-center gap-2 rounded-full bg-white/15 border border-white/30 backdrop-blur-sm px-4 py-2 text-sm font-semibold text-white shadow-lg">
-                <Clock className="size-4 text-[#F5C842]" /> Same-Day Service
+            <div className="mt-5 flex flex-wrap gap-3">
+              <span className="inline-flex items-center gap-2 rounded-full bg-white/80 border border-[#1E3A6E]/25 px-5 py-2.5 text-base font-semibold text-[#1E3A6E] shadow-sm">
+                <Clock className="size-5" /> Same-Day Service
               </span>
-              <span className="inline-flex items-center gap-2 rounded-full bg-white/15 border border-white/30 backdrop-blur-sm px-4 py-2 text-sm font-semibold text-white shadow-lg">
-                <ShieldCheck className="size-4 text-[#F5C842]" /> Licensed Since 1989
+              <span className="inline-flex items-center gap-2 rounded-full bg-white/80 border border-[#1E3A6E]/25 px-5 py-2.5 text-base font-semibold text-[#1E3A6E] shadow-sm">
+                <ShieldCheck className="size-5" /> Licensed Since 1989
               </span>
             </div>
 
             {/* Stats */}
-            <div className="mt-10 grid grid-cols-3 gap-4 max-w-lg">
+            <div className="mt-8 flex gap-8 sm:gap-12">
               {opts.hero_stats.map((s) => (
-                <div key={s.label} className="border-l-2 border-[#F5C842] pl-4">
+                <div key={s.label} className="border-l-2 border-[#1E3A6E] pl-4">
                   <div
-                    className="text-4xl font-black text-white"
-                    style={{
-                      fontFamily: "'Poppins', sans-serif",
-                      textShadow: "2px 2px 8px rgba(0,0,0,0.7)",
-                    }}
+                    className="text-5xl font-black text-[#1E3A6E]"
+                    style={{ fontFamily: "'Poppins', sans-serif" }}
                   >
                     {s.number}
                   </div>
-                  <div
-                    className="text-sm text-white/75 leading-tight mt-1 font-medium"
-                    style={{ textShadow: "1px 1px 4px rgba(0,0,0,0.6)" }}
-                  >
+                  <div className="text-base text-gray-600 leading-tight mt-1.5 font-semibold">
                     {s.label}
                   </div>
                 </div>
               ))}
             </div>
 
-            {/* Google Rated badge — sits directly below the stats row */}
-            <div className="mt-6 flex items-center gap-3">
-              <div className="flex gap-0.5">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star key={i} className="size-5 fill-[#FFB800] text-[#FFB800] drop-shadow" />
-                ))}
-              </div>
-              <p className="text-sm font-semibold text-white/90" style={{ textShadow: "1px 1px 4px rgba(0,0,0,0.7)" }}>
-                <span className="font-extrabold select-none">
-                  <span className="text-[#4285F4]">G</span>
-                  <span className="text-[#EA4335]">o</span>
-                  <span className="text-[#FBBC05]">o</span>
-                  <span className="text-[#4285F4]">g</span>
-                  <span className="text-[#34A853]">l</span>
-                  <span className="text-[#EA4335]">e</span>
-                </span>{" "}
-                Rated
+            {/* Google reviews */}
+            <div className="mt-7">
+              <p className="text-[38px] font-extrabold leading-none select-none">
+                <span className="text-[#4285F4]">G</span>
+                <span className="text-[#EA4335]">o</span>
+                <span className="text-[#FBBC05]">o</span>
+                <span className="text-[#4285F4]">g</span>
+                <span className="text-[#34A853]">l</span>
+                <span className="text-[#EA4335]">e</span>
               </p>
+              <div className="flex items-center gap-2.5 mt-1.5">
+                <span className="text-lg font-semibold text-gray-700">5 Star Reviews</span>
+                <div className="flex gap-0.5">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Star key={i} className="size-6 fill-[#FFB800] text-[#FFB800]" />
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
 
-          {/* ── Right column — mascot + form card ─────────────── */}
-          <div className="relative pt-[248px] sm:pt-[298px]">
-
-            {/* Mascot — bottom edge rests exactly on the card's top border */}
+          {/* RIGHT — mascot, bottom-aligned, animates in on landing */}
+          <div
+            className="hidden lg:flex items-end justify-end"
+            style={{
+              opacity: mascotIn ? 1 : 0,
+              transform: mascotIn ? "translateY(0)" : "translateY(60px)",
+              transition: "opacity 0.9s ease, transform 0.9s cubic-bezier(0.22,1,0.36,1)",
+            }}
+          >
             <img
               src={mascot}
               alt="All Phase Plumbing technician"
               aria-hidden="true"
-              className="absolute top-0 right-4 h-[248px] sm:h-[298px] w-auto object-contain
-                         drop-shadow-2xl pointer-events-none select-none z-20"
+              className="h-[420px] xl:h-[480px] w-auto object-contain drop-shadow-2xl select-none pointer-events-none"
               loading="eager"
               decoding="async"
             />
-
-            {/* Form card */}
-            <div className="bg-white rounded-2xl shadow-2xl border-2 border-[#1E3A7B]/30 relative z-10 overflow-hidden">
-
-              {/* Blue gradient header bar */}
-              <div
-                className="px-6 sm:px-8 py-4"
-                style={{ background: "linear-gradient(135deg, #1E3A6E 0%, #6B9FE4 100%)" }}
-              >
-                <h2 className="text-xl font-bold text-white" style={{ fontFamily: "Inter, sans-serif" }}>
-                  Request a Tech
-                </h2>
-                <p className="text-sm text-white/75 mt-0.5">We'll be in touch within the hour.</p>
-              </div>
-
-              {/* Form body */}
-              <div className="p-6 sm:p-8">
-                <form className="space-y-3" onSubmit={(e) => e.preventDefault()}>
-                  <div className="grid grid-cols-2 gap-3">
-                    <input type="text" placeholder="First Name" required
-                      className="w-full rounded-md border border-gray-200 bg-white px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#1E3A6E] transition-shadow" />
-                    <input type="text" placeholder="Last Name" required
-                      className="w-full rounded-md border border-gray-200 bg-white px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#1E3A6E] transition-shadow" />
-                  </div>
-                  <input type="email" placeholder="Email" required
-                    className="w-full rounded-md border border-gray-200 bg-white px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#1E3A6E] transition-shadow" />
-                  <input type="tel" placeholder="Phone" required
-                    className="w-full rounded-md border border-gray-200 bg-white px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#1E3A6E] transition-shadow" />
-                  <select defaultValue="" required
-                    className="w-full rounded-md border border-gray-200 bg-white px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#1E3A6E] transition-shadow text-gray-600">
-                    <option value="" disabled>Service Needed</option>
-                    {SERVICES.map((s) => <option key={s} value={s}>{s}</option>)}
-                  </select>
-                  <button type="submit"
-                    className="w-full rounded-md px-4 py-3 text-base font-bold text-white transition-all shadow-md active:scale-[0.98] hover:opacity-90"
-                    style={{ background: "linear-gradient(135deg, #1E3A6E 0%, #6B9FE4 100%)" }}>
-                    Request a Tech →
-                  </button>
-                </form>
-              </div>
-            </div>
           </div>
 
         </div>
+
+        {/* ── Full-width form card — sits flush at the bottom of the hero ── */}
+        <div className="mt-2">
+          <div
+            className="rounded-t-2xl overflow-hidden border-2 border-[#1E3A6E]"
+            style={{ background: "#6B9FE4", boxShadow: "0 -4px 40px rgba(0,0,0,0.13), 0 2px 8px rgba(0,0,0,0.06)" }}
+          >
+            {/* Residential / Commercial tabs */}
+            <div className="flex border-b border-[#1E3A6E]/30">
+              <button
+                type="button"
+                onClick={() => setServiceType("residential")}
+                className={`flex items-center gap-2 px-8 py-4 text-sm font-semibold transition-all border-b-2 ${
+                  serviceType === "residential"
+                    ? "border-white text-white bg-white/20"
+                    : "border-transparent text-white/70 hover:text-white bg-transparent"
+                }`}
+              >
+                <Home className="size-4" /> Residential
+              </button>
+              <button
+                type="button"
+                onClick={() => setServiceType("commercial")}
+                className={`flex items-center gap-2 px-8 py-4 text-sm font-semibold transition-all border-b-2 ${
+                  serviceType === "commercial"
+                    ? "border-white text-white bg-white/20"
+                    : "border-transparent text-white/70 hover:text-white bg-transparent"
+                }`}
+              >
+                <Building2 className="size-4" /> Commercial
+              </button>
+            </div>
+
+            {/* Form body */}
+            <div className="px-6 py-6 sm:px-8 sm:py-7">
+              <h2 className="text-2xl font-bold text-white mb-5" style={{ fontFamily: "Inter, sans-serif" }}>
+                Let Us Call You
+              </h2>
+
+              <form onSubmit={(e) => e.preventDefault()}>
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-3 items-end">
+
+                  <div className="flex flex-col gap-1">
+                    <label className="text-sm font-semibold text-white">First Name<span className="text-yellow-300">*</span></label>
+                    <input type="text" placeholder="John" required
+                      className="rounded-lg border border-[#1E3A6E] bg-white px-3 py-3 text-base focus:outline-none focus:ring-2 focus:ring-[#1E3A6E] transition-shadow" />
+                  </div>
+
+                  <div className="flex flex-col gap-1">
+                    <label className="text-sm font-semibold text-white">Last Name<span className="text-yellow-300">*</span></label>
+                    <input type="text" placeholder="Doe" required
+                      className="rounded-lg border border-[#1E3A6E] bg-white px-3 py-3 text-base focus:outline-none focus:ring-2 focus:ring-[#1E3A6E] transition-shadow" />
+                  </div>
+
+                  <div className="flex flex-col gap-1">
+                    <label className="text-sm font-semibold text-white">Email<span className="text-yellow-300">*</span></label>
+                    <input type="email" placeholder="john@example.com" required
+                      className="rounded-lg border border-[#1E3A6E] bg-white px-3 py-3 text-base focus:outline-none focus:ring-2 focus:ring-[#1E3A6E] transition-shadow" />
+                  </div>
+
+                  <div className="flex flex-col gap-1">
+                    <label className="text-sm font-semibold text-white">Phone<span className="text-yellow-300">*</span></label>
+                    <input type="tel" placeholder="(555) 555-5555" required
+                      className="rounded-lg border border-[#1E3A6E] bg-white px-3 py-3 text-base focus:outline-none focus:ring-2 focus:ring-[#1E3A6E] transition-shadow" />
+                  </div>
+
+                  <div className="flex flex-col gap-1">
+                    <label className="text-sm font-semibold text-white">Street Address<span className="text-yellow-300">*</span></label>
+                    <input type="text" placeholder="123 Example St." required
+                      className="rounded-lg border border-[#1E3A6E] bg-white px-3 py-3 text-base focus:outline-none focus:ring-2 focus:ring-[#1E3A6E] transition-shadow" />
+                  </div>
+
+                  <div className="flex flex-col gap-1">
+                    <label className="text-sm font-semibold text-white">ZIP Code<span className="text-yellow-300">*</span></label>
+                    <input type="text" placeholder="55555" required maxLength={10}
+                      className="rounded-lg border border-[#1E3A6E] bg-white px-3 py-3 text-base focus:outline-none focus:ring-2 focus:ring-[#1E3A6E] transition-shadow" />
+                  </div>
+
+                  <StarBorder
+                    type="submit"
+                    className="block w-full mt-5 active:scale-[0.98] transition-all"
+                    innerClassName="text-base font-bold text-white w-full"
+                    innerStyle={{ background: "linear-gradient(135deg, #1E3A6E 0%, #4A7BC4 100%)", border: "none", padding: "12px 16px" }}
+                  >
+                    Submit and Continue
+                  </StarBorder>
+                </div>
+
+                {/* SMS opt-in */}
+                <div className="mt-5 flex items-start gap-2.5">
+                  <input
+                    id="sms-optin"
+                    type="checkbox"
+                    checked={smsOptIn}
+                    onChange={(e) => setSmsOptIn(e.target.checked)}
+                    className="mt-0.5 size-4 rounded border-white accent-[#1E3A6E] cursor-pointer shrink-0"
+                  />
+                  <label htmlFor="sms-optin" className="text-base text-white cursor-pointer leading-snug">
+                    Yes! You can text me service reminders and other messages.
+                  </label>
+                </div>
+
+                {smsOptIn && (
+                  <p className="mt-2 text-xs text-white/80 leading-relaxed pl-6">
+                    By checking this box, I agree to opt in to receive automated SMS and/or MMS messages from All Phase
+                    Plumbing. Message &amp; data rates may apply. Reply <strong>STOP</strong> to opt out. Reply <strong>HELP</strong> for help.
+                  </p>
+                )}
+
+                <p className="mt-4 text-xs text-white/70 leading-relaxed border-t border-white/20 pt-4">
+                  By entering your email address, you agree to receive emails about services, updates or promotions,
+                  and you agree to our{" "}
+                  <a href="/about" className="underline hover:text-[#F5C842]">Terms</a>{" "}and{" "}
+                  <a href="/about" className="underline hover:text-[#F5C842]">Privacy Policy</a>.
+                  {" "}You may unsubscribe at any time.
+                </p>
+              </form>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
   );

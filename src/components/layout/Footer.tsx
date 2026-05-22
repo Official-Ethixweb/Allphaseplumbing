@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Phone, MapPin, Mail, Clock } from "lucide-react";
 import logo from "@/assets/app-logo.png";
-import mascot from "@/assets/mascot.png";
+import { StarBorder } from "@/components/ui/StarBorder";
 
 const QUICK_LINKS = [
   { to: "/", label: "Home" },
@@ -35,7 +35,7 @@ export function Footer() {
       </svg>
 
       {/* Main grid */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 pt-14 pb-10 md:pr-48 lg:pr-60">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 pt-14 pb-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
 
           {/* Column 1 — Logo + tagline + phone */}
@@ -46,14 +46,16 @@ export function Footer() {
             <p className="text-sm text-white/65 leading-relaxed max-w-[200px]">
               Providing reliable residential and commercial plumbing solutions since 1989.
             </p>
-            <a
+            <StarBorder
+              as="a"
               href="tel:+12067726077"
-              className="inline-flex items-center gap-2 font-bold text-white text-base px-4 py-2.5 rounded-lg hover:opacity-90 transition-all w-fit shadow-md"
-              style={{ background: "linear-gradient(135deg, #1E3A6E 0%, #6B9FE4 100%)" }}
+              className="inline-block transition-all"
+              innerClassName="flex items-center gap-2 font-bold text-white text-base"
+              innerStyle={{ background: "linear-gradient(135deg, #1E3A6E 0%, #6B9FE4 100%)", border: "none", padding: "10px 16px" }}
             >
               <Phone className="size-4" />
               (206) 772-6077
-            </a>
+            </StarBorder>
           </div>
 
           {/* Column 2 — Quick Links */}
@@ -130,13 +132,6 @@ export function Footer() {
         </div>
       </div>
 
-      {/* Mascot — standing at bottom right */}
-      <img
-        src={mascot}
-        alt=""
-        aria-hidden="true"
-        className="hidden md:block absolute bottom-0 right-4 lg:right-10 h-[220px] lg:h-[280px] xl:h-[320px] z-10 pointer-events-none select-none object-contain drop-shadow-[-6px_0_20px_rgba(0,0,0,0.3)]"
-      />
 
       {/* Copyright bar */}
       <div className="relative z-10 bg-[#152a55] border-t border-white/10 py-4 text-center">

@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { MapPin } from "lucide-react";
+import { StarBorder } from "@/components/ui/StarBorder";
 import { useSiteOptions } from "@/hooks/use-site-options";
 import { useEffect, useRef } from "react";
 
@@ -124,8 +125,8 @@ function ServiceMap() {
   return (
     <div
       ref={mapRef}
-      className="w-full h-full"
-      style={{ minHeight: 480, zIndex: 0 }}
+      className="w-full"
+      style={{ minHeight: 480, height: "100%", zIndex: 0 }}
     />
   );
 }
@@ -152,7 +153,7 @@ export function ServiceArea() {
       <div className="relative z-10 container mx-auto px-4">
 
         {/* Heading — white text on gradient bg */}
-        <div className="max-w-3xl mb-10">
+        <div className="text-center mb-10">
           <span className="inline-block text-xs font-bold uppercase tracking-widest text-[#F5C842] mb-3">
             Service Area
           </span>
@@ -160,17 +161,17 @@ export function ServiceArea() {
             Serving the Greater{" "}
             <span className="font-display-italic text-[#F5C842]">Seattle Area.</span>
           </h2>
-          <p className="mt-4 text-lg text-white/75 max-w-2xl">
+          <p className="mt-4 text-lg text-white/75 max-w-2xl mx-auto">
             Licensed plumbers dispatched same-day across King &amp; Pierce counties. If you're in any of these areas, we can be there today.
           </p>
         </div>
 
         {/* Two-column layout: map LEFT, city list RIGHT */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
 
           {/* ── LEFT: Map — isolation:isolate keeps Leaflet z-indexes contained ── */}
           <div
-            className="rounded-2xl overflow-hidden border-2 border-white/25 shadow-2xl bg-white order-2 lg:order-1"
+            className="rounded-2xl overflow-hidden border-2 border-white/25 shadow-2xl bg-white order-2 lg:order-1 h-full"
             style={{ isolation: "isolate", position: "relative" }}
           >
             <ServiceMap />
@@ -199,12 +200,15 @@ export function ServiceArea() {
               <p className="text-base text-white/65 italic">
                 Don't see your city? Call us — we likely serve your area.
               </p>
-              <a
+              <StarBorder
+                as="a"
                 href="tel:+12067726077"
-                className="inline-flex items-center justify-center rounded-xl px-6 py-3 text-base font-bold text-[#1E3A6E] bg-white hover:bg-[#F5C842] hover:text-[#1E3A6E] transition-all shadow-md"
+                className="inline-block transition-all"
+                innerClassName="text-base font-bold text-[#1E3A6E]"
+                innerStyle={{ background: "white", border: "none", padding: "12px 24px" }}
               >
                 Book Online Now
-              </a>
+              </StarBorder>
             </div>
           </div>
 

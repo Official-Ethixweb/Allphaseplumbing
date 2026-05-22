@@ -88,53 +88,67 @@ function AngiBadge() {
   );
 }
 
-/* ── PHCC Member badge ─────────────────────────────────────────────────────── */
+/* ── PHCC Member badge — horizontal layout: circle LEFT, text RIGHT ────────── */
 function PHCCBadge() {
   return (
-    <svg viewBox="0 0 200 210" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+    <svg viewBox="0 0 440 160" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+      {/* ── Left: circular emblem ── */}
       {/* Outer blue ring */}
-      <circle cx="100" cy="96" r="90" stroke="#003087" strokeWidth="6" fill="white" />
-      {/* Thin inner ring */}
-      <circle cx="100" cy="96" r="82" stroke="#003087" strokeWidth="1.5" fill="white" />
+      <circle cx="78" cy="80" r="72" stroke="#003087" strokeWidth="5" fill="white" />
+      {/* Inner thin ring */}
+      <circle cx="78" cy="80" r="65" stroke="#003087" strokeWidth="1.5" fill="white" />
 
-      {/* PHCC main text */}
-      <text x="100" y="82" textAnchor="middle" fontSize="36" fontWeight="900"
-        fill="#003087" fontFamily="Arial Black, Arial, sans-serif" letterSpacing="-1">
+      {/* Red banner background across middle */}
+      <path d="M13 62 Q13 58 17 58 L139 58 Q143 58 143 62 L143 98 Q143 102 139 102 L17 102 Q13 102 13 98 Z"
+        fill="#C8102E" />
+
+      {/* PHCC large text on red banner */}
+      <text x="78" y="90" textAnchor="middle" fontSize="28" fontWeight="900"
+        fill="white" fontFamily="Arial Black, Arial, sans-serif" letterSpacing="1">
         PHCC
       </text>
 
-      {/* Three icons row */}
-      {/* Water drop (blue) */}
-      <path d="M67 100 Q63 107 63 112 C63 118 67 122 72 122 C77 122 81 118 81 112 C81 107 77 100 72 100 Z"
+      {/* Three small icons below PHCC on white */}
+      {/* Water drop */}
+      <path d="M55 108 Q51 115 51 120 C51 126 54.5 130 58 130 C61.5 130 65 126 65 120 C65 115 61 108 55 108 Z"
         fill="#0078C8" />
-      {/* Flame (red-orange) */}
-      <path d="M100 98 Q96 105 97 111 Q100 107 103 111 Q104 105 100 98 Z"
-        fill="#E63027" />
-      <path d="M100 100 Q98 106 99 110 Q100 107 101 110 Q102 106 100 100 Z"
-        fill="#FF6B35" opacity="0.7" />
-      {/* Snowflake (light blue) */}
-      <line x1="128" y1="104" x2="128" y2="122" stroke="#0078C8" strokeWidth="3" strokeLinecap="round" />
-      <line x1="120" y1="113" x2="136" y2="113" stroke="#0078C8" strokeWidth="3" strokeLinecap="round" />
-      <line x1="122" y1="107" x2="134" y2="119" stroke="#0078C8" strokeWidth="2" strokeLinecap="round" />
-      <line x1="122" y1="119" x2="134" y2="107" stroke="#0078C8" strokeWidth="2" strokeLinecap="round" />
+      {/* Flame */}
+      <path d="M78 106 Q74 113 75 120 Q78 116 81 120 Q82 113 78 106 Z" fill="#E63027" />
+      <path d="M78 109 Q76 114 77 119 Q78 116 79 119 Q80 114 78 109 Z" fill="#FF8C42" opacity="0.8" />
+      {/* Snowflake */}
+      <line x1="101" y1="108" x2="101" y2="130" stroke="#0078C8" strokeWidth="2.5" strokeLinecap="round" />
+      <line x1="91" y1="119" x2="111" y2="119" stroke="#0078C8" strokeWidth="2.5" strokeLinecap="round" />
+      <line x1="94" y1="112" x2="108" y2="126" stroke="#0078C8" strokeWidth="1.8" strokeLinecap="round" />
+      <line x1="94" y1="126" x2="108" y2="112" stroke="#0078C8" strokeWidth="1.8" strokeLinecap="round" />
 
-      {/* PLUMBING-HEATING-COOLING arc text (top) */}
-      <path id="topArc" d="M 18 96 A 82 82 0 0 1 182 96" fill="none" />
-      <text fontSize="8" fontWeight="700" fill="#003087" fontFamily="Arial, sans-serif" letterSpacing="1.5">
-        <textPath href="#topArc" startOffset="10%">PLUMBING-HEATING-COOLING</textPath>
+      {/* Arc text — PLUMBING-HEATING-COOLING (top) */}
+      <path id="phccTop" d="M 16 80 A 62 62 0 0 1 140 80" fill="none" />
+      <text fontSize="7.5" fontWeight="700" fill="#003087" fontFamily="Arial, sans-serif" letterSpacing="1.2">
+        <textPath href="#phccTop" startOffset="8%">PLUMBING · HEATING · COOLING</textPath>
       </text>
 
-      {/* CONTRACTORS ASSOCIATION arc (bottom) */}
-      <path id="botArc" d="M 22 100 A 78 78 0 0 0 178 100" fill="none" />
-      <text fontSize="7" fontWeight="700" fill="#003087" fontFamily="Arial, sans-serif" letterSpacing="1">
-        <textPath href="#botArc" startOffset="8%">CONTRACTORS ASSOCIATION</textPath>
+      {/* Arc text — CONTRACTORS ASSOCIATION (bottom) */}
+      <path id="phccBot" d="M 18 84 A 60 60 0 0 0 138 84" fill="none" />
+      <text fontSize="7" fontWeight="700" fill="#003087" fontFamily="Arial, sans-serif" letterSpacing="0.8">
+        <textPath href="#phccBot" startOffset="10%">CONTRACTORS ASSOCIATION</textPath>
       </text>
 
-      {/* Registered mark */}
-      <text x="183" y="40" fontSize="9" fill="#003087" fontFamily="Arial, sans-serif">®</text>
-
-      {/* Best People. Best Practices. tagline */}
-      <text x="100" y="200" textAnchor="middle" fontSize="9" fontStyle="italic" fontWeight="600"
+      {/* ── Right: text block ── */}
+      {/* PLUMBING-HEATING-COOLING bold line 1 */}
+      <text x="172" y="56" fontSize="17" fontWeight="900"
+        fill="#003087" fontFamily="Arial Black, Arial, sans-serif" letterSpacing="0.2">
+        PLUMBING-HEATING-COOLING
+      </text>
+      {/* CONTRACTORS ASSOCIATION® line 2 */}
+      <text x="172" y="78" fontSize="17" fontWeight="900"
+        fill="#003087" fontFamily="Arial Black, Arial, sans-serif" letterSpacing="0.2">
+        CONTRACTORS ASSOCIATION
+        <tspan fontSize="10" baselineShift="super">®</tspan>
+      </text>
+      {/* Divider line */}
+      <line x1="172" y1="90" x2="432" y2="90" stroke="#003087" strokeWidth="1.5" />
+      {/* Best People. Best Practices. italic */}
+      <text x="172" y="112" fontSize="16" fontStyle="italic" fontWeight="600"
         fill="#003087" fontFamily="Georgia, serif" letterSpacing="0.3">
         Best People. Best Practices.
       </text>
@@ -142,53 +156,35 @@ function PHCCBadge() {
   );
 }
 
-const BADGES = [
-  {
-    BadgeIcon: BBBBadge,
-    label: "BBB Accredited",
-    sub: "A+ Rating — Better Business Bureau",
-    border: "#006BA6",
-  },
-  {
-    BadgeIcon: AngiBadge,
-    label: "Angi Super Service",
-    sub: "Award Winner 2024",
-    border: "#C8102E",
-  },
-  {
-    BadgeIcon: PHCCBadge,
-    label: "PHCC Member",
-    sub: "Plumbing-Heating-Cooling Contractors",
-    border: "#003087",
-  },
-] as const;
-
 export function Badges() {
   return (
-    <section className="py-16 bg-background border-y border-border">
+    <section className="py-16 bg-white border-y border-gray-100">
       <div className="container mx-auto px-4">
-        <p className="text-center text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto mb-10">
-          <span className="font-semibold text-primary">Accredited &amp; Award Winning</span>{" "}
-          — backed by the industry's most trusted names.
-        </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-4xl mx-auto items-center">
-          {BADGES.map((b) => (
-            <div
-              key={b.label}
-              className="flex flex-col items-center gap-3 rounded-xl border-2 bg-white/80 backdrop-blur-sm p-5 shadow-md hover:shadow-[0_8px_30px_rgba(30,58,110,0.2)] hover:-translate-y-1 transition-all duration-300 cursor-default"
-              style={{ borderColor: b.border }}
-            >
-              {/* Badge SVG — height constrained so all three appear same visual size */}
-              <div className="w-full max-w-[180px] mx-auto" style={{ height: 110 }}>
-                <b.BadgeIcon />
-              </div>
-              <div className="text-center">
-                <div className="font-bold text-primary text-base leading-snug">{b.label}</div>
-                <div className="text-sm text-muted-foreground mt-1">{b.sub}</div>
-              </div>
-            </div>
-          ))}
+        {/* "Badges" heading — bold dark, centered */}
+        <h2 className="text-center text-4xl font-black text-[#1E3A6E] mb-12"
+            style={{ fontFamily: "Inter, sans-serif" }}>
+          Badges
+        </h2>
+
+        {/* Three logos — no cards, no borders, just the logos */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-12 sm:gap-16 max-w-4xl mx-auto">
+
+          {/* BBB */}
+          <div className="flex items-center justify-center" style={{ width: 180, height: 80 }}>
+            <BBBBadge />
+          </div>
+
+          {/* Angi */}
+          <div className="flex items-center justify-center" style={{ width: 130, height: 160 }}>
+            <AngiBadge />
+          </div>
+
+          {/* PHCC */}
+          <div className="flex items-center justify-center" style={{ width: 220, height: 100 }}>
+            <PHCCBadge />
+          </div>
+
         </div>
       </div>
     </section>

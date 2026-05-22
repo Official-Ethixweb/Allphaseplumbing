@@ -1,103 +1,119 @@
 import { useState, useRef, useEffect } from "react";
 import { Link } from "@tanstack/react-router";
-import { ChevronDown, ChevronUp, Star } from "lucide-react";
+import { ChevronDown, Star, Ticket, CalendarCheck } from "lucide-react";
 
-const FIRST_COL = ["Auburn","Bellevue","Bonney Lake","Des Moines","Federal Way","Fife","Kent","Lakewood","Mercer Island"];
-const SECOND_COL = ["Puyallup","Renton","Seattle","South Hill","Spanaway","Summit","Summit View","Tacoma","Tukwila"];
+const CITIES_COL1 = ["Auburn","Bellevue","Bonney Lake","Des Moines","Federal Way","Fife","Kent","Lakewood","Mercer Island"];
+const CITIES_COL2 = ["Puyallup","Renton","Seattle","South Hill","Spanaway","Summit","Summit View","Tacoma","Tukwila"];
 
 export function TopBar() {
-  const [isOpen, setIsOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
+  const [nearMeOpen, setNearMeOpen] = useState(false);
+  const dropRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
+    const handler = (e: MouseEvent) => {
+      if (dropRef.current && !dropRef.current.contains(e.target as Node)) {
+        setNearMeOpen(false);
       }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
   }, []);
 
   return (
-    <div className="relative bg-[#6B9FE4] text-white text-sm z-50">
-      <div className="container mx-auto flex items-center justify-between px-4 py-0 h-12 relative">
+    <div className="relative z-50 w-full">
+      <div className="flex w-full text-sm font-semibold">
 
-        {/* Left — tagline */}
-        <p className="hidden sm:block font-semibold tracking-wide text-white/90 text-[13px]">
-          Licensed &amp; Insured · Serving Greater Seattle Since 1989
-        </p>
-        <p className="block sm:hidden font-semibold tracking-wide text-white/90 text-[13px]">
-          Serving Greater Seattle Since 1989
-        </p>
+        {/* ── LEFT — Read Our Reviews ── */}
+        <a
+          href="https://www.google.com/search?q=All+Phase+Plumbing+Tukwila+WA+reviews"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-2 px-5 py-2.5 bg-[#6B9FE4] text-white hover:bg-[#5b8fd3] transition-colors duration-200 shrink-0 whitespace-nowrap"
+        >
+          <div className="flex gap-0.5">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <Star key={i} className="size-3.5 fill-[#FFB800] text-[#FFB800]" />
+            ))}
+          </div>
+          <span className="hidden sm:inline tracking-wide">Read Our Reviews ›</span>
+        </a>
 
-        {/* Right — action tabs */}
-        <div className="flex items-end h-full gap-1.5 sm:gap-2">
-
-          {/* Read Our Reviews */}
-          <a
-            href="https://www.google.com/search?q=All+Phase+Plumbing+Tukwila+WA+reviews"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-[#1E3A6E] text-white font-bold px-4 py-2.5 hover:bg-[#162e58] transition-all duration-200 flex items-center gap-1.5 select-none rounded-t-md text-xs sm:text-sm tracking-wide uppercase border-t border-x border-[#1E3A7B]"
-          >
-            <Star className="size-3.5 fill-[#FFB800] text-[#FFB800]" />
-            Read Our Reviews ›
-          </a>
-
-          {/* Find All Phase Near Me */}
+        {/* ── CENTER — Find All Phase Near Me ── */}
+        <div ref={dropRef} className="relative flex-1">
           <button
-            onClick={() => setIsOpen((p) => !p)}
-            className={`font-bold px-4 py-2.5 flex items-center gap-1.5 select-none rounded-t-md text-xs sm:text-sm tracking-wide uppercase transition-all duration-200 border-t border-x ${
-              isOpen
-                ? "bg-[#1E3A6E] text-[#FFB800] shadow-inner border-[#1E3A7B]"
-                : "bg-[#1E3A6E]/80 text-white hover:bg-[#1E3A6E] border-[#1E3A7B]/50"
-            }`}
+            onClick={() => setNearMeOpen((p) => !p)}
+            className="flex items-center justify-center gap-2 w-full h-full px-6 py-2.5 bg-[#1E3A6E] text-white hover:bg-[#162e58] transition-colors duration-200 tracking-wide font-semibold"
           >
-            Find All Phase Near Me
-            {isOpen ? <ChevronUp className="size-3.5" /> : <ChevronDown className="size-3.5" />}
+            <span>Find All Phase Near Me</span>
+            <ChevronDown
+              className={`size-4 transition-transform duration-300 ${nearMeOpen ? "rotate-180" : ""}`}
+            />
           </button>
+
+          {/* City dropdown */}
+          {nearMeOpen && (
+            <div className="absolute top-full left-1/2 -translate-x-1/2 z-50 w-[520px] max-w-[calc(100vw-32px)] bg-white border-2 border-[#1E3A7B] rounded-b-xl shadow-[0_20px_50px_rgba(0,0,0,0.25)] p-5">
+              <div className="grid grid-cols-2 gap-x-8 text-sm">
+                <div className="flex flex-col">
+                  {CITIES_COL1.map((city) => (
+                    <Link
+                      key={city}
+                      to="/service-area"
+                      onClick={() => setNearMeOpen(false)}
+                      className="border-b border-[#1E3A7B]/15 py-2.5 px-1 font-bold text-[#1E3A6E] hover:text-[#F5C842] hover:pl-3 transition-all duration-200 flex justify-between items-center"
+                    >
+                      <span>{city}</span>
+                      <span className="text-gray-300 text-xs font-normal">WA</span>
+                    </Link>
+                  ))}
+                </div>
+                <div className="flex flex-col">
+                  {CITIES_COL2.map((city) => (
+                    <Link
+                      key={city}
+                      to="/service-area"
+                      onClick={() => setNearMeOpen(false)}
+                      className="border-b border-[#1E3A7B]/15 py-2.5 px-1 font-bold text-[#1E3A6E] hover:text-[#F5C842] hover:pl-3 transition-all duration-200 flex justify-between items-center"
+                    >
+                      <span>{city}</span>
+                      <span className="text-gray-300 text-xs font-normal">WA</span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+              <div className="mt-4 pt-3 border-t border-gray-100 flex justify-between items-center">
+                <span className="text-[11px] text-gray-400 italic">
+                  Same-day dispatch across King &amp; Pierce counties
+                </span>
+                <a
+                  href="tel:+12067726077"
+                  className="text-xs font-extrabold text-[#F5C842] hover:text-[#d4a835] transition-colors uppercase tracking-wider"
+                >
+                  Call (206) 772-6077 ✆
+                </a>
+              </div>
+            </div>
+          )}
         </div>
 
-        {/* Dropdown */}
-        {isOpen && (
-          <div
-            ref={dropdownRef}
-            className="absolute top-full right-4 z-50 w-[calc(100vw-32px)] sm:w-[540px] bg-white border-2 border-[#1E3A7B] rounded-b-xl shadow-[0_20px_50px_rgba(0,0,0,0.35)] p-5 mt-0 animate-in fade-in slide-in-from-top-2 duration-200"
+        {/* ── RIGHT — Coupons | Book Online Now ── */}
+        <div className="flex items-stretch shrink-0 bg-[#8fb3d9] divide-x divide-[#1E3A6E]/20">
+          <Link
+            to="/coupons"
+            className="flex items-center gap-2 px-5 py-2.5 text-[#1E3A6E] font-bold hover:bg-[#1E3A6E]/15 transition-colors duration-200 whitespace-nowrap"
           >
-            <div className="grid grid-cols-2 gap-x-8 text-sm">
-              <div className="flex flex-col">
-                {FIRST_COL.map((city) => (
-                  <Link key={city} to="/service-area" onClick={() => setIsOpen(false)}
-                    className="border-b border-[#1E3A7B]/20 py-2.5 px-1 font-bold text-[#1E3A6E] hover:text-[#F5C842] hover:bg-slate-50/50 hover:pl-2.5 transition-all duration-200 text-xs sm:text-sm tracking-wide flex justify-between items-center"
-                  >
-                    <span>{city}</span>
-                    <span className="text-slate-300 text-xs font-normal">WA</span>
-                  </Link>
-                ))}
-              </div>
-              <div className="flex flex-col">
-                {SECOND_COL.map((city) => (
-                  <Link key={city} to="/service-area" onClick={() => setIsOpen(false)}
-                    className="border-b border-[#1E3A7B]/20 py-2.5 px-1 font-bold text-[#1E3A6E] hover:text-[#F5C842] hover:bg-slate-50/50 hover:pl-2.5 transition-all duration-200 text-xs sm:text-sm tracking-wide flex justify-between items-center"
-                  >
-                    <span>{city}</span>
-                    <span className="text-slate-300 text-xs font-normal">WA</span>
-                  </Link>
-                ))}
-              </div>
-            </div>
-            <div className="mt-4 pt-3 border-t border-slate-100 flex justify-between items-center">
-              <span className="text-[11px] text-slate-400 font-medium italic">
-                Same-day plumbing dispatch across King &amp; Pierce counties
-              </span>
-              <a href="tel:+12067726077"
-                className="text-xs font-extrabold text-[#F5C842] hover:text-[#d4a835] transition-colors uppercase tracking-wider">
-                Call (206) 772-6077 ✆
-              </a>
-            </div>
-          </div>
-        )}
+            <Ticket className="size-4 shrink-0" />
+            <span className="hidden sm:inline">Coupons</span>
+          </Link>
+          <a
+            href="tel:+12067726077"
+            className="flex items-center gap-2 px-5 py-2.5 text-[#1E3A6E] font-bold hover:bg-[#1E3A6E]/15 transition-colors duration-200 whitespace-nowrap"
+          >
+            <CalendarCheck className="size-4 shrink-0" />
+            <span className="hidden sm:inline">Book Online Now</span>
+          </a>
+        </div>
+
       </div>
     </div>
   );

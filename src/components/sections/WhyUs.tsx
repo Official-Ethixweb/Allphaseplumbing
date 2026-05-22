@@ -1,23 +1,31 @@
 import { resolveIcon } from "@/lib/icon-map";
 import { useSiteOptions } from "@/hooks/use-site-options";
+import Particles from "@/components/ui/Particles";
 
 export function WhyUs() {
   const opts = useSiteOptions();
 
   return (
     <section className="relative py-20 bg-[#1E3A6E] overflow-hidden">
-      {/* Subtle dot pattern */}
-      <div
-        className="absolute inset-0 z-0 opacity-[0.06] pointer-events-none"
-        style={{
-          backgroundImage: "radial-gradient(circle, #ffffff 1px, transparent 1px)",
-          backgroundSize: "24px 24px",
-        }}
-        aria-hidden="true"
-      />
+      {/* ── Particle background ── */}
+      <div className="absolute inset-0 z-0" aria-hidden="true">
+        <Particles
+          particleCount={650}
+          particleSpread={20}
+          speed={1}
+          particleBaseSize={300}
+          sizeRandomness={1.2}
+          alphaParticles={true}
+          cameraDistance={22}
+          disableRotation={true}
+          moveParticlesOnHover={false}
+          particleColors={["#ffffff"]}
+          className="w-full h-full"
+        />
+      </div>
 
       <div className="relative z-10 container mx-auto px-4">
-        <div className="max-w-3xl mb-14">
+        <div className="text-center mb-14">
           <span className="inline-block text-xs font-bold uppercase tracking-widest text-[#6B9FE4] mb-3">
             {opts.why_us_eyebrow}
           </span>
@@ -33,7 +41,7 @@ export function WhyUs() {
             return (
               <div key={r.title} className="flex gap-4">
                 {/* Icon bubble — no card, just a floating accent dot */}
-                <div className="shrink-0 mt-0.5 inline-flex items-center justify-center size-12 rounded-full bg-[#F5C842]/20 text-[#F5C842]">
+                <div className="shrink-0 mt-0.5 inline-flex items-center justify-center size-12 rounded-full bg-[#5B9BD5]/20 text-[#5B9BD5]">
                   <Icon className="size-6" />
                 </div>
                 <div>
