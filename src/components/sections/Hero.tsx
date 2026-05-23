@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Star, Home, Building2 } from "lucide-react";
 import { StarBorder } from "@/components/ui/StarBorder";
-import mascot from "@/assets/mascot.png";
+import mascot from "@/assets/mascot.svg";
 import { useSiteOptions } from "@/hooks/use-site-options";
 
 export function Hero() {
