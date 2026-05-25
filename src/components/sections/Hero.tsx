@@ -38,17 +38,20 @@ export function Hero() {
       />
 
       {/* ── Content ── */}
-      <div className="relative z-10 container mx-auto px-4 pt-28 pb-0">
+      <div
+        className="relative z-10 container mx-auto px-4 pt-28 pb-0"
+        style={{ zoom: 0.9 }}
+      >
         {/* ── Two-column: text LEFT  ·  mascot RIGHT ── */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-end">
           {/* LEFT — hero copy */}
-          <div className="pb-20">
+          <div className="pb-20 lg:-ml-10 xl:-ml-16">
             <span className="text-[#1E3A6E] font-bold text-[28px] tracking-wide">
               All Phase Plumbing
             </span>
 
             <h1
-              className="mt-3 text-4xl sm:text-5xl lg:text-[50px] text-[#1E3A6E] leading-[1.15] lg:whitespace-nowrap"
+              className="mt-3 text-[27px] sm:text-[36px] lg:text-[38px] text-[#1E3A6E] leading-[1.15] lg:whitespace-nowrap"
               style={{
                 fontFamily: "'Poppins', sans-serif",
                 fontWeight: 900,
@@ -96,7 +99,7 @@ export function Hero() {
             className="hidden lg:flex items-end justify-end"
             style={{
               opacity: mascotIn ? 1 : 0,
-              transform: mascotIn ? "translateY(0)" : "translateY(60px)",
+              transform: mascotIn ? "translate(8%, 0)" : "translate(8%, 60px)",
               transition: "opacity 0.9s ease, transform 0.9s cubic-bezier(0.22,1,0.36,1)",
             }}
           >
@@ -104,7 +107,8 @@ export function Hero() {
               src={mascot}
               alt="All Phase Plumbing technician"
               aria-hidden="true"
-              className="h-[420px] xl:h-[480px] w-auto object-contain drop-shadow-2xl select-none pointer-events-none translate-y-[2%]"
+              className="h-[420px] xl:h-[480px] w-auto object-contain drop-shadow-2xl select-none pointer-events-none"
+              style={{ transform: "translateY(2%)" }}
               loading="eager"
               decoding="async"
             />
@@ -147,64 +151,64 @@ export function Hero() {
             </div>
 
             {/* Form body */}
-            <div className="px-6 py-6 sm:px-8 sm:py-7">
+            <div className="px-6 py-4 sm:px-8 sm:py-5">
               {/* Contact promo */}
-              <div className="mb-6 text-white">
+              <div className="mb-4 text-white">
                 <h2
-                  className="text-[36px] font-bold leading-tight"
+                  className="text-[32px] font-bold leading-tight"
                   style={{ fontFamily: "Inter, sans-serif" }}
                 >
                   Contact us today
                 </h2>
-                <p className="mt-2 text-[20px] font-semibold leading-snug">Same Day Service</p>
-                <p className="text-[18px] font-medium leading-snug">Plumbing and Drain Cleaning</p>
-                <p className="text-[15px] font-normal text-white/85 mt-1">
+                <p className="mt-1.5 text-[18px] font-semibold leading-snug">Same Day Service</p>
+                <p className="text-[16px] font-medium leading-snug">Plumbing and Drain Cleaning</p>
+                <p className="text-[14px] font-normal text-white/85 mt-0.5">
                   When booked before 2pm, Monday &ndash; Friday
                 </p>
               </div>
 
               <h2
-                className="text-[28px] font-bold text-white mb-5"
+                className="text-[24px] font-bold text-white mb-4"
                 style={{ fontFamily: "Inter, sans-serif" }}
               >
                 Let Us Call You
               </h2>
 
               <form onSubmit={(e) => e.preventDefault()}>
-                <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-7 gap-3 items-stretch">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-7 gap-3 items-stretch">
                   <input
                     type="text"
                     placeholder="FIRST NAME*"
                     required
-                    className="rounded-lg border-2 border-[#1E3A6E] bg-white px-4 py-4 text-[16px] font-semibold text-[#1E3A6E] placeholder:text-gray-400 placeholder:font-semibold focus:outline-none focus:ring-2 focus:ring-[#1E3A6E] transition-shadow"
+                    className="rounded-lg border-2 border-[#1E3A6E] bg-white px-4 py-3.5 text-[15px] font-semibold text-[#1E3A6E] placeholder:text-gray-400 placeholder:font-semibold focus:outline-none focus:ring-2 focus:ring-[#1E3A6E] transition-shadow"
                   />
 
                   <input
                     type="text"
                     placeholder="LAST NAME*"
                     required
-                    className="rounded-lg border-2 border-[#1E3A6E] bg-white px-4 py-4 text-[16px] font-semibold text-[#1E3A6E] placeholder:text-gray-400 placeholder:font-semibold focus:outline-none focus:ring-2 focus:ring-[#1E3A6E] transition-shadow"
+                    className="rounded-lg border-2 border-[#1E3A6E] bg-white px-4 py-3.5 text-[15px] font-semibold text-[#1E3A6E] placeholder:text-gray-400 placeholder:font-semibold focus:outline-none focus:ring-2 focus:ring-[#1E3A6E] transition-shadow"
                   />
 
                   <input
                     type="email"
                     placeholder="EMAIL*"
                     required
-                    className="rounded-lg border-2 border-[#1E3A6E] bg-white px-4 py-4 text-[16px] font-semibold text-[#1E3A6E] placeholder:text-gray-400 placeholder:font-semibold focus:outline-none focus:ring-2 focus:ring-[#1E3A6E] transition-shadow"
+                    className="rounded-lg border-2 border-[#1E3A6E] bg-white px-4 py-3.5 text-[15px] font-semibold text-[#1E3A6E] placeholder:text-gray-400 placeholder:font-semibold focus:outline-none focus:ring-2 focus:ring-[#1E3A6E] transition-shadow"
                   />
 
                   <input
                     type="tel"
                     placeholder="PHONE*"
                     required
-                    className="rounded-lg border-2 border-[#1E3A6E] bg-white px-4 py-4 text-[16px] font-semibold text-[#1E3A6E] placeholder:text-gray-400 placeholder:font-semibold focus:outline-none focus:ring-2 focus:ring-[#1E3A6E] transition-shadow"
+                    className="rounded-lg border-2 border-[#1E3A6E] bg-white px-4 py-3.5 text-[15px] font-semibold text-[#1E3A6E] placeholder:text-gray-400 placeholder:font-semibold focus:outline-none focus:ring-2 focus:ring-[#1E3A6E] transition-shadow"
                   />
 
                   <input
                     type="text"
                     placeholder="STREET ADDRESS*"
                     required
-                    className="rounded-lg border-2 border-[#1E3A6E] bg-white px-4 py-4 text-[16px] font-semibold text-[#1E3A6E] placeholder:text-gray-400 placeholder:font-semibold focus:outline-none focus:ring-2 focus:ring-[#1E3A6E] transition-shadow"
+                    className="rounded-lg border-2 border-[#1E3A6E] bg-white px-4 py-3.5 text-[15px] font-semibold text-[#1E3A6E] placeholder:text-gray-400 placeholder:font-semibold focus:outline-none focus:ring-2 focus:ring-[#1E3A6E] transition-shadow"
                   />
 
                   <input
@@ -212,26 +216,36 @@ export function Hero() {
                     placeholder="ZIP CODE*"
                     required
                     maxLength={10}
-                    className="rounded-lg border-2 border-[#1E3A6E] bg-white px-4 py-4 text-[16px] font-semibold text-[#1E3A6E] placeholder:text-gray-400 placeholder:font-semibold focus:outline-none focus:ring-2 focus:ring-[#1E3A6E] transition-shadow"
+                    className="rounded-lg border-2 border-[#1E3A6E] bg-white px-4 py-3.5 text-[15px] font-semibold text-[#1E3A6E] placeholder:text-gray-400 placeholder:font-semibold focus:outline-none focus:ring-2 focus:ring-[#1E3A6E] transition-shadow"
                   />
 
+                  <input
+                    type="text"
+                    placeholder="SERVICE NEEDED*"
+                    required
+                    className="rounded-lg border-2 border-[#1E3A6E] bg-white px-4 py-3.5 text-[15px] font-semibold text-[#1E3A6E] placeholder:text-gray-400 placeholder:font-semibold focus:outline-none focus:ring-2 focus:ring-[#1E3A6E] transition-shadow sm:col-span-2 lg:col-span-1"
+                  />
+                </div>
+
+                <div className="mt-4 flex justify-center">
                   <StarBorder
                     type="submit"
-                    className="block w-full active:scale-[0.98] transition-all"
-                    innerClassName="text-[16px] font-bold w-full h-full"
+                    className="inline-block active:scale-[0.98] transition-all"
+                    innerClassName="font-bold"
                     innerStyle={{
                       background: "#F5C842",
                       color: "#1E3A6E",
                       border: "2px solid #1E3A6E",
-                      padding: "16px 12px",
+                      padding: "12px 64px",
+                      fontSize: "22px",
                     }}
                   >
-                    Submit
+                    Send Request
                   </StarBorder>
                 </div>
 
                 {/* SMS opt-in */}
-                <div className="mt-5 flex items-start gap-2.5">
+                <div className="mt-3.5 flex items-start gap-2.5">
                   <input
                     id="sms-optin"
                     type="checkbox"
@@ -241,7 +255,7 @@ export function Hero() {
                   />
                   <label
                     htmlFor="sms-optin"
-                    className="text-[14px] text-white cursor-pointer leading-relaxed"
+                    className="text-[12px] text-white cursor-pointer leading-relaxed"
                   >
                     By submitting this form and signing up for texts, you consent to receive
                     messages from All Phase Plumbing at the number provided regarding your request,
@@ -252,7 +266,7 @@ export function Hero() {
                   </label>
                 </div>
 
-                <p className="mt-4 text-[18px] text-white/70 leading-relaxed border-t border-white/20 pt-4">
+                <p className="mt-3 text-[13px] text-white/75 leading-relaxed border-t border-white/15 pt-3">
                   By entering your email address, you agree to receive emails about services,
                   updates or promotions, and you agree to our{" "}
                   <a href="/about" className="underline hover:text-[#F5C842]">

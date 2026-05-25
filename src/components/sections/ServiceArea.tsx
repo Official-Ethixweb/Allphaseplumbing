@@ -153,7 +153,7 @@ export function ServiceArea() {
       <div className="relative z-10 container mx-auto px-4">
         {/* Heading — white text on gradient bg */}
         <div className="text-center mb-10">
-          <span className="inline-block text-xs font-bold uppercase tracking-widest text-[#F5C842] mb-3">
+          <span className="inline-block text-2xl font-bold uppercase tracking-widest text-[#F5C842] mb-3">
             Service Area
           </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white">

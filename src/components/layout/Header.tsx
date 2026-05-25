@@ -1,5 +1,5 @@
-import { useState, useRef } from "react";
-import { Link } from "@tanstack/react-router";
+import { useState, useRef, useEffect } from "react";
+import { Link, useLocation } from "@tanstack/react-router";
 import { Menu, X, Phone, ChevronDown } from "lucide-react";
 import { TopBar } from "./TopBar";
 import { useSiteOptions } from "@/hooks/use-site-options";
@@ -71,6 +71,7 @@ const NAV: NavItem[] = [
   {
     to: "/services",
     label: "Commercial",
+    exact: true,
     dropCols: 1,
     dropdown: [{ to: "/services", label: "Commercial Drain Cleaning" }],
   },
@@ -123,6 +124,32 @@ export function Header() {
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const opts = useSiteOptions();
 
+  const location = useLocation();
+  const isHomePage = location.pathname === "/";
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    function handleScroll() {
+      // Use hysteresis (different thresholds for entering vs exiting) to prevent scroll bouncing glitches
+      setIsScrolled((prev) => {
+        if (!prev && window.scrollY > 300) {
+          return true; // shrink when scrolling past 300px (below page heading)
+        }
+        if (prev && window.scrollY < 180) {
+          return false; // expand only when scrolling back up near the top (above 180px)
+        }
+        return prev;
+      });
+    }
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const shouldShrink = !isHomePage && isScrolled;
+
   function openMenu(label: string) {
     if (closeTimer.current) clearTimeout(closeTimer.current);
     setOpenNav(label);
@@ -136,12 +163,18 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 bg-white shadow-[0_6px_14px_-2px_rgba(0,0,0,0.22)]">
       {/* Top bar */}
-      <TopBar />
+      <div className={`transition-all duration-300 ease-in-out ${
+        shouldShrink ? "lg:max-h-0 lg:opacity-0 lg:overflow-hidden" : "lg:max-h-12"
+      }`}>
+        <TopBar />
+      </div>
 
       {/* Logo · badge · phone */}
-      <div className="bg-white">
+      <div className={`bg-white transition-all duration-300 ease-in-out ${
+        shouldShrink ? "lg:max-h-0 lg:py-0 lg:opacity-0 lg:pointer-events-none lg:overflow-hidden" : "lg:max-h-48"
+      }`}>
         <div className="w-full px-4 sm:px-6 lg:px-10">
-          <div className="flex items-center gap-6 py-2">
+          <div className="flex items-center gap-6 pt-2 pb-2.5">
             <Link to="/" className="shrink-0">
               <img
                 src={logo}
@@ -196,7 +229,7 @@ export function Header() {
       {/* ── Desktop nav bar ── */}
       <div className="hidden lg:block border-t-[4px] border-[#1E3A6E] bg-white relative">
         <div className="w-full px-4 sm:px-6 lg:px-10">
-          <nav className="flex items-center justify-between gap-2 pt-1.5 pb-0">
+          <nav className="flex items-center justify-between gap-2 pt-0.5 pb-0">
             {NAV.map((item) => (
               <div
                 key={item.to + item.label}
@@ -206,7 +239,7 @@ export function Header() {
                 <Link
                   to={item.to}
                   activeOptions={{ exact: item.exact ?? false }}
-                  className="flex items-center gap-1 px-3.5 py-3 text-[21px] font-bold text-[#1E3A6E]
+                  className="flex items-center gap-1 px-3.5 py-2.5 text-[19px] font-bold text-[#1E3A6E]
                              rounded-md transition-all duration-200 hover:bg-[#1E3A6E] hover:text-white"
                   activeProps={{ className: "!bg-[#1E3A6E] !text-white" }}
                 >
@@ -239,7 +272,7 @@ export function Header() {
                     key={sub.to + sub.label}
                     to={sub.to}
                     onClick={() => setOpenNav(null)}
-                    className="flex items-center min-h-[44px] px-2 text-[22px] font-bold text-[#1E3A6E]
+                    className="flex items-center min-h-[44px] px-2 text-[20px] font-bold text-[#1E3A6E]
                                border-b border-gray-100 hover:text-[#4A7BC4] hover:pl-4
                                transition-all duration-150"
                   >

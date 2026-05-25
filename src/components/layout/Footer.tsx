@@ -1,24 +1,7 @@
 import { Link } from "@tanstack/react-router";
-import { Phone, MapPin, Mail, Clock } from "lucide-react";
+import { Phone, MapPin } from "lucide-react";
 import logo from "@/assets/app-logo.svg";
-import { StarBorder } from "@/components/ui/StarBorder";
-
-const QUICK_LINKS = [
-  { to: "/", label: "Home" },
-  { to: "/about", label: "About Us" },
-  { to: "/blog", label: "Blog" },
-  { to: "/coupons", label: "Coupons" },
-  { to: "/service-area", label: "Service Area" },
-  { to: "/contact", label: "Contact Us" },
-];
-
-const SERVICE_LINKS = [
-  { to: "/services/plumbing", label: "Plumbing Repair" },
-  { to: "/services/drain-cleaning", label: "Drain Cleaning" },
-  { to: "/services/water-heaters", label: "Water Heaters" },
-  { to: "/services/sewer-services", label: "Sewer Services" },
-  { to: "/services", label: "Commercial" },
-];
+import mascot from "@/assets/mascot.svg";
 
 export function Footer() {
   return (
@@ -34,10 +17,10 @@ export function Footer() {
       </svg>
 
       {/* Main grid */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 pt-14 pb-10">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
-          {/* Column 1 — Logo + tagline + phone */}
-          <div className="flex flex-col gap-5 lg:col-span-1">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 pt-14 pb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:pr-[280px]">
+          {/* Column 1 — Logo */}
+          <div className="flex flex-col gap-4">
             <Link to="/" className="inline-block">
               <img
                 src={logo}
@@ -45,112 +28,114 @@ export function Footer() {
                 className="h-14 w-auto brightness-0 invert"
               />
             </Link>
-            <p className="text-sm text-white/65 leading-relaxed max-w-[200px]">
-              Providing reliable residential and commercial plumbing solutions since 1989.
-            </p>
-            <StarBorder
-              as="a"
-              href="tel:+12067726077"
-              className="inline-block transition-all"
-              innerClassName="flex items-center gap-2 font-bold text-white text-base"
-              innerStyle={{
-                background: "linear-gradient(135deg, #1E3A6E 0%, #6B9FE4 100%)",
-                border: "none",
-                padding: "10px 16px",
-              }}
-            >
-              <Phone className="size-4" />
-              (206) 772-6077
-            </StarBorder>
           </div>
 
-          {/* Column 2 — Quick Links */}
+          {/* Column 2 — Services Area */}
           <div className="flex flex-col gap-4">
-            <h3 className="text-sm font-normal uppercase tracking-widest text-white border-b border-white/15 pb-3">
-              Quick Links
+            <h3 className="text-[15px] font-bold uppercase tracking-wider text-white border-b border-white/15 pb-2.5">
+              Services Area
             </h3>
-            <ul className="space-y-2.5">
-              {QUICK_LINKS.map((l) => (
-                <li key={l.to}>
-                  <Link
-                    to={l.to}
-                    className="text-sm text-white/70 font-normal hover:text-[#F5C842] hover:translate-x-1 transition-all inline-block"
-                  >
-                    › {l.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            <div className="grid grid-cols-2 gap-x-6 gap-y-2 mt-2 text-[14px] font-medium text-white/70">
+              <Link to="/service-area" className="hover:text-[#F5C842]">Seattle</Link>
+              <Link to="/service-area" className="hover:text-[#F5C842]">Redmond</Link>
+              <Link to="/service-area" className="hover:text-[#F5C842]">Tacoma</Link>
+              <Link to="/service-area" className="hover:text-[#F5C842]">Kirkland</Link>
+              <Link to="/service-area" className="hover:text-[#F5C842]">Renton</Link>
+              <Link to="/service-area" className="hover:text-[#F5C842]">Puyallup</Link>
+              <Link to="/service-area" className="hover:text-[#F5C842]">Bellevue</Link>
+              <Link to="/service-area" className="hover:text-[#F5C842]">Tukwila</Link>
+              <Link to="/service-area" className="hover:text-[#F5C842] col-span-2">Mercer Island</Link>
+            </div>
           </div>
 
           {/* Column 3 — Services */}
           <div className="flex flex-col gap-4">
-            <h3 className="text-sm font-normal uppercase tracking-widest text-white border-b border-white/15 pb-3">
-              Our Services
+            <h3 className="text-[15px] font-bold uppercase tracking-wider text-white border-b border-white/15 pb-2.5">
+              Services
             </h3>
-            <ul className="space-y-2.5">
-              {SERVICE_LINKS.map((l) => (
-                <li key={l.to}>
-                  <Link
-                    to={l.to}
-                    className="text-sm text-white/70 font-normal hover:text-[#F5C842] hover:translate-x-1 transition-all inline-block"
-                  >
-                    › {l.label}
-                  </Link>
-                </li>
-              ))}
+            <ul className="space-y-2.5 mt-2 text-[14px] font-medium text-white/70">
+              <li>
+                <Link to="/services/plumbing" className="hover:text-[#F5C842]">
+                  Plumbing
+                </Link>
+              </li>
+              <li>
+                <Link to="/services/sewer-services" className="hover:text-[#F5C842]">
+                  Sewers
+                </Link>
+              </li>
+              <li>
+                <Link to="/services" className="hover:text-[#F5C842]">
+                  Commercial
+                </Link>
+              </li>
             </ul>
           </div>
 
-          {/* Column 4 — Contact Us */}
+          {/* Column 4 — About */}
           <div className="flex flex-col gap-4">
-            <h3 className="text-sm font-normal uppercase tracking-widest text-white border-b border-white/15 pb-3">
+            <h3 className="text-[15px] font-bold uppercase tracking-wider text-white border-b border-white/15 pb-2.5">
+              About
+            </h3>
+            <ul className="space-y-2.5 mt-2 text-[14px] font-medium text-white/70">
+              <li>
+                <Link to="/about" className="hover:text-[#F5C842]">
+                  About Us
+                </Link>
+              </li>
+              <li>
+                <Link to="/blog" className="hover:text-[#F5C842]">
+                  Blogs
+                </Link>
+              </li>
+              <li>
+                <Link to="/coupons" className="hover:text-[#F5C842]">
+                  Coupons
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Column 5 — Contact Us */}
+          <div className="flex flex-col gap-4 lg:pr-10">
+            <h3 className="text-[15px] font-bold uppercase tracking-wider text-white border-b border-white/15 pb-2.5">
               Contact Us
             </h3>
-            <ul className="space-y-4 text-sm text-white/70">
-              <li className="flex items-start gap-3">
-                <MapPin className="size-4 shrink-0 text-[#F5C842] mt-0.5" />
-                <address className="not-italic leading-relaxed">
-                  14101 Interurban Ave S<br />
-                  Unit 78-A
-                  <br />
-                  Tukwila, WA 98168
-                </address>
-              </li>
+            <ul className="space-y-4 text-[14px] font-medium text-white/70 mt-2">
               <li className="flex items-center gap-3">
                 <Phone className="size-4 shrink-0 text-[#F5C842]" />
                 <a
                   href="tel:+12067726077"
-                  className="font-semibold text-white hover:text-[#F5C842] transition-colors"
+                  className="font-bold text-white hover:text-[#F5C842] transition-colors"
                 >
                   (206) 772-6077
                 </a>
               </li>
-              <li className="flex items-center gap-3">
-                <Mail className="size-4 shrink-0 text-[#F5C842]" />
-                <a
-                  href="mailto:info@allphaseplumbing.com"
-                  className="hover:text-[#F5C842] transition-colors break-all"
-                >
-                  info@allphaseplumbing.com
-                </a>
-              </li>
               <li className="flex items-start gap-3">
-                <Clock className="size-4 shrink-0 text-[#F5C842] mt-0.5" />
-                <div className="leading-relaxed">
-                  <p>Mon–Fri: 7am – 7pm</p>
-                  <p>Sat–Sun: 8am – 5pm</p>
-                  <p className="text-[#F5C842] font-normal mt-1">24/7 Emergency</p>
-                </div>
+                <MapPin className="size-4 shrink-0 text-[#F5C842] mt-0.5" />
+                <address className="not-italic leading-relaxed">
+                  14101 Interurban Ave S<br />
+                  Unit 78-A Tukwila, WA,<br />
+                  98168 United States
+                </address>
               </li>
             </ul>
           </div>
         </div>
       </div>
 
+      {/* Mascot standing at the bottom right */}
+      <div className="absolute bottom-0 right-4 sm:right-10 lg:right-8 z-20 pointer-events-none select-none hidden sm:block">
+        <img
+          src={mascot}
+          alt="All Phase Plumbing Mascot"
+          className="h-[210px] sm:h-[250px] lg:h-[300px] w-auto object-contain drop-shadow-[0_8px_24px_rgba(0,0,0,0.5)]"
+        />
+      </div>
+
       {/* Copyright bar */}
       <div className="relative z-10 bg-[#152a55] border-t border-white/10 py-4 text-center">
-        <p className="text-xs font-normal tracking-widest text-white/50 uppercase">
+        <p className="text-[13px] font-normal tracking-widest text-white/50 uppercase">
           © {new Date().getFullYear()} All Phase Plumbing · All Rights Reserved · Tukwila, WA
         </p>
       </div>

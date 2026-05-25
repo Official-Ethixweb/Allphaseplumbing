@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Outlet,
@@ -123,6 +124,59 @@ function RootShell({ children }: { children: React.ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+
+  useEffect(() => {
+    // 1. Define the Intersection Observer
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("heading-fade-in");
+            // Unobserve once animated so it stays in place
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.05, rootMargin: "0px 0px -50px 0px" }
+    );
+
+    // 2. Helper function to check and register headings
+    const observeElement = (el: Element) => {
+      const isHeading =
+        el.tagName === "H1" ||
+        el.tagName === "H2" ||
+        el.tagName === "H3" ||
+        el.classList.contains("tracking-widest") || // eyebrow spans
+        el.classList.contains("heading-slide-up");
+
+      if (isHeading && !el.classList.contains("heading-observed")) {
+        el.classList.add("heading-observed", "heading-pre-animate");
+        observer.observe(el);
+      }
+    };
+
+    // 3. Scan initial DOM
+    document.querySelectorAll("h1, h2, h3, .tracking-widest").forEach(observeElement);
+
+    // 4. Setup Mutation Observer to watch for routing node additions dynamically
+    const mutationObserver = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        mutation.addedNodes.forEach((node) => {
+          if (node instanceof Element) {
+            observeElement(node);
+            node.querySelectorAll("h1, h2, h3, .tracking-widest").forEach(observeElement);
+          }
+        });
+      });
+    });
+
+    mutationObserver.observe(document.body, { childList: true, subtree: true });
+
+    return () => {
+      observer.disconnect();
+      mutationObserver.disconnect();
+    };
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>

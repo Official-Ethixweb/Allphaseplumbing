@@ -49,7 +49,7 @@ export function TopBar() {
           href="https://www.google.com/search?q=All+Phase+Plumbing+Tukwila+WA+reviews"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center justify-end gap-4 pt-[13px] pb-[9px] pr-6 bg-[#6B9EF8] text-white hover:bg-[#5088dc] transition-colors duration-200 whitespace-nowrap"
+          className="flex items-center justify-end gap-4 pt-[13px] pb-[13px] pr-6 bg-[#6B9EF8] text-white hover:bg-[#5088dc] transition-colors duration-200 whitespace-nowrap"
         >
           <div className="flex gap-0.5 mr-[10%]">
             {Array.from({ length: 5 }).map((_, i) => (
@@ -65,7 +65,7 @@ export function TopBar() {
         <div ref={dropRef} className="relative shrink-0">
           <button
             onClick={() => setNearMeOpen((p) => !p)}
-            className="flex items-center justify-center gap-2 w-full h-full px-[94px] pt-[13px] pb-[9px] bg-[#1E3A8A] text-white hover:bg-[#162e58] transition-colors duration-200 tracking-wide font-normal text-[17px] whitespace-nowrap"
+            className="flex items-center justify-center gap-2 w-full h-full px-[94px] pt-[13px] pb-[13px] bg-[#1E3A8A] text-white hover:bg-[#162e58] transition-colors duration-200 tracking-wide font-normal text-[17px] whitespace-nowrap"
           >
             <span>Find All Phase Near Me</span>
             <ChevronDown
@@ -83,7 +83,7 @@ export function TopBar() {
                       key={city}
                       to="/service-area"
                       onClick={() => setNearMeOpen(false)}
-                      className="border-b border-[#1E3A7B]/15 pt-[13px] pb-[9px] px-1 font-bold text-[#1E3A6E] hover:text-[#F5C842] hover:pl-3 transition-all duration-200 flex justify-between items-center"
+                      className="border-b border-[#1E3A7B]/15 pt-[13px] pb-[13px] px-1 font-bold text-[#1E3A6E] hover:text-[#F5C842] hover:pl-3 transition-all duration-200 flex justify-between items-center"
                     >
                       <span>{city}</span>
                       <span className="text-gray-300 text-xs font-normal">WA</span>
@@ -96,7 +96,7 @@ export function TopBar() {
                       key={city}
                       to="/service-area"
                       onClick={() => setNearMeOpen(false)}
-                      className="border-b border-[#1E3A7B]/15 pt-[13px] pb-[9px] px-1 font-bold text-[#1E3A6E] hover:text-[#F5C842] hover:pl-3 transition-all duration-200 flex justify-between items-center"
+                      className="border-b border-[#1E3A7B]/15 pt-[13px] pb-[13px] px-1 font-bold text-[#1E3A6E] hover:text-[#F5C842] hover:pl-3 transition-all duration-200 flex justify-between items-center"
                     >
                       <span>{city}</span>
                       <span className="text-gray-300 text-xs font-normal">WA</span>

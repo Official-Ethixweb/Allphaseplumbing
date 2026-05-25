@@ -40,12 +40,12 @@ function Index() {
         <Services />
         <WhyUs />
         <Badges />
-        <CustomerQuote />
-        <Coupons />
         <TeamSection />
+        <Coupons />
+        <CustomerQuote />
+        <CTABanner />
         <ServiceArea />
         <BlogPreview />
-        <CTABanner />
       </main>
       <Footer />
     </div>

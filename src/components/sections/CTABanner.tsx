@@ -78,9 +78,9 @@ export function CTABanner() {
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-8 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 lg:gap-8 items-end">
           {/* Left Column — van slides in from left, sits flush against the form */}
-          <div className="lg:col-span-3 flex flex-col justify-end items-center lg:items-end relative select-none">
+          <div className="lg:col-span-2 flex flex-col justify-end items-center lg:items-end relative select-none lg:-translate-x-[320px]">
             <div
-              className={`w-full ml-auto transition-opacity duration-300
+              className={`w-[560px] sm:w-[680px] lg:w-[840px] ml-auto transition-opacity duration-300
                           mb-[-28px] sm:mb-[-30px] md:mb-[-32px] ${
                             isAnimated ? "animate-van-slide opacity-100" : "opacity-0"
                           }`}
@@ -97,8 +97,8 @@ export function CTABanner() {
           </div>
 
           {/* Right Column — contact card */}
-          <div className="lg:col-span-2 w-full flex justify-center lg:justify-start self-center">
-            <div className="bg-white rounded-2xl shadow-2xl border-2 border-[#1E3A7B]/20 w-full max-w-[520px] hover:shadow-[0_20px_50px_rgba(0,0,0,0.3)] transition-all duration-300 overflow-hidden">
+          <div className="lg:col-span-3 w-full flex justify-center lg:justify-end self-center">
+            <div className="bg-white rounded-2xl shadow-2xl border-2 border-[#1E3A7B]/20 w-full max-w-[720px] hover:shadow-[0_20px_50px_rgba(0,0,0,0.3)] transition-all duration-300 overflow-hidden">
               {/* Blue gradient header strip */}
               <div
                 className="px-6 sm:px-10 py-5 sm:py-7"
