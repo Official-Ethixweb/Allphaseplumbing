@@ -35,7 +35,7 @@ body {
   width: 10px;
   height: 10px;
   background: var(--pn-base, #1E3A6E);
-  border-radius: 9999px !important;
+  border-radius: 0 !important;
   z-index: 4;
   pointer-events: none;
 }
@@ -374,16 +374,19 @@ body {
   z-index: 9 !important;
 }
 
-/* ─── Global rounded-corners boost ─────────────────────────────────────── */
-/* Every explicit rounded-2xl or rounded-xl gets slightly rounder edges    */
-.rounded-xl {
-  border-radius: 1rem !important;
-}
-.rounded-2xl {
-  border-radius: 1.25rem !important;
-}
-.rounded-lg {
-  border-radius: 0.75rem !important;
+/* ─── Force every rounded-* utility to render with pointy corners ─────── */
+.rounded-xs,
+.rounded-sm,
+.rounded,
+.rounded-md,
+.rounded-lg,
+.rounded-xl,
+.rounded-2xl,
+.rounded-3xl,
+.rounded-4xl,
+.rounded-full,
+[class*="rounded-"] {
+  border-radius: 0 !important;
 }
 
 /* ─── Plumbing tool slide-in (CustomerQuote) ────────────────────────────── */
