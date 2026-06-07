@@ -85,17 +85,32 @@ const CONTENT: ServicePageContent = {
     {
       heading: 'Need "Seattle Toilet Repair Near Me"? Call the Experts!',
       paragraphs: [
-        'Searching for "Seattle toilet repair near me"? All Phase Plumbing is your local team for expert toilet repair, replacement, and installation throughout the Seattle area. Whether it\'s a leak, clog, or complete upgrade, we\'re ready to help fast.',
+        "Searching for \"Seattle toilet repair near me\"? All Phase Plumbing is your local team for expert toilet repair, replacement, and installation throughout the Seattle area. Whether it's a leak, clog, or complete upgrade, we're ready to help fast.",
         "Call (206) 772-6077 today or schedule online for prompt, professional toilet service you can count on.",
       ],
     },
   ],
   faqs: [
-    { q: "Why does my toilet keep running?", a: "Usually a worn flapper, fill valve, or chain length issue. These are inexpensive parts but a slow refill leak can waste hundreds of gallons a month. We replace the failed parts and adjust the tank to stop the running for good." },
-    { q: "How do I know if I need a new toilet vs. a repair?", a: "If you've had two or more repairs in a year, the tank or bowl is cracked, or it's a high-water-use model from the 90s, replacement usually pays for itself in water savings within a few years." },
-    { q: "Do you install bidet and smart toilets?", a: "Yes. We handle smart and bidet-integrated toilets including the additional water supply and electrical considerations they often need." },
-    { q: "What causes a toilet to leak around the base?", a: "Almost always a failed wax ring or loose flange bolts. Don't wait, water leaking under the toilet can rot the subfloor. We reset the toilet with a new seal and check the flange for damage." },
-    { q: "Can you replace a toilet during a bathroom remodel?", a: "Absolutely. We coordinate with your remodel timeline so the new toilet goes in after flooring and is ready when the rest of the bathroom is finished." },
+    {
+      q: "Why does my toilet keep running?",
+      a: "Usually a worn flapper, fill valve, or chain length issue. These are inexpensive parts but a slow refill leak can waste hundreds of gallons a month. We replace the failed parts and adjust the tank to stop the running for good.",
+    },
+    {
+      q: "How do I know if I need a new toilet vs. a repair?",
+      a: "If you've had two or more repairs in a year, the tank or bowl is cracked, or it's a high-water-use model from the 90s, replacement usually pays for itself in water savings within a few years.",
+    },
+    {
+      q: "Do you install bidet and smart toilets?",
+      a: "Yes. We handle smart and bidet-integrated toilets including the additional water supply and electrical considerations they often need.",
+    },
+    {
+      q: "What causes a toilet to leak around the base?",
+      a: "Almost always a failed wax ring or loose flange bolts. Don't wait, water leaking under the toilet can rot the subfloor. We reset the toilet with a new seal and check the flange for damage.",
+    },
+    {
+      q: "Can you replace a toilet during a bathroom remodel?",
+      a: "Absolutely. We coordinate with your remodel timeline so the new toilet goes in after flooring and is ready when the rest of the bathroom is finished.",
+    },
   ],
   related: [
     { label: "Plumbing", href: "/services/plumbing" },
@@ -109,7 +124,11 @@ export const Route = createFileRoute("/services/plumbing/toilets")({
   head: () => ({
     meta: [
       { title: "Seattle Toilet Repair, Replacement & Installation, All Phase Plumbing" },
-      { name: "description", content: "Seattle toilet repair, replacement, and installation. Licensed plumbers, modern fixtures, fast service." },
+      {
+        name: "description",
+        content:
+          "Seattle toilet repair, replacement, and installation. Licensed plumbers, modern fixtures, fast service.",
+      },
     ],
   }),
   component: () => (
@@ -121,7 +140,11 @@ export const Route = createFileRoute("/services/plumbing/toilets")({
           <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-6">
             What Our Customers Say About All Phase Plumbing
           </h2>
-          <Link to="/about" className="inline-flex items-center justify-center px-8 py-3 text-sm font-extrabold text-white tracking-widest uppercase shadow-md hover:opacity-90 transition-all duration-200 border-4 border-[#1E3A6E]" style={{ background: "linear-gradient(135deg, #F5C842 0%, #d4a82e 100%)" }}>
+          <Link
+            to="/about"
+            className="inline-flex items-center justify-center px-8 py-3 text-sm font-extrabold text-white tracking-widest uppercase shadow-md hover:opacity-90 transition-all duration-200 border-4 border-[#1E3A6E]"
+            style={{ background: "linear-gradient(135deg, #F5C842 0%, #d4a82e 100%)" }}
+          >
             Read More
           </Link>
         </div>

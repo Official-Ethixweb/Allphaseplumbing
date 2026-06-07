@@ -1,6 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/layout/PageShell";
-import { ServicePageTemplate, type ServicePageContent } from "@/components/sections/ServicePageTemplate";
+import {
+  ServicePageTemplate,
+  type ServicePageContent,
+} from "@/components/sections/ServicePageTemplate";
 import { WhyUs } from "@/components/sections/WhyUs";
 
 const CONTENT: ServicePageContent = {
@@ -52,11 +55,26 @@ const CONTENT: ServicePageContent = {
     },
   ],
   faqs: [
-    { q: "Can you install a toilet I bought myself?", a: "Yes, happens often. We confirm rough-in dimensions are compatible before starting." },
-    { q: "Do I need a new wax ring?", a: "Always on a fresh install. Reusing an old wax ring is one of the most common causes of base leaks." },
-    { q: "Should you replace the shutoff valve too?", a: "If the existing valve is sticky, leaking, or old, yes, it's much cheaper to do it while the toilet is off than as a separate call later." },
-    { q: "How long does installation take?", a: "Most standard replacements take 60–90 minutes. Wall-hung or smart toilets can take 2–3 hours." },
-    { q: "Will you haul away the old toilet?", a: "Yes, old toilet disposal is included with installation." },
+    {
+      q: "Can you install a toilet I bought myself?",
+      a: "Yes, happens often. We confirm rough-in dimensions are compatible before starting.",
+    },
+    {
+      q: "Do I need a new wax ring?",
+      a: "Always on a fresh install. Reusing an old wax ring is one of the most common causes of base leaks.",
+    },
+    {
+      q: "Should you replace the shutoff valve too?",
+      a: "If the existing valve is sticky, leaking, or old, yes, it's much cheaper to do it while the toilet is off than as a separate call later.",
+    },
+    {
+      q: "How long does installation take?",
+      a: "Most standard replacements take 60–90 minutes. Wall-hung or smart toilets can take 2–3 hours.",
+    },
+    {
+      q: "Will you haul away the old toilet?",
+      a: "Yes, old toilet disposal is included with installation.",
+    },
   ],
   related: [
     { label: "Toilets", href: "/services/plumbing/toilets" },
@@ -70,7 +88,11 @@ export const Route = createFileRoute("/services/plumbing/toilet-installation")({
   head: () => ({
     meta: [
       { title: "Seattle Toilet Installation, All Phase Plumbing" },
-      { name: "description", content: "Seattle toilet installation, standard, dual-flush, wall-hung, smart, and ADA models. Leak-tested, code-compliant installation." },
+      {
+        name: "description",
+        content:
+          "Seattle toilet installation, standard, dual-flush, wall-hung, smart, and ADA models. Leak-tested, code-compliant installation.",
+      },
     ],
   }),
   component: () => (
@@ -79,8 +101,16 @@ export const Route = createFileRoute("/services/plumbing/toilet-installation")({
       <WhyUs />
       <section className="py-12 bg-white">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-6">What Our Customers Say About All Phase Plumbing</h2>
-          <Link to="/about" className="inline-flex items-center justify-center px-8 py-3 text-sm font-extrabold text-white tracking-widest uppercase shadow-md hover:opacity-90 transition-all duration-200 border-4 border-[#1E3A6E]" style={{ background: "linear-gradient(135deg, #F5C842 0%, #d4a82e 100%)" }}>Read More</Link>
+          <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-6">
+            What Our Customers Say About All Phase Plumbing
+          </h2>
+          <Link
+            to="/about"
+            className="inline-flex items-center justify-center px-8 py-3 text-sm font-extrabold text-white tracking-widest uppercase shadow-md hover:opacity-90 transition-all duration-200 border-4 border-[#1E3A6E]"
+            style={{ background: "linear-gradient(135deg, #F5C842 0%, #d4a82e 100%)" }}
+          >
+            Read More
+          </Link>
         </div>
       </section>
     </PageShell>

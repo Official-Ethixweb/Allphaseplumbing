@@ -53,7 +53,11 @@ function CyclingSplitText({
         const next = (i + 1) % lines.length;
 
         if (split) {
-          try { split.revert(); } catch { /* noop */ }
+          try {
+            split.revert();
+          } catch {
+            /* noop */
+          }
           split = null;
         }
         el.innerHTML = `${lines[i][0]}<br/>${lines[i][1]}`;
@@ -108,7 +112,11 @@ function CyclingSplitText({
         tweens.forEach((t) => t.kill());
         delayedCalls.forEach((d) => d.kill());
         if (split) {
-          try { split.revert(); } catch { /* noop */ }
+          try {
+            split.revert();
+          } catch {
+            /* noop */
+          }
         }
       };
     },
@@ -152,16 +160,11 @@ export function Hero() {
       />
 
       {/* ── Content ── */}
-      <div
-        className="relative z-10 container mx-auto px-4 pt-28 pb-0"
-        style={{ zoom: 0.9 }}
-      >
+      <div className="relative z-10 container mx-auto px-4 pt-28 pb-0" style={{ zoom: 0.9 }}>
         {/* ── Two-column: text LEFT ·  mascot RIGHT ── */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-end">
           {/* LEFT, hero copy (10% larger, shifted 10% left) */}
-          <div
-            className="pb-20 lg:-ml-10 xl:-ml-16 lg:[transform:scale(1.1)_translateX(0%)] lg:[transform-origin:top_left]"
-          >
+          <div className="pb-20 lg:-ml-10 xl:-ml-16 lg:[transform:scale(1.1)_translateX(0%)] lg:[transform-origin:top_left]">
             <span
               className="text-white font-bold text-[34px] tracking-wide"
               style={{
@@ -173,10 +176,7 @@ export function Hero() {
               All Phase Plumbing
             </span>
 
-            <div
-              className="mt-4 relative"
-              style={{ minHeight: "2.6em" }}
-            >
+            <div className="mt-4 relative" style={{ minHeight: "2.6em" }}>
               <CyclingSplitText
                 lines={HERO_TAGLINES}
                 intervalMs={3000}
@@ -365,130 +365,135 @@ export function Hero() {
                 </h2>
 
                 <form onSubmit={(e) => e.preventDefault()}>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2.5 sm:gap-3 items-stretch">
-                  <input
-                    type="text"
-                    placeholder="FULL NAME*"
-                    required
-                    className="rounded-lg border-2 border-[#1E3A6E] bg-white px-3.5 py-2.5 sm:px-4 sm:py-3.5 text-[14px] sm:text-[15px] font-semibold text-[#1E3A6E] placeholder:text-gray-400 placeholder:font-semibold focus:outline-none focus:ring-2 focus:ring-[#1E3A6E] transition-shadow"
-                  />
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2.5 sm:gap-3 items-stretch">
+                    <input
+                      type="text"
+                      placeholder="FULL NAME*"
+                      required
+                      className="rounded-lg border-2 border-[#1E3A6E] bg-white px-3.5 py-2.5 sm:px-4 sm:py-3.5 text-[14px] sm:text-[15px] font-semibold text-[#1E3A6E] placeholder:text-gray-400 placeholder:font-semibold focus:outline-none focus:ring-2 focus:ring-[#1E3A6E] transition-shadow"
+                    />
 
-                  <input
-                    type="tel"
-                    placeholder="PHONE*"
-                    required
-                    className="rounded-lg border-2 border-[#1E3A6E] bg-white px-3.5 py-2.5 sm:px-4 sm:py-3.5 text-[14px] sm:text-[15px] font-semibold text-[#1E3A6E] placeholder:text-gray-400 placeholder:font-semibold focus:outline-none focus:ring-2 focus:ring-[#1E3A6E] transition-shadow"
-                  />
+                    <input
+                      type="tel"
+                      placeholder="PHONE*"
+                      required
+                      className="rounded-lg border-2 border-[#1E3A6E] bg-white px-3.5 py-2.5 sm:px-4 sm:py-3.5 text-[14px] sm:text-[15px] font-semibold text-[#1E3A6E] placeholder:text-gray-400 placeholder:font-semibold focus:outline-none focus:ring-2 focus:ring-[#1E3A6E] transition-shadow"
+                    />
 
-                  <input
-                    type="email"
-                    placeholder="EMAIL*"
-                    required
-                    className="rounded-lg border-2 border-[#1E3A6E] bg-white px-3.5 py-2.5 sm:px-4 sm:py-3.5 text-[14px] sm:text-[15px] font-semibold text-[#1E3A6E] placeholder:text-gray-400 placeholder:font-semibold focus:outline-none focus:ring-2 focus:ring-[#1E3A6E] transition-shadow"
-                  />
+                    <input
+                      type="email"
+                      placeholder="EMAIL*"
+                      required
+                      className="rounded-lg border-2 border-[#1E3A6E] bg-white px-3.5 py-2.5 sm:px-4 sm:py-3.5 text-[14px] sm:text-[15px] font-semibold text-[#1E3A6E] placeholder:text-gray-400 placeholder:font-semibold focus:outline-none focus:ring-2 focus:ring-[#1E3A6E] transition-shadow"
+                    />
 
-                  <input
-                    type="text"
-                    placeholder="ZIP CODE*"
-                    required
-                    maxLength={10}
-                    className="rounded-lg border-2 border-[#1E3A6E] bg-white px-3.5 py-2.5 sm:px-4 sm:py-3.5 text-[14px] sm:text-[15px] font-semibold text-[#1E3A6E] placeholder:text-gray-400 placeholder:font-semibold focus:outline-none focus:ring-2 focus:ring-[#1E3A6E] transition-shadow"
-                  />
+                    <input
+                      type="text"
+                      placeholder="ZIP CODE*"
+                      required
+                      maxLength={10}
+                      className="rounded-lg border-2 border-[#1E3A6E] bg-white px-3.5 py-2.5 sm:px-4 sm:py-3.5 text-[14px] sm:text-[15px] font-semibold text-[#1E3A6E] placeholder:text-gray-400 placeholder:font-semibold focus:outline-none focus:ring-2 focus:ring-[#1E3A6E] transition-shadow"
+                    />
 
-                  <select
-                    required
-                    defaultValue=""
-                    className="rounded-lg border-2 border-[#1E3A6E] bg-white px-3.5 py-2.5 sm:px-4 sm:py-3.5 text-[14px] sm:text-[15px] font-semibold text-[#1E3A6E] focus:outline-none focus:ring-2 focus:ring-[#1E3A6E] transition-shadow sm:col-span-2 lg:col-span-1 appearance-none"
-                    style={{
-                      backgroundImage: `url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231E3A6E' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e")`,
-                      backgroundRepeat: "no-repeat",
-                      backgroundPosition: "right 12px center",
-                      backgroundSize: "16px",
-                      paddingRight: "36px",
-                    }}
-                  >
-                    <option value="" disabled>
-                      SERVICE NEEDED*
-                    </option>
-                    {serviceType === "residential" ? (
-                      <>
-                        <option value="Drain Cleaning">Drain Cleaning</option>
-                        <option value="Emergency Plumber">Emergency Plumber</option>
-                        <option value="Garbage Disposals">Garbage Disposals</option>
-                        <option value="Hydro Jetting">Hydro Jetting</option>
-                        <option value="Repiping">Repiping</option>
-                        <option value="Sump Pumps">Sump Pumps</option>
-                        <option value="Toilets & Faucets">Toilets &amp; Faucets</option>
-                        <option value="Water Heaters">Water Heaters</option>
-                        <option value="Leak Detection">Leak Detection</option>
-                        <option value="Water Softeners">Water Softeners &amp; Filtration</option>
-                        <option value="Sewer Repair">Sewer Line Repair</option>
-                        <option value="Other">Other Service</option>
-                      </>
-                    ) : (
-                      <>
-                        <option value="Commercial Drain Cleaning">Commercial Drain Cleaning</option>
-                        <option value="Commercial Plumbing Repair">Commercial Plumbing Repair</option>
-                        <option value="Commercial Sewer Services">Commercial Sewer Services</option>
-                        <option value="Backflow Testing">Backflow Testing</option>
-                        <option value="Gas Line Service">Gas Line Service</option>
-                        <option value="Other Commercial">Other Commercial Service</option>
-                      </>
-                    )}
-                  </select>
-                </div>
+                    <select
+                      required
+                      defaultValue=""
+                      className="rounded-lg border-2 border-[#1E3A6E] bg-white px-3.5 py-2.5 sm:px-4 sm:py-3.5 text-[14px] sm:text-[15px] font-semibold text-[#1E3A6E] focus:outline-none focus:ring-2 focus:ring-[#1E3A6E] transition-shadow sm:col-span-2 lg:col-span-1 appearance-none"
+                      style={{
+                        backgroundImage: `url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231E3A6E' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e")`,
+                        backgroundRepeat: "no-repeat",
+                        backgroundPosition: "right 12px center",
+                        backgroundSize: "16px",
+                        paddingRight: "36px",
+                      }}
+                    >
+                      <option value="" disabled>
+                        SERVICE NEEDED*
+                      </option>
+                      {serviceType === "residential" ? (
+                        <>
+                          <option value="Drain Cleaning">Drain Cleaning</option>
+                          <option value="Emergency Plumber">Emergency Plumber</option>
+                          <option value="Garbage Disposals">Garbage Disposals</option>
+                          <option value="Hydro Jetting">Hydro Jetting</option>
+                          <option value="Repiping">Repiping</option>
+                          <option value="Sump Pumps">Sump Pumps</option>
+                          <option value="Toilets & Faucets">Toilets &amp; Faucets</option>
+                          <option value="Water Heaters">Water Heaters</option>
+                          <option value="Leak Detection">Leak Detection</option>
+                          <option value="Water Softeners">Water Softeners &amp; Filtration</option>
+                          <option value="Sewer Repair">Sewer Line Repair</option>
+                          <option value="Other">Other Service</option>
+                        </>
+                      ) : (
+                        <>
+                          <option value="Commercial Drain Cleaning">
+                            Commercial Drain Cleaning
+                          </option>
+                          <option value="Commercial Plumbing Repair">
+                            Commercial Plumbing Repair
+                          </option>
+                          <option value="Commercial Sewer Services">
+                            Commercial Sewer Services
+                          </option>
+                          <option value="Backflow Testing">Backflow Testing</option>
+                          <option value="Gas Line Service">Gas Line Service</option>
+                          <option value="Other Commercial">Other Commercial Service</option>
+                        </>
+                      )}
+                    </select>
+                  </div>
 
-                <div className="mt-3.5 sm:mt-4 flex justify-center">
-                  <StarBorder
-                    type="submit"
-                    className="inline-block active:scale-[0.98] transition-all"
-                    innerClassName="font-bold px-8 py-2.5 text-[17px] sm:px-16 sm:py-3 sm:text-[22px]"
-                    innerStyle={{
-                      background: "#F5C842",
-                      color: "#1E3A6E",
-                      border: "2px solid #1E3A6E",
-                    }}
-                  >
-                    Send Request
-                  </StarBorder>
-                </div>
+                  <div className="mt-3.5 sm:mt-4 flex justify-center">
+                    <StarBorder
+                      type="submit"
+                      className="inline-block active:scale-[0.98] transition-all"
+                      innerClassName="font-bold px-8 py-2.5 text-[17px] sm:px-16 sm:py-3 sm:text-[22px]"
+                      innerStyle={{
+                        background: "#F5C842",
+                        color: "#1E3A6E",
+                        border: "2px solid #1E3A6E",
+                      }}
+                    >
+                      Send Request
+                    </StarBorder>
+                  </div>
 
-                {/* SMS opt-in */}
-                <div className="mt-3 flex items-start gap-2">
-                  <input
-                    id="sms-optin"
-                    type="checkbox"
-                    checked={smsOptIn}
-                    onChange={(e) => setSmsOptIn(e.target.checked)}
-                    className="mt-1 size-4 rounded border-white accent-[#1E3A6E] cursor-pointer shrink-0"
-                  />
-                  <label
-                    htmlFor="sms-optin"
-                    className="text-[12px] sm:text-[13px] text-white cursor-pointer leading-relaxed"
-                  >
-                    By submitting this form and signing up for texts, you consent to receive
-                    messages from All Phase Plumbing at the number provided regarding your request,
-                    updates about appointments and services or promotions and offers, including
-                    messages sent by autodialer. Consent is not a condition of purchase. Msg &amp;
-                    data rates may apply. Msg frequency varies. Unsubscribe at any time by replying
-                    STOP. Reply HELP for help.
-                  </label>
-                </div>
+                  {/* SMS opt-in */}
+                  <div className="mt-3 flex items-start gap-2">
+                    <input
+                      id="sms-optin"
+                      type="checkbox"
+                      checked={smsOptIn}
+                      onChange={(e) => setSmsOptIn(e.target.checked)}
+                      className="mt-1 size-4 rounded border-white accent-[#1E3A6E] cursor-pointer shrink-0"
+                    />
+                    <label
+                      htmlFor="sms-optin"
+                      className="text-[12px] sm:text-[13px] text-white cursor-pointer leading-relaxed"
+                    >
+                      By submitting this form and signing up for texts, you consent to receive
+                      messages from All Phase Plumbing at the number provided regarding your
+                      request, updates about appointments and services or promotions and offers,
+                      including messages sent by autodialer. Consent is not a condition of purchase.
+                      Msg &amp; data rates may apply. Msg frequency varies. Unsubscribe at any time
+                      by replying STOP. Reply HELP for help.
+                    </label>
+                  </div>
 
-                <p className="mt-3 text-[12px] sm:text-[13px] text-white/75 leading-relaxed border-t border-white/15 pt-2.5">
-
-                  By entering your email address, you agree to receive emails about services,
-                  updates or promotions, and you agree to our{" "}
-                  <a href="/about" className="underline hover:text-[#F5C842]">
-                    Terms
-                  </a>{" "}
-                  and{" "}
-                  <a href="/about" className="underline hover:text-[#F5C842]">
-                    Privacy Policy
-                  </a>
-                  . You may unsubscribe at any time.
-                </p>
-              </form>
+                  <p className="mt-3 text-[12px] sm:text-[13px] text-white/75 leading-relaxed border-t border-white/15 pt-2.5">
+                    By entering your email address, you agree to receive emails about services,
+                    updates or promotions, and you agree to our{" "}
+                    <a href="/about" className="underline hover:text-[#F5C842]">
+                      Terms
+                    </a>{" "}
+                    and{" "}
+                    <a href="/about" className="underline hover:text-[#F5C842]">
+                      Privacy Policy
+                    </a>
+                    . You may unsubscribe at any time.
+                  </p>
+                </form>
               </div>
             </div>
           </div>

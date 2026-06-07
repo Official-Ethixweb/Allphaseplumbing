@@ -85,11 +85,26 @@ const CONTENT: ServicePageContent = {
     },
   ],
   faqs: [
-    { q: "How is hydro jetting different from snaking?", a: "Snaking punches a hole through the clog. Hydro jetting cleans the entire inner diameter of the pipe with high-pressure water, removing buildup that grows the clog back. Jetting prevents recurrence." },
-    { q: "Is hydro jetting safe for my pipes?", a: "On healthy modern pipes, yes. We always camera-inspect first to confirm the line can handle the pressure. If pipes are cracked or fragile, we recommend repair before jetting." },
-    { q: "How often should I get my main line jetted?", a: "Homes with frequent grease, tree-root issues, or older clay lines benefit from every 12–18 months. Average homes can go a few years between professional jettings." },
-    { q: "Will hydro jetting clear tree roots?", a: "Yes, we use a root-cutting jetter head specifically for this. For severe root intrusion, we may recommend trenchless sewer repair as a longer-term fix." },
-    { q: "How long does a hydro jetting service take?", a: "Most residential jobs run 1–2 hours including camera inspection. Larger commercial lines can take longer depending on length and severity." },
+    {
+      q: "How is hydro jetting different from snaking?",
+      a: "Snaking punches a hole through the clog. Hydro jetting cleans the entire inner diameter of the pipe with high-pressure water, removing buildup that grows the clog back. Jetting prevents recurrence.",
+    },
+    {
+      q: "Is hydro jetting safe for my pipes?",
+      a: "On healthy modern pipes, yes. We always camera-inspect first to confirm the line can handle the pressure. If pipes are cracked or fragile, we recommend repair before jetting.",
+    },
+    {
+      q: "How often should I get my main line jetted?",
+      a: "Homes with frequent grease, tree-root issues, or older clay lines benefit from every 12–18 months. Average homes can go a few years between professional jettings.",
+    },
+    {
+      q: "Will hydro jetting clear tree roots?",
+      a: "Yes, we use a root-cutting jetter head specifically for this. For severe root intrusion, we may recommend trenchless sewer repair as a longer-term fix.",
+    },
+    {
+      q: "How long does a hydro jetting service take?",
+      a: "Most residential jobs run 1–2 hours including camera inspection. Larger commercial lines can take longer depending on length and severity.",
+    },
   ],
   related: [
     { label: "Drain Cleaning", href: "/services/drain-cleaning" },
@@ -103,7 +118,11 @@ export const Route = createFileRoute("/services/plumbing/hydro-jetting")({
   head: () => ({
     meta: [
       { title: "Seattle Hydro Jetting, All Phase Plumbing" },
-      { name: "description", content: "Professional hydro jetting in Seattle. Removes grease, scale, and tree roots from drains and sewer lines." },
+      {
+        name: "description",
+        content:
+          "Professional hydro jetting in Seattle. Removes grease, scale, and tree roots from drains and sewer lines.",
+      },
     ],
   }),
   component: () => (
@@ -115,7 +134,11 @@ export const Route = createFileRoute("/services/plumbing/hydro-jetting")({
           <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-6">
             What Our Customers Say About All Phase Plumbing
           </h2>
-          <Link to="/about" className="inline-flex items-center justify-center px-8 py-3 text-sm font-extrabold text-white tracking-widest uppercase shadow-md hover:opacity-90 transition-all duration-200 border-4 border-[#1E3A6E]" style={{ background: "linear-gradient(135deg, #F5C842 0%, #d4a82e 100%)" }}>
+          <Link
+            to="/about"
+            className="inline-flex items-center justify-center px-8 py-3 text-sm font-extrabold text-white tracking-widest uppercase shadow-md hover:opacity-90 transition-all duration-200 border-4 border-[#1E3A6E]"
+            style={{ background: "linear-gradient(135deg, #F5C842 0%, #d4a82e 100%)" }}
+          >
             Read More
           </Link>
         </div>

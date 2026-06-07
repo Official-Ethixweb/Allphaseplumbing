@@ -34,9 +34,7 @@ const CONTENT: ServicePageContent = {
     },
     {
       heading: "Signs You Need Gas Line Repair",
-      paragraphs: [
-        "Common signs include:",
-      ],
+      paragraphs: ["Common signs include:"],
       list: [
         "Smell of gas or sulfur-like odor",
         "Hissing or whistling sounds near gas lines",
@@ -61,9 +59,7 @@ const CONTENT: ServicePageContent = {
     },
     {
       heading: "Gas Line Repair for Appliances",
-      paragraphs: [
-        "We provide gas line repair for:",
-      ],
+      paragraphs: ["We provide gas line repair for:"],
       list: [
         "Gas stoves and ovens",
         "Water heaters",
@@ -74,9 +70,7 @@ const CONTENT: ServicePageContent = {
     },
     {
       heading: "Why Professional Gas Line Repair Matters",
-      paragraphs: [
-        "Professional gas line repair provides:",
-      ],
+      paragraphs: ["Professional gas line repair provides:"],
       list: [
         "Accurate diagnosis",
         "Safe repair methods",
@@ -87,9 +81,7 @@ const CONTENT: ServicePageContent = {
     },
     {
       heading: "Our Gas Line Repair Process",
-      paragraphs: [
-        "Our process includes:",
-      ],
+      paragraphs: ["Our process includes:"],
       list: [
         "Shutting off gas supply safely",
         "Inspecting gas lines and connections",
@@ -101,9 +93,7 @@ const CONTENT: ServicePageContent = {
     },
     {
       heading: "Preventing Future Gas Line Problems",
-      paragraphs: [
-        "Helpful steps include:",
-      ],
+      paragraphs: ["Helpful steps include:"],
       list: [
         "Scheduling routine inspections",
         "Avoiding impact or movement near gas lines",

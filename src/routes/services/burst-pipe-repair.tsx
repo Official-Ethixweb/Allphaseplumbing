@@ -21,9 +21,7 @@ const CONTENT: ServicePageContent = {
     },
     {
       heading: "Professional Burst Pipe Repair Services",
-      paragraphs: [
-        "Common signs of a burst pipe include:",
-      ],
+      paragraphs: ["Common signs of a burst pipe include:"],
       list: [
         "Sudden water flooding",
         "Water leaking from walls or ceilings",
@@ -34,9 +32,7 @@ const CONTENT: ServicePageContent = {
     },
     {
       heading: "Emergency Burst Pipe Repair",
-      paragraphs: [
-        "Our emergency burst pipe repair service includes:",
-      ],
+      paragraphs: ["Our emergency burst pipe repair service includes:"],
       list: [
         "Locating the burst section",
         "Stopping water flow safely",
@@ -46,9 +42,7 @@ const CONTENT: ServicePageContent = {
     },
     {
       heading: "Causes of Burst Pipes",
-      paragraphs: [
-        "Common causes include:",
-      ],
+      paragraphs: ["Common causes include:"],
       list: [
         "Aging or weakened pipes",
         "Corrosion inside the pipe",
@@ -71,9 +65,7 @@ const CONTENT: ServicePageContent = {
     },
     {
       heading: "Water Damage Prevention After a Burst Pipe",
-      paragraphs: [
-        "After burst pipe repair, we help by:",
-      ],
+      paragraphs: ["After burst pipe repair, we help by:"],
       list: [
         "Checking for lingering leaks",
         "Confirming proper water pressure",
@@ -83,9 +75,7 @@ const CONTENT: ServicePageContent = {
     },
     {
       heading: "Why Professional Burst Pipe Repair Matters",
-      paragraphs: [
-        "Professional burst pipe repair helps:",
-      ],
+      paragraphs: ["Professional burst pipe repair helps:"],
       list: [
         "Restore water service safely",
         "Prevent repeat failures",
@@ -95,9 +85,7 @@ const CONTENT: ServicePageContent = {
     },
     {
       heading: "When to Call for Burst Pipe Repair",
-      paragraphs: [
-        "You should call for burst pipe repair if:",
-      ],
+      paragraphs: ["You should call for burst pipe repair if:"],
       list: [
         "Water is actively leaking or flooding",
         "Water pressure suddenly drops",

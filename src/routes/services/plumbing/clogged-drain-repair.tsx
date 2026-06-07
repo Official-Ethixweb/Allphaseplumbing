@@ -34,9 +34,7 @@ const CONTENT: ServicePageContent = {
       ],
     },
     {
-      paragraphs: [
-        "Each repair is tailored to the type of drain and severity of the clog.",
-      ],
+      paragraphs: ["Each repair is tailored to the type of drain and severity of the clog."],
     },
     {
       heading: "Signs You Need Clogged Drain Repair",
@@ -103,7 +101,9 @@ const CONTENT: ServicePageContent = {
     },
     {
       heading: "Our Clogged Drain Repair Process",
-      paragraphs: ["Every repair begins with a thorough evaluation of the drain system. Our process includes:"],
+      paragraphs: [
+        "Every repair begins with a thorough evaluation of the drain system. Our process includes:",
+      ],
       list: [
         "Drain inspection",
         "Identifying the clog source",
@@ -121,11 +121,26 @@ const CONTENT: ServicePageContent = {
     },
   ],
   faqs: [
-    { q: "Should I try chemical drain cleaner first?", a: "We recommend against it. Store-bought chemicals can damage pipes (especially older metal lines) and rarely clear the full clog. They also make professional clearing more hazardous." },
-    { q: "What's the difference between snaking and hydro jetting?", a: "Snaking punches through a clog. Hydro jetting cleans the entire pipe interior. For recurring clogs or grease-heavy lines, jetting is the better long-term fix." },
-    { q: "Why does the same drain keep clogging?", a: "Repeated clogs usually mean buildup in the pipe wall, a partial collapse, or a problem in the main sewer line. We camera-inspect to find the real cause instead of just clearing it again." },
-    { q: "Can you tell if my clog is local or in the main line?", a: "Yes, by checking which fixtures are affected and running a camera if needed. Multiple drains backing up usually points to the main sewer line." },
-    { q: "How fast can you respond to a backed-up drain?", a: "Same day across Seattle for most calls. For sewer backups, we treat it as an emergency and dispatch as quickly as possible." },
+    {
+      q: "Should I try chemical drain cleaner first?",
+      a: "We recommend against it. Store-bought chemicals can damage pipes (especially older metal lines) and rarely clear the full clog. They also make professional clearing more hazardous.",
+    },
+    {
+      q: "What's the difference between snaking and hydro jetting?",
+      a: "Snaking punches through a clog. Hydro jetting cleans the entire pipe interior. For recurring clogs or grease-heavy lines, jetting is the better long-term fix.",
+    },
+    {
+      q: "Why does the same drain keep clogging?",
+      a: "Repeated clogs usually mean buildup in the pipe wall, a partial collapse, or a problem in the main sewer line. We camera-inspect to find the real cause instead of just clearing it again.",
+    },
+    {
+      q: "Can you tell if my clog is local or in the main line?",
+      a: "Yes, by checking which fixtures are affected and running a camera if needed. Multiple drains backing up usually points to the main sewer line.",
+    },
+    {
+      q: "How fast can you respond to a backed-up drain?",
+      a: "Same day across Seattle for most calls. For sewer backups, we treat it as an emergency and dispatch as quickly as possible.",
+    },
   ],
   related: [
     { label: "Drain Cleaning", href: "/services/drain-cleaning" },
@@ -139,7 +154,11 @@ export const Route = createFileRoute("/services/plumbing/clogged-drain-repair")(
   head: () => ({
     meta: [
       { title: "Clogged Drain Repair Seattle, All Phase Plumbing" },
-      { name: "description", content: "Seattle clogged drain repair, kitchen, bathroom, toilet, and recurring drain issues solved at the root cause." },
+      {
+        name: "description",
+        content:
+          "Seattle clogged drain repair, kitchen, bathroom, toilet, and recurring drain issues solved at the root cause.",
+      },
     ],
   }),
   component: () => (
@@ -151,7 +170,11 @@ export const Route = createFileRoute("/services/plumbing/clogged-drain-repair")(
           <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-6">
             What Our Customers Say About All Phase Plumbing
           </h2>
-          <Link to="/about" className="inline-flex items-center justify-center px-8 py-3 text-sm font-extrabold text-white tracking-widest uppercase shadow-md hover:opacity-90 transition-all duration-200 border-4 border-[#1E3A6E]" style={{ background: "linear-gradient(135deg, #F5C842 0%, #d4a82e 100%)" }}>
+          <Link
+            to="/about"
+            className="inline-flex items-center justify-center px-8 py-3 text-sm font-extrabold text-white tracking-widest uppercase shadow-md hover:opacity-90 transition-all duration-200 border-4 border-[#1E3A6E]"
+            style={{ background: "linear-gradient(135deg, #F5C842 0%, #d4a82e 100%)" }}
+          >
             Read More
           </Link>
         </div>

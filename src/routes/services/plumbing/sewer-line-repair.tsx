@@ -121,11 +121,26 @@ const CONTENT: ServicePageContent = {
     },
   ],
   faqs: [
-    { q: "How do I know my sewer line is the actual problem?", a: "If multiple fixtures back up at the same time, the issue is almost certainly the main sewer line, not an individual drain. A camera inspection confirms it." },
-    { q: "Do you offer trenchless sewer repair?", a: "Yes. For damaged but not fully collapsed lines, trenchless lining or pipe bursting saves your landscaping. We recommend the right method after camera inspection." },
-    { q: "How fast can you respond to a sewer backup?", a: "Backups are an emergency, we dispatch same day across the Seattle area. Call (206) 772-6077 and we'll get a plumber out as quickly as possible." },
-    { q: "Will you need to dig up my yard?", a: "Not always. Trenchless repair uses small access points. Even for traditional excavation, we plan targeted access to minimize landscape disruption." },
-    { q: "Does insurance cover sewer line repair?", a: "Standard policies usually don't cover sewer line repair, but many insurers offer service-line endorsements that do. Worth checking your policy." },
+    {
+      q: "How do I know my sewer line is the actual problem?",
+      a: "If multiple fixtures back up at the same time, the issue is almost certainly the main sewer line, not an individual drain. A camera inspection confirms it.",
+    },
+    {
+      q: "Do you offer trenchless sewer repair?",
+      a: "Yes. For damaged but not fully collapsed lines, trenchless lining or pipe bursting saves your landscaping. We recommend the right method after camera inspection.",
+    },
+    {
+      q: "How fast can you respond to a sewer backup?",
+      a: "Backups are an emergency, we dispatch same day across the Seattle area. Call (206) 772-6077 and we'll get a plumber out as quickly as possible.",
+    },
+    {
+      q: "Will you need to dig up my yard?",
+      a: "Not always. Trenchless repair uses small access points. Even for traditional excavation, we plan targeted access to minimize landscape disruption.",
+    },
+    {
+      q: "Does insurance cover sewer line repair?",
+      a: "Standard policies usually don't cover sewer line repair, but many insurers offer service-line endorsements that do. Worth checking your policy.",
+    },
   ],
   related: [
     { label: "Sewer Services", href: "/services/sewer-services" },
@@ -139,7 +154,11 @@ export const Route = createFileRoute("/services/plumbing/sewer-line-repair")({
   head: () => ({
     meta: [
       { title: "Seattle Sewer Line Repair, All Phase Plumbing" },
-      { name: "description", content: "Seattle sewer line repair, broken, leaking, and collapsed sewer line solutions. Camera inspection and trenchless options available." },
+      {
+        name: "description",
+        content:
+          "Seattle sewer line repair, broken, leaking, and collapsed sewer line solutions. Camera inspection and trenchless options available.",
+      },
     ],
   }),
   component: () => (
@@ -151,7 +170,11 @@ export const Route = createFileRoute("/services/plumbing/sewer-line-repair")({
           <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-6">
             What Our Customers Say About All Phase Plumbing
           </h2>
-          <Link to="/about" className="inline-flex items-center justify-center px-8 py-3 text-sm font-extrabold text-white tracking-widest uppercase shadow-md hover:opacity-90 transition-all duration-200 border-4 border-[#1E3A6E]" style={{ background: "linear-gradient(135deg, #F5C842 0%, #d4a82e 100%)" }}>
+          <Link
+            to="/about"
+            className="inline-flex items-center justify-center px-8 py-3 text-sm font-extrabold text-white tracking-widest uppercase shadow-md hover:opacity-90 transition-all duration-200 border-4 border-[#1E3A6E]"
+            style={{ background: "linear-gradient(135deg, #F5C842 0%, #d4a82e 100%)" }}
+          >
             Read More
           </Link>
         </div>

@@ -1,6 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/layout/PageShell";
-import { ServicePageTemplate, type ServicePageContent } from "@/components/sections/ServicePageTemplate";
+import {
+  ServicePageTemplate,
+  type ServicePageContent,
+} from "@/components/sections/ServicePageTemplate";
 import { WhyUs } from "@/components/sections/WhyUs";
 
 const CONTENT: ServicePageContent = {
@@ -61,11 +64,26 @@ const CONTENT: ServicePageContent = {
     },
   ],
   faqs: [
-    { q: "How fast can you get to my house?", a: "Most Seattle-area emergency calls reach you within 60–90 minutes. We'll give you a realistic ETA the moment you call." },
-    { q: "Will insurance cover the damage?", a: "Most homeowner policies cover sudden water damage from burst pipes, though they usually don't cover the pipe itself. We provide written documentation for your claim." },
-    { q: "Can I just patch it myself?", a: "A temporary clamp can slow a small leak in an emergency, but full-pressure water service shouldn't be restored until a licensed plumber properly replaces the section." },
-    { q: "Why do pipes burst when they freeze?", a: "Frozen water expands and creates extreme pressure inside the pipe. The actual rupture is usually somewhere between the freeze and a closed faucet, not where the ice is." },
-    { q: "Should I shut off the water heater too?", a: "Yes, if water has reached it or if you've shut off the main and the heater is now empty. Running it dry can damage the heating elements." },
+    {
+      q: "How fast can you get to my house?",
+      a: "Most Seattle-area emergency calls reach you within 60–90 minutes. We'll give you a realistic ETA the moment you call.",
+    },
+    {
+      q: "Will insurance cover the damage?",
+      a: "Most homeowner policies cover sudden water damage from burst pipes, though they usually don't cover the pipe itself. We provide written documentation for your claim.",
+    },
+    {
+      q: "Can I just patch it myself?",
+      a: "A temporary clamp can slow a small leak in an emergency, but full-pressure water service shouldn't be restored until a licensed plumber properly replaces the section.",
+    },
+    {
+      q: "Why do pipes burst when they freeze?",
+      a: "Frozen water expands and creates extreme pressure inside the pipe. The actual rupture is usually somewhere between the freeze and a closed faucet, not where the ice is.",
+    },
+    {
+      q: "Should I shut off the water heater too?",
+      a: "Yes, if water has reached it or if you've shut off the main and the heater is now empty. Running it dry can damage the heating elements.",
+    },
   ],
   related: [
     { label: "Emergency Plumber", href: "/services/plumbing/emergency-plumber" },
@@ -79,7 +97,11 @@ export const Route = createFileRoute("/services/plumbing/burst-pipe-repair")({
   head: () => ({
     meta: [
       { title: "Emergency Burst Pipe Repair Seattle, All Phase Plumbing" },
-      { name: "description", content: "24/7 burst pipe repair in Seattle. Stop the water and call (206) 772-6077, licensed emergency plumbers on the way." },
+      {
+        name: "description",
+        content:
+          "24/7 burst pipe repair in Seattle. Stop the water and call (206) 772-6077, licensed emergency plumbers on the way.",
+      },
     ],
   }),
   component: () => (
@@ -88,8 +110,16 @@ export const Route = createFileRoute("/services/plumbing/burst-pipe-repair")({
       <WhyUs />
       <section className="py-12 bg-white">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-6">What Our Customers Say About All Phase Plumbing</h2>
-          <Link to="/about" className="inline-flex items-center justify-center px-8 py-3 text-sm font-extrabold text-white tracking-widest uppercase shadow-md hover:opacity-90 transition-all duration-200 border-4 border-[#1E3A6E]" style={{ background: "linear-gradient(135deg, #F5C842 0%, #d4a82e 100%)" }}>Read More</Link>
+          <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-6">
+            What Our Customers Say About All Phase Plumbing
+          </h2>
+          <Link
+            to="/about"
+            className="inline-flex items-center justify-center px-8 py-3 text-sm font-extrabold text-white tracking-widest uppercase shadow-md hover:opacity-90 transition-all duration-200 border-4 border-[#1E3A6E]"
+            style={{ background: "linear-gradient(135deg, #F5C842 0%, #d4a82e 100%)" }}
+          >
+            Read More
+          </Link>
         </div>
       </section>
     </PageShell>

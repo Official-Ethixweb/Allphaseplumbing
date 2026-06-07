@@ -14,11 +14,7 @@ const GOLD = "#F5C842";
 
 type Notch = { top: string };
 
-const NOTCH_POSITIONS: Notch[] = [
-  { top: "22%" },
-  { top: "50%" },
-  { top: "78%" },
-];
+const NOTCH_POSITIONS: Notch[] = [{ top: "22%" }, { top: "50%" }, { top: "78%" }];
 
 export type CouponCardProps = {
   /** The big headline, e.g. "$100", "10%", "FREE". */
@@ -186,7 +182,6 @@ export function CouponCard({
           {expires}
         </div>
       </div>
-
     </div>
   );
 }

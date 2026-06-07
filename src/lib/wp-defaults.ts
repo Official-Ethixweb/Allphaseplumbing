@@ -123,8 +123,7 @@ export const DEFAULT_SERVICES: ServiceCard[] = [
     number: "01",
     iconName: "Wrench",
     title: "Plumbing Repair",
-    description:
-      "Leaks, fixtures, pipes, water pressure, diagnosed and repaired by licensed pros.",
+    description: "Leaks, fixtures, pipes, water pressure, diagnosed and repaired by licensed pros.",
     href: "/services/plumbing",
   },
   {

@@ -21,9 +21,7 @@ const CONTENT: ServicePageContent = {
     },
     {
       heading: "Professional Pipe Replacement",
-      paragraphs: [
-        "Common reasons pipe replacement is needed include:",
-      ],
+      paragraphs: ["Common reasons pipe replacement is needed include:"],
       list: [
         "Frequent leaks",
         "Corroded or rusted pipes",
@@ -34,9 +32,7 @@ const CONTENT: ServicePageContent = {
     },
     {
       heading: "Signs You Need Pipe Replacement",
-      paragraphs: [
-        "Signs pipe replacement may be needed:",
-      ],
+      paragraphs: ["Signs pipe replacement may be needed:"],
       list: [
         "Repeated pipe leaks in different areas",
         "Rust-colored water",
@@ -48,20 +44,12 @@ const CONTENT: ServicePageContent = {
     },
     {
       heading: "Water Pipe Replacement",
-      paragraphs: [
-        "Water pipe replacement addresses:",
-      ],
-      list: [
-        "Main water lines",
-        "Branch supply lines",
-        "Hot and cold water pipes",
-      ],
+      paragraphs: ["Water pipe replacement addresses:"],
+      list: ["Main water lines", "Branch supply lines", "Hot and cold water pipes"],
     },
     {
       heading: "Drain and Sewer Pipe Replacement",
-      paragraphs: [
-        "Drain and sewer pipe replacement may be needed when:",
-      ],
+      paragraphs: ["Drain and sewer pipe replacement may be needed when:"],
       list: [
         "Pipes collapse due to age",
         "Roots cause severe damage",
@@ -71,31 +59,19 @@ const CONTENT: ServicePageContent = {
     },
     {
       heading: "Pipe Replacement After Repeated Repairs",
-      paragraphs: [
-        "Pipe replacement reduces:",
-      ],
-      list: [
-        "Emergency plumbing calls",
-        "Water damage risk",
-        "Repair expenses",
-      ],
+      paragraphs: ["Pipe replacement reduces:"],
+      list: ["Emergency plumbing calls", "Water damage risk", "Repair expenses"],
     },
     {
       heading: "Residential Pipe Replacement",
       paragraphs: [
         "Residential pipe replacement protects homes from unexpected plumbing failures. Replacing pipes helps homeowners:",
       ],
-      list: [
-        "Maintain property value",
-        "Prevent water damage",
-        "Improve plumbing reliability",
-      ],
+      list: ["Maintain property value", "Prevent water damage", "Improve plumbing reliability"],
     },
     {
       heading: "Preventing Future Pipe Problems",
-      paragraphs: [
-        "Helpful tips include:",
-      ],
+      paragraphs: ["Helpful tips include:"],
       list: [
         "Avoid harsh chemical drain cleaners",
         "Monitor water pressure",
@@ -152,7 +128,8 @@ export const Route = createFileRoute("/services/pipe-replacement")({
       { property: "og:title", content: "Pipe Replacement | All Phase Plumbing" },
       {
         property: "og:description",
-        content: "Professional pipe replacement services, durable, long-lasting plumbing solutions.",
+        content:
+          "Professional pipe replacement services, durable, long-lasting plumbing solutions.",
       },
     ],
   }),

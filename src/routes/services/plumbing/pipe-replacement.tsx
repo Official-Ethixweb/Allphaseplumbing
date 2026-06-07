@@ -34,9 +34,7 @@ const CONTENT: ServicePageContent = {
       ],
     },
     {
-      paragraphs: [
-        "Replacing failing pipes helps restore safety and long-term reliability.",
-      ],
+      paragraphs: ["Replacing failing pipes helps restore safety and long-term reliability."],
     },
     {
       heading: "Signs You Need Pipe Replacement",
@@ -57,11 +55,7 @@ const CONTENT: ServicePageContent = {
       paragraphs: [
         "Water supply pipes carry clean water throughout the home. When these pipes fail, it can affect every fixture. Water pipe replacement addresses:",
       ],
-      list: [
-        "Main water lines",
-        "Branch supply lines",
-        "Hot and cold water pipes",
-      ],
+      list: ["Main water lines", "Branch supply lines", "Hot and cold water pipes"],
     },
     {
       heading: "Drain and Sewer Pipe Replacement",
@@ -80,26 +74,20 @@ const CONTENT: ServicePageContent = {
       paragraphs: [
         "If pipes need frequent repairs, replacement often becomes the better long-term solution. Constant patching can lead to higher costs over time. Pipe replacement reduces:",
       ],
-      list: [
-        "Emergency plumbing calls",
-        "Water damage risk",
-        "Repair expenses",
-      ],
+      list: ["Emergency plumbing calls", "Water damage risk", "Repair expenses"],
     },
     {
       heading: "Residential Pipe Replacement",
       paragraphs: [
         "Residential pipe replacement protects homes from unexpected plumbing failures. Aging pipes are one of the leading causes of water damage in houses. Replacing pipes helps homeowners:",
       ],
-      list: [
-        "Maintain property value",
-        "Prevent water damage",
-        "Improve plumbing reliability",
-      ],
+      list: ["Maintain property value", "Prevent water damage", "Improve plumbing reliability"],
     },
     {
       heading: "Preventing Future Pipe Problems",
-      paragraphs: ["After pipe replacement, proper care helps extend the life of the new system. Helpful tips include:"],
+      paragraphs: [
+        "After pipe replacement, proper care helps extend the life of the new system. Helpful tips include:",
+      ],
       list: [
         "Avoid harsh chemical drain cleaners",
         "Monitor water pressure",
@@ -116,11 +104,26 @@ const CONTENT: ServicePageContent = {
     },
   ],
   faqs: [
-    { q: "How do I know if I need repiping vs. spot repair?", a: "If you've had leaks in multiple spots within a year, see rust-colored water, or have galvanized pipe nearing end of life (50+ years), full repiping usually beats more patches." },
-    { q: "What pipe materials do you use?", a: "PEX for most water supply (flexible, freeze-tolerant, long-lasting) and copper where required by spec. For drain/sewer, modern PVC or HDPE depending on application." },
-    { q: "How long does a whole-home repipe take?", a: "Most single-family homes are repiped in 2–5 days. We work in phases so you have water at the end of each day whenever possible." },
-    { q: "Will you have to cut into my walls?", a: "Some access is unavoidable, but we plan the route to minimize wall openings and patch them cleanly when finished." },
-    { q: "Is repiping covered by insurance?", a: "Standard policies usually cover water damage caused by sudden leaks but not the cost of replacing pipes. Some policies offer service-line endorsements, worth checking." },
+    {
+      q: "How do I know if I need repiping vs. spot repair?",
+      a: "If you've had leaks in multiple spots within a year, see rust-colored water, or have galvanized pipe nearing end of life (50+ years), full repiping usually beats more patches.",
+    },
+    {
+      q: "What pipe materials do you use?",
+      a: "PEX for most water supply (flexible, freeze-tolerant, long-lasting) and copper where required by spec. For drain/sewer, modern PVC or HDPE depending on application.",
+    },
+    {
+      q: "How long does a whole-home repipe take?",
+      a: "Most single-family homes are repiped in 2–5 days. We work in phases so you have water at the end of each day whenever possible.",
+    },
+    {
+      q: "Will you have to cut into my walls?",
+      a: "Some access is unavoidable, but we plan the route to minimize wall openings and patch them cleanly when finished.",
+    },
+    {
+      q: "Is repiping covered by insurance?",
+      a: "Standard policies usually cover water damage caused by sudden leaks but not the cost of replacing pipes. Some policies offer service-line endorsements, worth checking.",
+    },
   ],
   related: [
     { label: "Plumbing", href: "/services/plumbing" },
@@ -134,7 +137,11 @@ export const Route = createFileRoute("/services/plumbing/pipe-replacement")({
   head: () => ({
     meta: [
       { title: "Seattle Pipe Replacement & Repiping, All Phase Plumbing" },
-      { name: "description", content: "Seattle pipe replacement and full home repiping, PEX, copper, drain & sewer lines. Long-term reliability over endless patches." },
+      {
+        name: "description",
+        content:
+          "Seattle pipe replacement and full home repiping, PEX, copper, drain & sewer lines. Long-term reliability over endless patches.",
+      },
     ],
   }),
   component: () => (
@@ -146,7 +153,11 @@ export const Route = createFileRoute("/services/plumbing/pipe-replacement")({
           <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-6">
             What Our Customers Say About All Phase Plumbing
           </h2>
-          <Link to="/about" className="inline-flex items-center justify-center px-8 py-3 text-sm font-extrabold text-white tracking-widest uppercase shadow-md hover:opacity-90 transition-all duration-200 border-4 border-[#1E3A6E]" style={{ background: "linear-gradient(135deg, #F5C842 0%, #d4a82e 100%)" }}>
+          <Link
+            to="/about"
+            className="inline-flex items-center justify-center px-8 py-3 text-sm font-extrabold text-white tracking-widest uppercase shadow-md hover:opacity-90 transition-all duration-200 border-4 border-[#1E3A6E]"
+            style={{ background: "linear-gradient(135deg, #F5C842 0%, #d4a82e 100%)" }}
+          >
             Read More
           </Link>
         </div>

@@ -104,7 +104,10 @@ export const Route = createFileRoute("/services/water-heaters")({
           "Tank and tankless water heater installation, repair, and maintenance across Greater Seattle.",
       },
       { property: "og:title", content: "Water Heaters Seattle" },
-      { property: "og:description", content: "Tank and tankless installation, repair, and service." },
+      {
+        property: "og:description",
+        content: "Tank and tankless installation, repair, and service.",
+      },
     ],
   }),
   component: () => (

@@ -1,34 +1,38 @@
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
-import { gsap } from 'gsap';
-import { X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { gsap } from "gsap";
+import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
-import './Masonry.css';
+import "./Masonry.css";
 
 const useMedia = (queries: string[], values: number[], defaultValue: number) => {
   const get = () => {
-    if (typeof window === 'undefined') return defaultValue;
-    return values[queries.findIndex(q => window.matchMedia(q).matches)] ?? defaultValue;
+    if (typeof window === "undefined") return defaultValue;
+    return values[queries.findIndex((q) => window.matchMedia(q).matches)] ?? defaultValue;
   };
 
   const [value, setValue] = useState(get);
 
   useEffect(() => {
-    if (typeof window === 'undefined') return;
+    if (typeof window === "undefined") return;
     const handler = () => setValue(get);
-    queries.forEach(q => window.matchMedia(q).addEventListener('change', handler));
-    return () => queries.forEach(q => window.matchMedia(q).removeEventListener('change', handler));
+    queries.forEach((q) => window.matchMedia(q).addEventListener("change", handler));
+    return () =>
+      queries.forEach((q) => window.matchMedia(q).removeEventListener("change", handler));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [queries]);
 
   return value;
 };
 
-const useMeasure = (): [React.RefObject<HTMLDivElement | null>, { width: number; height: number }] => {
+const useMeasure = (): [
+  React.RefObject<HTMLDivElement | null>,
+  { width: number; height: number },
+] => {
   const ref = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState({ width: 0, height: 0 });
 
   useLayoutEffect(() => {
-    if (!ref.current || typeof window === 'undefined') return;
+    if (!ref.current || typeof window === "undefined") return;
     const ro = new ResizeObserver(([entry]) => {
       const { width, height } = entry.contentRect;
       setSize({ width, height });
@@ -41,16 +45,16 @@ const useMeasure = (): [React.RefObject<HTMLDivElement | null>, { width: number;
 };
 
 const preloadImages = async (urls: string[]) => {
-  if (typeof window === 'undefined') return;
+  if (typeof window === "undefined") return;
   await Promise.all(
     urls.map(
-      src =>
-        new Promise<void>(resolve => {
+      (src) =>
+        new Promise<void>((resolve) => {
           const img = new Image();
           img.src = src;
           img.onload = img.onerror = () => resolve();
-        })
-    )
+        }),
+    ),
   );
 };
 
@@ -66,7 +70,7 @@ interface MasonryProps {
   ease?: string;
   duration?: number;
   stagger?: number;
-  animateFrom?: 'top' | 'bottom' | 'left' | 'right' | 'center' | 'random';
+  animateFrom?: "top" | "bottom" | "left" | "right" | "center" | "random";
   scaleOnHover?: boolean;
   hoverScale?: number;
   blurToFocus?: boolean;
@@ -75,19 +79,19 @@ interface MasonryProps {
 
 export function Masonry({
   items,
-  ease = 'power3.out',
+  ease = "power3.out",
   duration = 0.6,
   stagger = 0.06,
-  animateFrom = 'bottom',
+  animateFrom = "bottom",
   scaleOnHover = true,
   hoverScale = 0.95,
   blurToFocus = false,
-  colorShiftOnHover = false
+  colorShiftOnHover = false,
 }: MasonryProps) {
   const columns = useMedia(
-    ['(min-width:900px)', '(min-width:600px)', '(min-width:450px)'],
+    ["(min-width:900px)", "(min-width:600px)", "(min-width:450px)"],
     [3, 3, 2],
-    1
+    1,
   );
 
   const [containerRef, { width }] = useMeasure();
@@ -96,28 +100,28 @@ export function Masonry({
 
   const getInitialPosition = (item: { x: number; y: number; w: number; h: number }) => {
     const containerRect = containerRef.current?.getBoundingClientRect();
-    if (!containerRect || typeof window === 'undefined') return { x: item.x, y: item.y };
+    if (!containerRect || typeof window === "undefined") return { x: item.x, y: item.y };
 
     let direction: string = animateFrom;
 
-    if (animateFrom === 'random') {
-      const directions = ['top', 'bottom', 'left', 'right'];
+    if (animateFrom === "random") {
+      const directions = ["top", "bottom", "left", "right"];
       direction = directions[Math.floor(Math.random() * directions.length)];
     }
 
     switch (direction) {
-      case 'top':
+      case "top":
         return { x: item.x, y: -200 };
-      case 'bottom':
+      case "bottom":
         return { x: item.x, y: window.innerHeight + 200 };
-      case 'left':
+      case "left":
         return { x: -200, y: item.y };
-      case 'right':
+      case "right":
         return { x: window.innerWidth + 200, y: item.y };
-      case 'center':
+      case "center":
         return {
           x: containerRect.width / 2 - item.w / 2,
-          y: containerRect.height / 2 - item.h / 2
+          y: containerRect.height / 2 - item.h / 2,
         };
       default:
         return { x: item.x, y: item.y + 100 };
@@ -125,20 +129,20 @@ export function Masonry({
   };
 
   useEffect(() => {
-    preloadImages(items.map(i => i.img)).then(() => {
+    preloadImages(items.map((i) => i.img)).then(() => {
       // background preload complete
     });
   }, [items]);
 
   useEffect(() => {
-    if (typeof window === 'undefined') return;
+    if (typeof window === "undefined") return;
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
         }
       },
-      { threshold: 0.05 }
+      { threshold: 0.05 },
     );
     const el = containerRef.current;
     if (el) {
@@ -157,7 +161,7 @@ export function Masonry({
     const colHeights = new Array(columns).fill(0);
     const columnWidth = width / columns;
 
-    return items.map(child => {
+    return items.map((child) => {
       const col = colHeights.indexOf(Math.min(...colHeights));
       const x = columnWidth * col;
       const height = child.height / 2;
@@ -172,7 +176,7 @@ export function Masonry({
   const hasMounted = useRef(false);
 
   useLayoutEffect(() => {
-    if (!imagesReady || !isVisible || grid.length === 0 || typeof window === 'undefined') return;
+    if (!imagesReady || !isVisible || grid.length === 0 || typeof window === "undefined") return;
 
     grid.forEach((item, index) => {
       const selector = `[data-key="${item.id}"]`;
@@ -192,11 +196,11 @@ export function Masonry({
             x: item.x,
             y: item.y,
             duration: 0.96,
-            ease: 'power3.out',
+            ease: "power3.out",
             delay: index * stagger,
             force3D: true,
             overwrite: true,
-          }
+          },
         );
       } else {
         // On resize: snap width/height, smoothly tween position only
@@ -206,7 +210,7 @@ export function Masonry({
           duration: duration,
           ease: ease,
           force3D: true,
-          overwrite: 'auto',
+          overwrite: "auto",
         });
       }
     });
@@ -215,7 +219,7 @@ export function Masonry({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [grid, imagesReady, isVisible, stagger, animateFrom, duration, ease]);
 
-  const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>, item: typeof grid[0]) => {
+  const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>, item: (typeof grid)[0]) => {
     const element = e.currentTarget;
     const selector = `[data-key="${item.id}"]`;
 
@@ -223,24 +227,24 @@ export function Masonry({
       gsap.to(selector, {
         scale: hoverScale,
         duration: 0.3,
-        ease: 'power2.out',
+        ease: "power2.out",
         force3D: true,
-        overwrite: 'auto',
+        overwrite: "auto",
       });
     }
 
     if (colorShiftOnHover) {
-      const overlay = element.querySelector('.color-overlay');
+      const overlay = element.querySelector(".color-overlay");
       if (overlay) {
         gsap.to(overlay, {
           opacity: 0.3,
-          duration: 0.3
+          duration: 0.3,
         });
       }
     }
   };
 
-  const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>, item: typeof grid[0]) => {
+  const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>, item: (typeof grid)[0]) => {
     const element = e.currentTarget;
     const selector = `[data-key="${item.id}"]`;
 
@@ -248,18 +252,18 @@ export function Masonry({
       gsap.to(selector, {
         scale: 1,
         duration: 0.3,
-        ease: 'power2.out',
+        ease: "power2.out",
         force3D: true,
-        overwrite: 'auto',
+        overwrite: "auto",
       });
     }
 
     if (colorShiftOnHover) {
-      const overlay = element.querySelector('.color-overlay');
+      const overlay = element.querySelector(".color-overlay");
       if (overlay) {
         gsap.to(overlay, {
           opacity: 0,
-          duration: 0.3
+          duration: 0.3,
         });
       }
     }
@@ -270,13 +274,13 @@ export function Masonry({
   const handlePrev = (e?: React.MouseEvent) => {
     if (e) e.stopPropagation();
     if (activeImageIndex === null) return;
-    setActiveImageIndex(prev => (prev === 0 ? items.length - 1 : prev! - 1));
+    setActiveImageIndex((prev) => (prev === 0 ? items.length - 1 : prev! - 1));
   };
 
   const handleNext = (e?: React.MouseEvent) => {
     if (e) e.stopPropagation();
     if (activeImageIndex === null) return;
-    setActiveImageIndex(prev => (prev === items.length - 1 ? 0 : prev! + 1));
+    setActiveImageIndex((prev) => (prev === items.length - 1 ? 0 : prev! + 1));
   };
 
   const handleClose = () => {
@@ -287,37 +291,37 @@ export function Masonry({
     if (activeImageIndex === null) return;
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') handleClose();
-      else if (e.key === 'ArrowLeft') handlePrev();
-      else if (e.key === 'ArrowRight') handleNext();
+      if (e.key === "Escape") handleClose();
+      else if (e.key === "ArrowLeft") handlePrev();
+      else if (e.key === "ArrowRight") handleNext();
     };
 
-    window.addEventListener('keydown', handleKeyDown);
-    document.body.style.overflow = 'hidden';
+    window.addEventListener("keydown", handleKeyDown);
+    document.body.style.overflow = "hidden";
 
     return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-      document.body.style.overflow = '';
+      window.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "";
     };
   }, [activeImageIndex]);
 
   // Dynamic height calculation to prevent relative-container collapse
   const containerHeight = useMemo(() => {
     if (grid.length === 0) return 0;
-    return Math.max(...grid.map(item => item.y + item.h)) + 12;
+    return Math.max(...grid.map((item) => item.y + item.h)) + 12;
   }, [grid]);
 
   return (
     <>
       <div ref={containerRef} className="list" style={{ height: containerHeight }}>
-        {grid.map(item => {
+        {grid.map((item) => {
           return (
             <div
               key={item.id}
               data-key={item.id}
               className="item-wrapper"
               style={{
-                position: 'absolute',
+                position: "absolute",
                 left: 0,
                 top: 0,
                 width: item.w,
@@ -325,28 +329,29 @@ export function Masonry({
                 opacity: 0,
               }}
               onClick={() => {
-                const idx = items.findIndex(i => i.id === item.id);
+                const idx = items.findIndex((i) => i.id === item.id);
                 if (idx !== -1) {
                   setActiveImageIndex(idx);
                 }
               }}
-              onMouseEnter={e => handleMouseEnter(e, item)}
-              onMouseLeave={e => handleMouseLeave(e, item)}
+              onMouseEnter={(e) => handleMouseEnter(e, item)}
+              onMouseLeave={(e) => handleMouseLeave(e, item)}
             >
               <div className="item-img" style={{ backgroundImage: `url(${item.img})` }}>
                 {colorShiftOnHover && (
                   <div
                     className="color-overlay"
                     style={{
-                      position: 'absolute',
+                      position: "absolute",
                       top: 0,
                       left: 0,
-                      width: '100%',
-                      height: '100%',
-                      background: 'linear-gradient(45deg, rgba(255,0,150,0.5), rgba(0,150,255,0.5))',
+                      width: "100%",
+                      height: "100%",
+                      background:
+                        "linear-gradient(45deg, rgba(255,0,150,0.5), rgba(0,150,255,0.5))",
                       opacity: 0,
-                      pointerEvents: 'none',
-                      borderRadius: '8px'
+                      pointerEvents: "none",
+                      borderRadius: "8px",
                     }}
                   />
                 )}

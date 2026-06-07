@@ -34,9 +34,7 @@ const CONTENT: ServicePageContent = {
     },
     {
       heading: "Seattle Repipe Specialists",
-      paragraphs: [
-        "We pride ourselves on delivering repiping services that are:",
-      ],
+      paragraphs: ["We pride ourselves on delivering repiping services that are:"],
       list: [
         "Safe and Code-Compliant: Every installation meets local Seattle plumbing regulations.",
         "Efficient and Organized: Minimal disruption to your daily routine during the process.",
@@ -45,9 +43,7 @@ const CONTENT: ServicePageContent = {
     },
     {
       heading: "Seattle Repipe: Common Pipe Materials We Replace",
-      paragraphs: [
-        "Many older homes in Seattle still contain outdated plumbing materials:",
-      ],
+      paragraphs: ["Many older homes in Seattle still contain outdated plumbing materials:"],
       list: [
         "Galvanized Steel: Prone to rust and buildup, restricting water flow.",
         "Polybutylene: A brittle plastic used in the '70s–'90s known for cracking and unexpected failure.",

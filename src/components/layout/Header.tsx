@@ -42,7 +42,7 @@ const NAV: NavItem[] = [
 
   {
     to: "/services/plumbing",
-    label: "Plumbing",
+    label: "Services",
     dropCols: 3,
     dropdown: [
       { to: "/services/drain-cleaning", label: "Drain Cleaning" },
@@ -202,9 +202,11 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 bg-white shadow-[0_6px_14px_-2px_rgba(0,0,0,0.22)]">
       {/* Top bar */}
-      <div className={`transition-all duration-300 ease-in-out ${
-        shouldShrinkTopBar ? "lg:max-h-0 lg:opacity-0 lg:overflow-hidden" : "lg:max-h-12"
-      }`}>
+      <div
+        className={`transition-all duration-300 ease-in-out ${
+          shouldShrinkTopBar ? "lg:max-h-0 lg:opacity-0 lg:overflow-hidden" : "lg:max-h-12"
+        }`}
+      >
         <TopBar />
       </div>
 
@@ -212,11 +214,7 @@ export function Header() {
       <div className="lg:hidden bg-white border-b border-gray-100">
         <div className="flex items-center justify-between px-3 py-2.5 gap-2">
           <Link to="/" className="shrink-0">
-            <img
-              src={logo}
-              alt="All Phase Plumbing"
-              className="h-[53px] w-auto object-contain"
-            />
+            <img src={logo} alt="All Phase Plumbing" className="h-[53px] w-auto object-contain" />
           </Link>
 
           <div className="flex items-center gap-0">
@@ -270,9 +268,13 @@ export function Header() {
       </div>
 
       {/* Logo · badge · phone (lg and up only, phone/tablet uses the bar above) */}
-      <div className={`hidden lg:block bg-white transition-all duration-300 ease-in-out ${
-        shouldShrinkLogoRow ? "lg:max-h-0 lg:py-0 lg:opacity-0 lg:pointer-events-none lg:overflow-hidden" : "lg:max-h-48"
-      }`}>
+      <div
+        className={`hidden lg:block bg-white transition-all duration-300 ease-in-out ${
+          shouldShrinkLogoRow
+            ? "lg:max-h-0 lg:py-0 lg:opacity-0 lg:pointer-events-none lg:overflow-hidden"
+            : "lg:max-h-48"
+        }`}
+      >
         <div className="w-full px-4 sm:px-6 lg:px-10">
           <div className="flex items-center gap-6 pt-2 pb-2.5 min-h-[150px]">
             <Link to="/" className="shrink-0 translate-y-1.5">
@@ -402,9 +404,7 @@ export function Header() {
                 className={`flex flex-col border-b border-gray-50 last:border-b-0
                             transition-[opacity,transform] duration-[400ms] ease-[cubic-bezier(0.22,1,0.36,1)]
                             ${
-                              mobileOpen
-                                ? "opacity-100 translate-y-0"
-                                : "opacity-0 -translate-y-2"
+                              mobileOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2"
                             }`}
                 style={{ transitionDelay: mobileOpen ? `${80 + idx * 35}ms` : "0ms" }}
               >

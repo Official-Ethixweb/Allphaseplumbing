@@ -10,10 +10,7 @@ type Props = {
 
 /** GeoJSON coords are [lon, lat]; Leaflet wants [lat, lon]. Convert. */
 type Ring = [number, number][];
-function geoJsonToLeafletRings(geo: {
-  type: string;
-  coordinates: unknown;
-}): Ring[] {
+function geoJsonToLeafletRings(geo: { type: string; coordinates: unknown }): Ring[] {
   if (geo.type === "Polygon") {
     const coords = geo.coordinates as [number, number][][];
     return coords.map((ring) => ring.map(([lon, lat]) => [lat, lon] as [number, number]));
@@ -61,10 +58,7 @@ export function CityHighlightMap({ name, lat, lon }: Props) {
     let cancelled = false;
 
     (async () => {
-      const [L, boundaryRings] = await Promise.all([
-        import("leaflet"),
-        fetchCityBoundary(name),
-      ]);
+      const [L, boundaryRings] = await Promise.all([import("leaflet"), fetchCityBoundary(name)]);
       if (cancelled || !mapRef.current) return;
 
       // Defensive: tear down any existing instance before re-init

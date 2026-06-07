@@ -3,6 +3,12 @@ import "./Particles.css";
 
 const defaultColors = ["#ffffff", "#ffffff", "#ffffff"];
 
+/** Container element with the two cleanup handlers we stash on it. */
+type ParticleContainer = HTMLDivElement & {
+  _particleResize?: () => void;
+  _particleMouseMove?: ((e: MouseEvent) => void) | null;
+};
+
 const hexToRgb = (hex: string): [number, number, number] => {
   hex = hex.replace(/^#/, "");
   if (hex.length === 3) {
@@ -129,6 +135,7 @@ const Particles = ({
     // and rendering at 2x/3x triples the fill-rate cost.
     const dpr = pixelRatio ?? 1;
 
+    /* eslint-disable-next-line @typescript-eslint/no-explicit-any -- OGL WebGL objects captured across nested rAF closures; precise typing requires non-null guards that add no runtime safety here. */
     let renderer: any, gl: any, camera: any, geometry: any, program: any, particles: any;
     let animationFrameId: number;
     let cancelled = false;
@@ -241,8 +248,10 @@ const Particles = ({
       animationFrameId = requestAnimationFrame(update);
 
       // Store resize handler for cleanup
-      (container as any)._particleResize = resize;
-      (container as any)._particleMouseMove = moveParticlesOnHover ? handleMouseMove : null;
+      (container as ParticleContainer)._particleResize = resize;
+      (container as ParticleContainer)._particleMouseMove = moveParticlesOnHover
+        ? handleMouseMove
+        : null;
     });
 
     // Pause the loop when the canvas is offscreen, multiple instances on one page
@@ -265,9 +274,9 @@ const Particles = ({
       cancelAnimationFrame(animationFrameId);
       visibilityObserver.disconnect();
       document.removeEventListener("visibilitychange", onVisibilityChange);
-      const resize = (container as any)._particleResize;
+      const resize = (container as ParticleContainer)._particleResize;
       if (resize) window.removeEventListener("resize", resize);
-      const mouseMove = (container as any)._particleMouseMove;
+      const mouseMove = (container as ParticleContainer)._particleMouseMove;
       if (mouseMove) container.removeEventListener("mousemove", mouseMove);
       if (gl?.canvas && container.contains(gl.canvas)) {
         container.removeChild(gl.canvas);

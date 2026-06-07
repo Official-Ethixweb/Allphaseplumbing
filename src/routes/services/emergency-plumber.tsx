@@ -36,9 +36,7 @@ const CONTENT: ServicePageContent = {
     },
     {
       heading: "Emergency Plumbing vs. Non-Emergency: When to Call",
-      paragraphs: [
-        "Call an Emergency Plumber Immediately:",
-      ],
+      paragraphs: ["Call an Emergency Plumber Immediately:"],
       list: [
         "Gas line issues or strong gas odors: Immediate attention is essential for safety. Evacuate your home, call your gas company or fire department, then contact us.",
         "Burst or major leaking pipes: Can cause flooding and water damage. Shut off power to the affected area, then turn off your main water valve.",

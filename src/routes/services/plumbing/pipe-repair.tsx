@@ -1,6 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/layout/PageShell";
-import { ServicePageTemplate, type ServicePageContent } from "@/components/sections/ServicePageTemplate";
+import {
+  ServicePageTemplate,
+  type ServicePageContent,
+} from "@/components/sections/ServicePageTemplate";
 import { WhyUs } from "@/components/sections/WhyUs";
 
 const CONTENT: ServicePageContent = {
@@ -48,11 +51,26 @@ const CONTENT: ServicePageContent = {
     },
   ],
   faqs: [
-    { q: "How do you find a leak inside a wall?", a: "We use acoustic listening tools, thermal imaging, and pressure testing to pinpoint the spot before cutting. The opening is precise, not exploratory damage." },
-    { q: "Will my water bill drop after repair?", a: "If the leak was active, yes, sometimes dramatically. We can compare meter readings before and after to confirm the fix." },
-    { q: "Do you handle hot water pipe repairs differently?", a: "Same materials and joints, but extra care to support the repaired section because hot water pipe expansion stresses joints over time." },
-    { q: "Can you repair galvanized pipe?", a: "Sometimes, short sections can be transitioned to PEX or copper. If the surrounding galvanized is heavily corroded, partial replacement is usually a better investment." },
-    { q: "How long does a typical pipe repair take?", a: "Most single-point repairs are 1–2 hours including testing. Repairs requiring drywall opening or harder-to-access pipes can take 3–4 hours." },
+    {
+      q: "How do you find a leak inside a wall?",
+      a: "We use acoustic listening tools, thermal imaging, and pressure testing to pinpoint the spot before cutting. The opening is precise, not exploratory damage.",
+    },
+    {
+      q: "Will my water bill drop after repair?",
+      a: "If the leak was active, yes, sometimes dramatically. We can compare meter readings before and after to confirm the fix.",
+    },
+    {
+      q: "Do you handle hot water pipe repairs differently?",
+      a: "Same materials and joints, but extra care to support the repaired section because hot water pipe expansion stresses joints over time.",
+    },
+    {
+      q: "Can you repair galvanized pipe?",
+      a: "Sometimes, short sections can be transitioned to PEX or copper. If the surrounding galvanized is heavily corroded, partial replacement is usually a better investment.",
+    },
+    {
+      q: "How long does a typical pipe repair take?",
+      a: "Most single-point repairs are 1–2 hours including testing. Repairs requiring drywall opening or harder-to-access pipes can take 3–4 hours.",
+    },
   ],
   related: [
     { label: "Pipe Replacement", href: "/services/plumbing/pipe-replacement" },
@@ -66,7 +84,11 @@ export const Route = createFileRoute("/services/plumbing/pipe-repair")({
   head: () => ({
     meta: [
       { title: "Seattle Pipe Repair, All Phase Plumbing" },
-      { name: "description", content: "Pinhole leaks, joint failures, hidden pipe damage, fast, code-compliant Seattle pipe repair from licensed plumbers." },
+      {
+        name: "description",
+        content:
+          "Pinhole leaks, joint failures, hidden pipe damage, fast, code-compliant Seattle pipe repair from licensed plumbers.",
+      },
     ],
   }),
   component: () => (
@@ -75,8 +97,16 @@ export const Route = createFileRoute("/services/plumbing/pipe-repair")({
       <WhyUs />
       <section className="py-12 bg-white">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-6">What Our Customers Say About All Phase Plumbing</h2>
-          <Link to="/about" className="inline-flex items-center justify-center px-8 py-3 text-sm font-extrabold text-white tracking-widest uppercase shadow-md hover:opacity-90 transition-all duration-200 border-4 border-[#1E3A6E]" style={{ background: "linear-gradient(135deg, #F5C842 0%, #d4a82e 100%)" }}>Read More</Link>
+          <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-6">
+            What Our Customers Say About All Phase Plumbing
+          </h2>
+          <Link
+            to="/about"
+            className="inline-flex items-center justify-center px-8 py-3 text-sm font-extrabold text-white tracking-widest uppercase shadow-md hover:opacity-90 transition-all duration-200 border-4 border-[#1E3A6E]"
+            style={{ background: "linear-gradient(135deg, #F5C842 0%, #d4a82e 100%)" }}
+          >
+            Read More
+          </Link>
         </div>
       </section>
     </PageShell>

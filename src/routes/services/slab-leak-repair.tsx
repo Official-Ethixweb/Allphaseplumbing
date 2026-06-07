@@ -21,9 +21,7 @@ const CONTENT: ServicePageContent = {
     },
     {
       heading: "Professional Slab Leak Repair",
-      paragraphs: [
-        "Professional slab leak repair includes:",
-      ],
+      paragraphs: ["Professional slab leak repair includes:"],
       list: [
         "Locating the exact leak source",
         "Assessing pipe condition",
@@ -33,9 +31,7 @@ const CONTENT: ServicePageContent = {
     },
     {
       heading: "Signs You May Have a Slab Leak",
-      paragraphs: [
-        "Common slab leak signs include:",
-      ],
+      paragraphs: ["Common slab leak signs include:"],
       list: [
         "Sudden increase in water bills",
         "Warm or damp spots on floors",
@@ -47,9 +43,7 @@ const CONTENT: ServicePageContent = {
     },
     {
       heading: "Water Line Slab Leak Repair",
-      paragraphs: [
-        "Water line slab leak repair helps:",
-      ],
+      paragraphs: ["Water line slab leak repair helps:"],
       list: [
         "Stop pressurized water leaks",
         "Restore normal water pressure",
@@ -58,31 +52,17 @@ const CONTENT: ServicePageContent = {
     },
     {
       heading: "Drain Line Slab Leak Repair",
-      paragraphs: [
-        "Drain line slab leak repair addresses:",
-      ],
-      list: [
-        "Cracked or collapsed pipes",
-        "Separated pipe joints",
-        "Long-term drainage issues",
-      ],
+      paragraphs: ["Drain line slab leak repair addresses:"],
+      list: ["Cracked or collapsed pipes", "Separated pipe joints", "Long-term drainage issues"],
     },
     {
       heading: "Slab Leak Repair for Foundation Protection",
-      paragraphs: [
-        "Slab leak repair helps:",
-      ],
-      list: [
-        "Prevent soil erosion",
-        "Reduce foundation stress",
-        "Protect flooring materials",
-      ],
+      paragraphs: ["Slab leak repair helps:"],
+      list: ["Prevent soil erosion", "Reduce foundation stress", "Protect flooring materials"],
     },
     {
       heading: "What Happens During Slab Leak Repair",
-      paragraphs: [
-        "Slab leak repair typically follows these steps:",
-      ],
+      paragraphs: ["Slab leak repair typically follows these steps:"],
       list: [
         "Confirm leak presence",
         "Locate leak under the slab",
@@ -96,11 +76,7 @@ const CONTENT: ServicePageContent = {
       paragraphs: [
         "Older plumbing materials are more prone to failure under concrete. Repairing slab leaks in older systems helps:",
       ],
-      list: [
-        "Prevent repeat leaks",
-        "Extend plumbing lifespan",
-        "Improve reliability",
-      ],
+      list: ["Prevent repeat leaks", "Extend plumbing lifespan", "Improve reliability"],
     },
     {
       heading: "Schedule Slab Leak Repair Service",

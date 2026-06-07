@@ -82,7 +82,9 @@ function ServiceCard({ svc }: { svc: (typeof SERVICES)[number] }) {
       <div className="h-[3px] bg-[#1E3A6E]" />
 
       <div className="p-3 sm:p-6 flex flex-col flex-1 items-center sm:items-start text-center sm:text-left">
-        <h3 className="text-base sm:text-[22px] font-extrabold text-[#1E3A6E] leading-snug">{svc.title}</h3>
+        <h3 className="text-base sm:text-[22px] font-extrabold text-[#1E3A6E] leading-snug">
+          {svc.title}
+        </h3>
         {/* Description + Learn More, hidden on phones, visible from sm and up */}
         <p className="hidden sm:block text-gray-500 mt-1 sm:mt-2 text-sm sm:text-[16px] leading-relaxed flex-1">
           {svc.description}

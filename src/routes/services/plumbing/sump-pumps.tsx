@@ -1,6 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/layout/PageShell";
-import { ServicePageTemplate, type ServicePageContent } from "@/components/sections/ServicePageTemplate";
+import {
+  ServicePageTemplate,
+  type ServicePageContent,
+} from "@/components/sections/ServicePageTemplate";
 import { WhyUs } from "@/components/sections/WhyUs";
 
 const CONTENT: ServicePageContent = {
@@ -54,11 +57,26 @@ const CONTENT: ServicePageContent = {
     },
   ],
   faqs: [
-    { q: "How often should I test my sump pump?", a: "Twice a year, pour a bucket of water into the pit and confirm the float lifts and the pump kicks on. We can include this as part of an annual maintenance visit." },
-    { q: "Do I need a battery backup?", a: "In Seattle, yes, power outages often happen during the exact storms when the pump is needed most. A backup pump runs on its own battery and keeps pumping when the main is dead." },
-    { q: "My pump runs constantly, is that bad?", a: "It can burn out the motor early and usually means the float is stuck, the check valve has failed, or groundwater is finding a new path in. We diagnose and fix the underlying issue." },
-    { q: "Where does the discharge water go?", a: "It needs to terminate at least 10 feet from the foundation, ideally to a yard drain or storm system per code. We handle the routing as part of installation." },
-    { q: "Can you install a sump pump where there isn't one?", a: "Yes, we cut and install a basin if your basement or crawl space has a recurring water problem. We'll evaluate the best location during a site visit." },
+    {
+      q: "How often should I test my sump pump?",
+      a: "Twice a year, pour a bucket of water into the pit and confirm the float lifts and the pump kicks on. We can include this as part of an annual maintenance visit.",
+    },
+    {
+      q: "Do I need a battery backup?",
+      a: "In Seattle, yes, power outages often happen during the exact storms when the pump is needed most. A backup pump runs on its own battery and keeps pumping when the main is dead.",
+    },
+    {
+      q: "My pump runs constantly, is that bad?",
+      a: "It can burn out the motor early and usually means the float is stuck, the check valve has failed, or groundwater is finding a new path in. We diagnose and fix the underlying issue.",
+    },
+    {
+      q: "Where does the discharge water go?",
+      a: "It needs to terminate at least 10 feet from the foundation, ideally to a yard drain or storm system per code. We handle the routing as part of installation.",
+    },
+    {
+      q: "Can you install a sump pump where there isn't one?",
+      a: "Yes, we cut and install a basin if your basement or crawl space has a recurring water problem. We'll evaluate the best location during a site visit.",
+    },
   ],
   related: [
     { label: "Plumbing", href: "/services/plumbing" },
@@ -72,7 +90,11 @@ export const Route = createFileRoute("/services/plumbing/sump-pumps")({
   head: () => ({
     meta: [
       { title: "Sump Pump Repair, Replacement & Installation Seattle, All Phase Plumbing" },
-      { name: "description", content: "Seattle sump pump service, repair, replacement, and new installs with battery-backup options to keep your basement dry." },
+      {
+        name: "description",
+        content:
+          "Seattle sump pump service, repair, replacement, and new installs with battery-backup options to keep your basement dry.",
+      },
     ],
   }),
   component: () => (
@@ -81,8 +103,16 @@ export const Route = createFileRoute("/services/plumbing/sump-pumps")({
       <WhyUs />
       <section className="py-12 bg-white">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-6">What Our Customers Say About All Phase Plumbing</h2>
-          <Link to="/about" className="inline-flex items-center justify-center px-8 py-3 text-sm font-extrabold text-white tracking-widest uppercase shadow-md hover:opacity-90 transition-all duration-200 border-4 border-[#1E3A6E]" style={{ background: "linear-gradient(135deg, #F5C842 0%, #d4a82e 100%)" }}>Read More</Link>
+          <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-6">
+            What Our Customers Say About All Phase Plumbing
+          </h2>
+          <Link
+            to="/about"
+            className="inline-flex items-center justify-center px-8 py-3 text-sm font-extrabold text-white tracking-widest uppercase shadow-md hover:opacity-90 transition-all duration-200 border-4 border-[#1E3A6E]"
+            style={{ background: "linear-gradient(135deg, #F5C842 0%, #d4a82e 100%)" }}
+          >
+            Read More
+          </Link>
         </div>
       </section>
     </PageShell>

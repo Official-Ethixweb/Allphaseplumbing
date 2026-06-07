@@ -49,11 +49,26 @@ const CONTENT: ServicePageContent = {
     },
   ],
   faqs: [
-    { q: "Why is my garbage disposal humming but not working?", a: "A humming disposal usually means the motor has power but the grinding plate is jammed. Don't keep flipping the switch, it can burn out the motor. Call us at (206) 772-6077 and we'll safely free the jam and check for damage." },
-    { q: "How long does a garbage disposal last?", a: "Most quality units last 8–15 years with regular use and proper care. If yours is over 10 years old and giving you frequent trouble, replacement is usually the better long-term investment." },
-    { q: "Can you replace a disposal with a more powerful model?", a: "Absolutely. We'll size the right horsepower for your household, confirm your sink and electrical can handle it, and install the new unit cleanly with leak-tested connections." },
-    { q: "Why does my disposal smell bad?", a: "Food residue stuck under the splash guard or in the chamber is the usual cause. We can clean and deodorize the unit during a service visit, or replace worn seals that are trapping debris." },
-    { q: "Do you install disposals in homes that have never had one?", a: "Yes. We handle first-time installations including the under-sink plumbing changes and any electrical coordination needed for safe operation." },
+    {
+      q: "Why is my garbage disposal humming but not working?",
+      a: "A humming disposal usually means the motor has power but the grinding plate is jammed. Don't keep flipping the switch, it can burn out the motor. Call us at (206) 772-6077 and we'll safely free the jam and check for damage.",
+    },
+    {
+      q: "How long does a garbage disposal last?",
+      a: "Most quality units last 8–15 years with regular use and proper care. If yours is over 10 years old and giving you frequent trouble, replacement is usually the better long-term investment.",
+    },
+    {
+      q: "Can you replace a disposal with a more powerful model?",
+      a: "Absolutely. We'll size the right horsepower for your household, confirm your sink and electrical can handle it, and install the new unit cleanly with leak-tested connections.",
+    },
+    {
+      q: "Why does my disposal smell bad?",
+      a: "Food residue stuck under the splash guard or in the chamber is the usual cause. We can clean and deodorize the unit during a service visit, or replace worn seals that are trapping debris.",
+    },
+    {
+      q: "Do you install disposals in homes that have never had one?",
+      a: "Yes. We handle first-time installations including the under-sink plumbing changes and any electrical coordination needed for safe operation.",
+    },
   ],
   related: [
     { label: "Plumbing", href: "/services/plumbing" },
@@ -67,7 +82,11 @@ export const Route = createFileRoute("/services/plumbing/garbage-disposals")({
   head: () => ({
     meta: [
       { title: "Seattle Garbage Disposal Repair, Replacement & Installation, All Phase Plumbing" },
-      { name: "description", content: "Fast, reliable garbage disposal repair, replacement, and installation in Seattle from All Phase Plumbing." },
+      {
+        name: "description",
+        content:
+          "Fast, reliable garbage disposal repair, replacement, and installation in Seattle from All Phase Plumbing.",
+      },
     ],
   }),
   component: () => (
@@ -79,7 +98,11 @@ export const Route = createFileRoute("/services/plumbing/garbage-disposals")({
           <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-6">
             What Our Customers Say About All Phase Plumbing
           </h2>
-          <Link to="/about" className="inline-flex items-center justify-center px-8 py-3 text-sm font-extrabold text-white tracking-widest uppercase shadow-md hover:opacity-90 transition-all duration-200 border-4 border-[#1E3A6E]" style={{ background: "linear-gradient(135deg, #F5C842 0%, #d4a82e 100%)" }}>
+          <Link
+            to="/about"
+            className="inline-flex items-center justify-center px-8 py-3 text-sm font-extrabold text-white tracking-widest uppercase shadow-md hover:opacity-90 transition-all duration-200 border-4 border-[#1E3A6E]"
+            style={{ background: "linear-gradient(135deg, #F5C842 0%, #d4a82e 100%)" }}
+          >
             Read More
           </Link>
         </div>

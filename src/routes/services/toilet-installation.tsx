@@ -21,9 +21,7 @@ const CONTENT: ServicePageContent = {
     },
     {
       heading: "Professional Toilet Installation Services",
-      paragraphs: [
-        "Our toilet installation services include:",
-      ],
+      paragraphs: ["Our toilet installation services include:"],
       list: [
         "New toilet installation",
         "Toilet replacement",
@@ -35,9 +33,7 @@ const CONTENT: ServicePageContent = {
     },
     {
       heading: "New Toilet Installation",
-      paragraphs: [
-        "New toilet installation includes:",
-      ],
+      paragraphs: ["New toilet installation includes:"],
       list: [
         "Inspecting the drain flange",
         "Installing a new wax or rubber seal",
@@ -49,9 +45,7 @@ const CONTENT: ServicePageContent = {
     },
     {
       heading: "Toilet Replacement Services",
-      paragraphs: [
-        "Signs you may need toilet replacement include:",
-      ],
+      paragraphs: ["Signs you may need toilet replacement include:"],
       list: [
         "Constant running or weak flushing",
         "Cracks in the porcelain",
@@ -74,9 +68,7 @@ const CONTENT: ServicePageContent = {
     },
     {
       heading: "Wax Ring and Seal Installation",
-      paragraphs: [
-        "Our seal installation includes:",
-      ],
+      paragraphs: ["Our seal installation includes:"],
       list: [
         "Removing old wax or rubber seals",
         "Installing a new wax or modern rubber seal",
@@ -86,9 +78,7 @@ const CONTENT: ServicePageContent = {
     },
     {
       heading: "Types of Toilets We Install",
-      paragraphs: [
-        "Common toilet installations include:",
-      ],
+      paragraphs: ["Common toilet installations include:"],
       list: [
         "Standard two-piece toilets",
         "One-piece toilets",
@@ -99,9 +89,7 @@ const CONTENT: ServicePageContent = {
     },
     {
       heading: "Why Professional Toilet Installation Matters",
-      paragraphs: [
-        "Benefits of professional toilet installation include:",
-      ],
+      paragraphs: ["Benefits of professional toilet installation include:"],
       list: [
         "Reduced risk of leaks",
         "Proper flushing performance",
@@ -160,7 +148,8 @@ export const Route = createFileRoute("/services/toilet-installation")({
       { property: "og:title", content: "Toilet Installation | All Phase Plumbing" },
       {
         property: "og:description",
-        content: "Professional toilet installation services, reliable, leak-free, and built to last.",
+        content:
+          "Professional toilet installation services, reliable, leak-free, and built to last.",
       },
     ],
   }),

@@ -21,9 +21,7 @@ const CONTENT: ServicePageContent = {
     },
     {
       heading: "Professional Septic Tank Services",
-      paragraphs: [
-        "Our septic tank services include:",
-      ],
+      paragraphs: ["Our septic tank services include:"],
       list: [
         "Septic tank inspection",
         "Septic tank pumping",
@@ -34,9 +32,7 @@ const CONTENT: ServicePageContent = {
     },
     {
       heading: "Why Septic Tank Service Is Important",
-      paragraphs: [
-        "Regular septic tank service helps:",
-      ],
+      paragraphs: ["Regular septic tank service helps:"],
       list: [
         "Prevent sewage backups",
         "Avoid foul odors",
@@ -47,9 +43,7 @@ const CONTENT: ServicePageContent = {
     },
     {
       heading: "Signs You Need Septic Tank Service",
-      paragraphs: [
-        "Common signs include:",
-      ],
+      paragraphs: ["Common signs include:"],
       list: [
         "Slow-draining sinks or toilets",
         "Gurgling sounds in plumbing",
@@ -96,9 +90,7 @@ const CONTENT: ServicePageContent = {
     },
     {
       heading: "Septic Tank Repairs",
-      paragraphs: [
-        "Common septic repairs include:",
-      ],
+      paragraphs: ["Common septic repairs include:"],
       list: [
         "Baffle replacement",
         "Tank sealing and leak repair",

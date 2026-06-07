@@ -4,11 +4,16 @@ import logo from "@/assets/app-logo-white.svg";
 import mascot from "@/assets/mascot.svg";
 
 const CITIES = [
-  "Seattle", "Redmond",
-  "Tacoma", "Kirkland",
-  "Renton", "Puyallup",
-  "Bellevue", "Tukwila",
-  "Mercer Island", "Auburn",
+  "Seattle",
+  "Redmond",
+  "Tacoma",
+  "Kirkland",
+  "Renton",
+  "Puyallup",
+  "Bellevue",
+  "Tukwila",
+  "Mercer Island",
+  "Auburn",
 ];
 
 export function Footer() {
@@ -27,15 +32,10 @@ export function Footer() {
       {/* ── Main content ── */}
       <div className="relative z-10 max-w-[1305px] mx-auto px-6 sm:px-8 pt-14 pb-10 xl:pb-0">
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-[200px_1fr_120px_120px_200px] gap-x-6 gap-y-10 items-start xl:pr-[320px]">
-
           {/* ── Col 1: Logo + tagline ── */}
           <div className="flex flex-col gap-4">
             <Link to="/" className="inline-block self-start">
-              <img
-                src={logo}
-                alt="All Phase Plumbing"
-                className="h-[88px] w-auto block"
-              />
+              <img src={logo} alt="All Phase Plumbing" className="h-[88px] w-auto block" />
             </Link>
             <p className="text-[13px] text-white/55 leading-relaxed max-w-[180px]">
               Greater Seattle's trusted plumber, licensed, insured &amp; available 24/7.
@@ -76,10 +76,13 @@ export function Footer() {
               {[
                 { label: "Plumbing", to: "/services/plumbing" },
                 { label: "Sewers", to: "/services/sewer-services" },
-                { label: "Commercial", to: "/services" },
+                { label: "Commercial", to: "/commercial" },
               ].map(({ label, to }) => (
                 <li key={label}>
-                  <Link to={to} className="text-[14px] font-medium text-white/70 hover:text-[#F5C842] transition-colors">
+                  <Link
+                    to={to}
+                    className="text-[14px] font-medium text-white/70 hover:text-[#F5C842] transition-colors"
+                  >
                     {label}
                   </Link>
                 </li>
@@ -100,7 +103,10 @@ export function Footer() {
                 { label: "Contact", to: "/contact" },
               ].map(({ label, to }) => (
                 <li key={label}>
-                  <Link to={to} className="text-[14px] font-medium text-white/70 hover:text-[#F5C842] transition-colors">
+                  <Link
+                    to={to}
+                    className="text-[14px] font-medium text-white/70 hover:text-[#F5C842] transition-colors"
+                  >
                     {label}
                   </Link>
                 </li>
@@ -118,7 +124,8 @@ export function Footer() {
                 <MapPin className="size-4 shrink-0 text-[#F5C842] mt-0.5" />
                 <address className="not-italic text-[13px] text-white/70 leading-relaxed">
                   14101 Interurban Ave S<br />
-                  Unit 78-A<br />
+                  Unit 78-A
+                  <br />
                   Tukwila, WA 98168
                 </address>
               </li>
@@ -128,7 +135,6 @@ export function Footer() {
               </li>
             </ul>
           </div>
-
         </div>
       </div>
 

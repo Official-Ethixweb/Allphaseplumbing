@@ -83,9 +83,7 @@ const CONTENT: ServicePageContent = {
     },
     {
       heading: "Why Professional Pipe Repair Matters",
-      paragraphs: [
-        "Delaying pipe repairs can lead to:",
-      ],
+      paragraphs: ["Delaying pipe repairs can lead to:"],
       list: [
         "Mold growth",
         "Structural damage",
@@ -96,9 +94,7 @@ const CONTENT: ServicePageContent = {
     },
     {
       heading: "When to Schedule Pipe Repair",
-      paragraphs: [
-        "It's time to schedule pipe repair if:",
-      ],
+      paragraphs: ["It's time to schedule pipe repair if:"],
       list: [
         "You notice recurring leaks",
         "Water pressure suddenly drops",

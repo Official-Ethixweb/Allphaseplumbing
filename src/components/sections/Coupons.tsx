@@ -37,7 +37,8 @@ export function Coupons({ hideHeader = false }: { hideHeader?: boolean } = {}) {
                 Homeowner Coupons
               </span>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary">
-                Save more on your <span className="font-display-italic text-accent">next visit.</span>
+                Save more on your{" "}
+                <span className="font-display-italic text-accent">next visit.</span>
               </h2>
             </div>
             <Link

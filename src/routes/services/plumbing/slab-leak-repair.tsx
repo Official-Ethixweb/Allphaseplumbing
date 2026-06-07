@@ -1,6 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/layout/PageShell";
-import { ServicePageTemplate, type ServicePageContent } from "@/components/sections/ServicePageTemplate";
+import {
+  ServicePageTemplate,
+  type ServicePageContent,
+} from "@/components/sections/ServicePageTemplate";
 import { WhyUs } from "@/components/sections/WhyUs";
 
 const CONTENT: ServicePageContent = {
@@ -60,11 +63,26 @@ const CONTENT: ServicePageContent = {
     },
   ],
   faqs: [
-    { q: "How do you find a leak under concrete?", a: "Acoustic listening devices, thermal imaging, and pressure isolation testing. We pinpoint the spot before any concrete comes up, so the opening is targeted, not exploratory." },
-    { q: "Will my insurance cover slab leak repair?", a: "Coverage varies. Most policies cover the damage caused by the leak but not the leak repair itself. Documentation of the exact failure helps your claim." },
-    { q: "Is it better to repair or reroute?", a: "Depends on pipe age and history. Single failure in newer pipe, spot repair. Multiple failures or old galvanized pipe, rerouting or repiping is usually smarter long-term." },
-    { q: "How long does slab leak repair take?", a: "Detection: 1–2 hours. Spot repair: same day to next day. Rerouting: 1–3 days depending on scope." },
-    { q: "Can I keep using water while you work?", a: "Sometimes, depends which line is leaking. We'll let you know what's affected so you can plan." },
+    {
+      q: "How do you find a leak under concrete?",
+      a: "Acoustic listening devices, thermal imaging, and pressure isolation testing. We pinpoint the spot before any concrete comes up, so the opening is targeted, not exploratory.",
+    },
+    {
+      q: "Will my insurance cover slab leak repair?",
+      a: "Coverage varies. Most policies cover the damage caused by the leak but not the leak repair itself. Documentation of the exact failure helps your claim.",
+    },
+    {
+      q: "Is it better to repair or reroute?",
+      a: "Depends on pipe age and history. Single failure in newer pipe, spot repair. Multiple failures or old galvanized pipe, rerouting or repiping is usually smarter long-term.",
+    },
+    {
+      q: "How long does slab leak repair take?",
+      a: "Detection: 1–2 hours. Spot repair: same day to next day. Rerouting: 1–3 days depending on scope.",
+    },
+    {
+      q: "Can I keep using water while you work?",
+      a: "Sometimes, depends which line is leaking. We'll let you know what's affected so you can plan.",
+    },
   ],
   related: [
     { label: "Leak Detection", href: "/services/plumbing/leak-detection" },
@@ -78,7 +96,11 @@ export const Route = createFileRoute("/services/plumbing/slab-leak-repair")({
   head: () => ({
     meta: [
       { title: "Seattle Slab Leak Detection & Repair, All Phase Plumbing" },
-      { name: "description", content: "Seattle slab leak detection and repair, non-invasive location, spot repair or rerouting. Stop hidden water damage before it spreads." },
+      {
+        name: "description",
+        content:
+          "Seattle slab leak detection and repair, non-invasive location, spot repair or rerouting. Stop hidden water damage before it spreads.",
+      },
     ],
   }),
   component: () => (
@@ -87,8 +109,16 @@ export const Route = createFileRoute("/services/plumbing/slab-leak-repair")({
       <WhyUs />
       <section className="py-12 bg-white">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-6">What Our Customers Say About All Phase Plumbing</h2>
-          <Link to="/about" className="inline-flex items-center justify-center px-8 py-3 text-sm font-extrabold text-white tracking-widest uppercase shadow-md hover:opacity-90 transition-all duration-200 border-4 border-[#1E3A6E]" style={{ background: "linear-gradient(135deg, #F5C842 0%, #d4a82e 100%)" }}>Read More</Link>
+          <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-6">
+            What Our Customers Say About All Phase Plumbing
+          </h2>
+          <Link
+            to="/about"
+            className="inline-flex items-center justify-center px-8 py-3 text-sm font-extrabold text-white tracking-widest uppercase shadow-md hover:opacity-90 transition-all duration-200 border-4 border-[#1E3A6E]"
+            style={{ background: "linear-gradient(135deg, #F5C842 0%, #d4a82e 100%)" }}
+          >
+            Read More
+          </Link>
         </div>
       </section>
     </PageShell>

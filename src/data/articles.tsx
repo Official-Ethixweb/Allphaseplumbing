@@ -22,31 +22,31 @@ export const STATIC_ARTICLES: StaticArticle[] = [
       <>
         <p>
           January in the Pacific Northwest is often deceptive. While our neighbors in the Midwest
-          are dealing with something arguably more dangerous for plumbing: the <strong>vicious
-          freeze-thaw cycle</strong>.
+          are dealing with something arguably more dangerous for plumbing: the{" "}
+          <strong>vicious freeze-thaw cycle</strong>.
         </p>
         <p>
-          As of January 6, 2026, the forecast for the Puget Sound shows a mix of heavy rain
-          followed by overnight lows dipping toward freezing. This specific weather pattern,
-          constant moisture followed by sharp freezes, is exactly what causes $50,000 "hidden"
-          floods in crawlspaces and attics. At <strong>All Phase Plumbing</strong>, we believe a
-          well-informed homeowner is our best partner. This 1800-word guide is designed to move you
-          from reactive repairs to proactive home performance.
+          As of January 6, 2026, the forecast for the Puget Sound shows a mix of heavy rain followed
+          by overnight lows dipping toward freezing. This specific weather pattern, constant
+          moisture followed by sharp freezes, is exactly what causes $50,000 "hidden" floods in
+          crawlspaces and attics. At <strong>All Phase Plumbing</strong>, we believe a well-informed
+          homeowner is our best partner. This 1800-word guide is designed to move you from reactive
+          repairs to proactive home performance.
         </p>
 
         <h2>The Physics of the "January Stress Test"</h2>
         <p>
-          To understand why your plumbing fails in January, you have to look past the pipes and
-          into the physics of water and temperature.
+          To understand why your plumbing fails in January, you have to look past the pipes and into
+          the physics of water and temperature.
         </p>
 
         <h3>1. The Expansion Trap</h3>
         <p>
           When water freezes, it doesn't just get hard; it expands by approximately{" "}
           <strong>9%</strong> in volume. In a closed plumbing system, that expansion has nowhere to
-          go. If a pipe freezes between your main shut-off and a closed kitchen faucet, the water
-          is trapped. The resulting pressure can exceed <strong>3,000 PSI</strong>. No copper or
-          PEX pipe is designed to withstand that.
+          go. If a pipe freezes between your main shut-off and a closed kitchen faucet, the water is
+          trapped. The resulting pressure can exceed <strong>3,000 PSI</strong>. No copper or PEX
+          pipe is designed to withstand that.
         </p>
         <p>
           In <strong>Tacoma</strong> and <strong>Seattle</strong>, many older homes still utilize
@@ -63,8 +63,8 @@ export const STATIC_ARTICLES: StaticArticle[] = [
         </p>
         <ul>
           <li>
-            <strong>The Delta Change:</strong> Your water heater now has to raise the temperature
-            by 80 degrees instead of 60 to reach a standard 120°F shower.
+            <strong>The Delta Change:</strong> Your water heater now has to raise the temperature by
+            80 degrees instead of 60 to reach a standard 120°F shower.
           </li>
           <li>
             <strong>The Sediment Factor:</strong> If you haven't flushed your tank in the last 12
@@ -93,12 +93,12 @@ export const STATIC_ARTICLES: StaticArticle[] = [
 
         <h3>2. Heat Pump Water Heaters (The Hybrid Shift)</h3>
         <p>
-          With new 2026 energy regulations in Washington State, we are seeing a massive shift
-          toward <strong>Hybrid Heat Pump Water Heaters</strong>. These units pull heat from the
-          air to warm your water. While they are incredibly efficient, they require specific
-          placement (usually a garage or large utility room) because they "exhaust" cold air. For a
-          home in <strong>Auburn</strong> or <strong>Kent</strong>, this can actually help
-          dehumidify your basement while saving you $300+ a year on utilities.
+          With new 2026 energy regulations in Washington State, we are seeing a massive shift toward{" "}
+          <strong>Hybrid Heat Pump Water Heaters</strong>. These units pull heat from the air to
+          warm your water. While they are incredibly efficient, they require specific placement
+          (usually a garage or large utility room) because they "exhaust" cold air. For a home in{" "}
+          <strong>Auburn</strong> or <strong>Kent</strong>, this can actually help dehumidify your
+          basement while saving you $300+ a year on utilities.
         </p>
 
         <h3>3. Trenchless "No-Dig" Sewer Technology</h3>
@@ -184,8 +184,8 @@ export const STATIC_ARTICLES: StaticArticle[] = [
             you won't know it until you turn the hose on in May and flood your living room.
           </li>
           <li>
-            <strong>Insulate the "Rim Joist":</strong> Most pipes freeze where they enter the
-            house. Ensure the insulation in your crawlspace or basement hasn't fallen away from the
+            <strong>Insulate the "Rim Joist":</strong> Most pipes freeze where they enter the house.
+            Ensure the insulation in your crawlspace or basement hasn't fallen away from the
             exterior rim joist.
           </li>
           <li>
@@ -200,17 +200,17 @@ export const STATIC_ARTICLES: StaticArticle[] = [
         <p>
           <strong>Q: My kitchen sink is on an outside wall. How do I stop it from freezing?</strong>
           <br />
-          A: Use the <strong>"Air Wash"</strong> method. Open the cabinet doors under the sink.
-          This allows the warm air from your home's furnace to circulate around the pipes. If it's
+          A: Use the <strong>"Air Wash"</strong> method. Open the cabinet doors under the sink. This
+          allows the warm air from your home's furnace to circulate around the pipes. If it's
           exceptionally cold, point a small desk fan into the cabinet to force air movement.
         </p>
         <p>
           <strong>Q: Why does my hot water run out so much faster in January?</strong>
           <br />
           A: This is the <strong>Groundwater Gap</strong> at work. The water entering your tank is
-          20 degrees colder than in summer, meaning the tank has to mix in more hot water to reach
-          a comfortable temperature. If you have a 50-gallon tank, it feels like a 35-gallon tank
-          in the winter.
+          20 degrees colder than in summer, meaning the tank has to mix in more hot water to reach a
+          comfortable temperature. If you have a 50-gallon tank, it feels like a 35-gallon tank in
+          the winter.
         </p>
         <p>
           <strong>Q: I smell "rotten eggs" near my floor drains. Is that a leak?</strong>
@@ -251,8 +251,8 @@ STATIC_ARTICLES.push({
         between a handyman and a professional, licensed plumber.
       </p>
       <p>
-        Understanding this distinction is crucial not only for the quality of the work but also
-        for your safety and legal protection.
+        Understanding this distinction is crucial not only for the quality of the work but also for
+        your safety and legal protection.
       </p>
 
       <h2>What Makes a Plumber a "Professional Plumber in Seattle"?</h2>
@@ -266,15 +266,14 @@ STATIC_ARTICLES.push({
           <strong>Extensive Training &amp; Apprenticeship:</strong> To even be considered for a
           license, a plumber must complete thousands of hours of on-the-job training. This is a
           multi-year apprenticeship where they learn under the direct supervision of a certified
-          plumber. They gain hands-on experience with everything from basic repairs to complex
-          sewer line installations.
+          plumber. They gain hands-on experience with everything from basic repairs to complex sewer
+          line installations.
         </li>
         <li>
-          <strong>Licensing and Certification:</strong> In Washington, plumbers must pass a
-          rigorous certification exam to become a Journey Level or Specialty Plumber. This exam
-          tests their knowledge of plumbing code, general trade practices, and complex systems.
-          This isn't just about skill; it's about knowing the legal and safety requirements that
-          protect your home.
+          <strong>Licensing and Certification:</strong> In Washington, plumbers must pass a rigorous
+          certification exam to become a Journey Level or Specialty Plumber. This exam tests their
+          knowledge of plumbing code, general trade practices, and complex systems. This isn't just
+          about skill; it's about knowing the legal and safety requirements that protect your home.
         </li>
         <li>
           <strong>Bonding and Insurance:</strong> A licensed plumber is required to be bonded and
@@ -284,9 +283,9 @@ STATIC_ARTICLES.push({
         </li>
         <li>
           <strong>Knowledge of Local Codes:</strong> Seattle has its own unique plumbing codes and
-          regulations. A local, licensed plumber is an expert in these codes and knows how to
-          ensure all work is compliant. This is essential for permits and passing inspections,
-          especially for larger jobs like water heater installations or bathroom remodels.
+          regulations. A local, licensed plumber is an expert in these codes and knows how to ensure
+          all work is compliant. This is essential for permits and passing inspections, especially
+          for larger jobs like water heater installations or bathroom remodels.
         </li>
       </ul>
 
@@ -314,13 +313,13 @@ STATIC_ARTICLES.push({
         </li>
         <li>
           <strong>Violating Local Codes:</strong> An unlicensed professional may not be aware of or
-          adhere to the proper building codes, which can create safety hazards and make it
-          difficult to sell your home in the future.
+          adhere to the proper building codes, which can create safety hazards and make it difficult
+          to sell your home in the future.
         </li>
         <li>
           <strong>No Recourse for Damage:</strong> If an unlicensed worker causes a flood or other
-          damage to your home, you may be on your own to cover the costs, as they often don't
-          carry the necessary insurance.
+          damage to your home, you may be on your own to cover the costs, as they often don't carry
+          the necessary insurance.
         </li>
       </ul>
 
@@ -334,16 +333,15 @@ STATIC_ARTICLES.push({
           plunger or snake, especially if they are recurring.
         </li>
         <li>
-          <strong>Water Heater Problems:</strong> Installation, repair, or replacement of any
-          water heater.
+          <strong>Water Heater Problems:</strong> Installation, repair, or replacement of any water
+          heater.
         </li>
         <li>
-          <strong>Burst Pipes or Leaks in Walls:</strong> Any issue that requires cutting into
-          walls or major pipe replacement.
+          <strong>Burst Pipes or Leaks in Walls:</strong> Any issue that requires cutting into walls
+          or major pipe replacement.
         </li>
         <li>
-          <strong>Gas Line Work:</strong> This should always be handled by a licensed
-          professional.
+          <strong>Gas Line Work:</strong> This should always be handled by a licensed professional.
         </li>
         <li>
           <strong>Installing New Fixtures or Appliances:</strong> Especially if it requires
@@ -360,8 +358,7 @@ STATIC_ARTICLES.push({
       </ul>
       <p>
         Ultimately, a professional plumber is an investment in the long-term health of your home's
-        most critical systems. It's about ensuring the work is done safely, correctly, and to
-        code.
+        most critical systems. It's about ensuring the work is done safely, correctly, and to code.
       </p>
       <p>
         For any plumbing job in Seattle, big or small, trust the professionals. Call{" "}
@@ -382,12 +379,12 @@ STATIC_ARTICLES.push({
   body: (
     <>
       <p>
-        As a homeowner in Seattle, you're always looking for ways to make your home more
-        efficient, save on utility bills, and free up space in a market where every square foot
-        counts. That's why the idea of a tankless water heater, also known as an on-demand water
-        heater, is so appealing. But is it really worth the investment? As the local plumbing pros,
-        we get this question all the time. Let's break down the pros and cons to help you decide
-        if a tankless water heater in Seattle is the right upgrade for your home.
+        As a homeowner in Seattle, you're always looking for ways to make your home more efficient,
+        save on utility bills, and free up space in a market where every square foot counts. That's
+        why the idea of a tankless water heater, also known as an on-demand water heater, is so
+        appealing. But is it really worth the investment? As the local plumbing pros, we get this
+        question all the time. Let's break down the pros and cons to help you decide if a tankless
+        water heater in Seattle is the right upgrade for your home.
       </p>
 
       <h2>How a Tankless Water Heater Works</h2>
@@ -403,9 +400,9 @@ STATIC_ARTICLES.push({
       <h3>1. Endless Hot Water</h3>
       <p>
         This is the number one reason many people switch. With a traditional tank, once the hot
-        water runs out, you have to wait for the tank to refill and reheat. With a tankless
-        system, you can take multiple back-to-back showers, run the dishwasher, and do a load of
-        laundry without ever running out of hot water.
+        water runs out, you have to wait for the tank to refill and reheat. With a tankless system,
+        you can take multiple back-to-back showers, run the dishwasher, and do a load of laundry
+        without ever running out of hot water.
       </p>
 
       <h3>2. Significant Energy Savings</h3>
@@ -413,8 +410,8 @@ STATIC_ARTICLES.push({
         The biggest energy waste from a traditional heater is "standby heat loss", the energy used
         to keep a tank full of water hot even when no one is using it. Tankless heaters eliminate
         this waste, as they only use energy when a hot water faucet is on. This can lead to a{" "}
-        <strong>24–36% increase in energy efficiency</strong> and noticeable savings on your
-        utility bills over time.
+        <strong>24–36% increase in energy efficiency</strong> and noticeable savings on your utility
+        bills over time.
       </p>
 
       <h3>3. Space-Saving Design</h3>
@@ -444,8 +441,8 @@ STATIC_ARTICLES.push({
       <p>
         A tankless water heater installation is not a simple swap. Gas-powered units, for example,
         often require a larger gas line and a new venting system to handle the increased demand.
-        Electric units may need significant electrical upgrades. This is why it's critical to hire
-        a professional plumber who is experienced in tankless systems and knowledgeable about
+        Electric units may need significant electrical upgrades. This is why it's critical to hire a
+        professional plumber who is experienced in tankless systems and knowledgeable about
         Seattle's specific plumbing codes.
       </p>
 
@@ -463,11 +460,10 @@ STATIC_ARTICLES.push({
         For many Seattle homeowners, the answer is a resounding <strong>yes</strong>.
       </p>
       <p>
-        If you're a family that constantly runs out of hot water, a household looking to reduce
-        its environmental footprint, or someone who values extra space, a tankless water heater is
-        an excellent long-term investment. While the initial cost is higher, the long-term savings
-        on energy bills and the extended lifespan of the unit often make it a smart financial
-        choice.
+        If you're a family that constantly runs out of hot water, a household looking to reduce its
+        environmental footprint, or someone who values extra space, a tankless water heater is an
+        excellent long-term investment. While the initial cost is higher, the long-term savings on
+        energy bills and the extended lifespan of the unit often make it a smart financial choice.
       </p>
       <p>
         However, if you're on a tight budget or your home has very low hot water demand, a
@@ -499,8 +495,8 @@ STATIC_ARTICLES.push({
     <>
       <p>
         If you live in the Seattle Metro Area, you're surrounded by beautiful, mature trees. From
-        the massive firs to the established maples and oaks, they add character, shade, and value
-        to our neighborhoods. But those same magnificent trees are often the hidden enemy of your
+        the massive firs to the established maples and oaks, they add character, shade, and value to
+        our neighborhoods. But those same magnificent trees are often the hidden enemy of your
         home's most critical plumbing system: the sewer line.
       </p>
       <p>
@@ -512,8 +508,8 @@ STATIC_ARTICLES.push({
       <h2>Why Tree Roots Love Your Sewer Line</h2>
       <p>
         It's not personal, it's survival. Tree roots are constantly seeking three things: water,
-        nutrients, and oxygen. Your sewer line provides all three in abundance, especially if it
-        has an existing small leak or joint separation.
+        nutrients, and oxygen. Your sewer line provides all three in abundance, especially if it has
+        an existing small leak or joint separation.
       </p>
       <p>Here is the vicious cycle that leads to expensive damage:</p>
       <ul>
@@ -572,11 +568,11 @@ STATIC_ARTICLES.push({
         inside the pipe. These are generally copper sulfate or metam sodium based.
       </p>
       <p>
-        <strong>A Word of Warning from Your Plumber:</strong> Root killers are only a temporary
-        fix. They kill the roots currently inside the pipe, but they do nothing to address the
-        crack or gap that allowed the roots in, so the roots will inevitably grow back. Also, some
-        chemicals can be harmful to beneficial bacteria in your septic system (if applicable) or
-        to surrounding plant life. Use them sparingly and only as directed.
+        <strong>A Word of Warning from Your Plumber:</strong> Root killers are only a temporary fix.
+        They kill the roots currently inside the pipe, but they do nothing to address the crack or
+        gap that allowed the roots in, so the roots will inevitably grow back. Also, some chemicals
+        can be harmful to beneficial bacteria in your septic system (if applicable) or to
+        surrounding plant life. Use them sparingly and only as directed.
       </p>
 
       <h3>3. Schedule Proactive Maintenance (Our Top Recommendation)</h3>
@@ -587,26 +583,26 @@ STATIC_ARTICLES.push({
       <ul>
         <li>
           <strong>Sewer Camera Inspection:</strong> If your home is 20 years or older, or if you've
-          had a recurring slow drain, schedule a camera inspection. This allows us to see the
-          exact location and severity of any root intrusion before it causes a major backup.
+          had a recurring slow drain, schedule a camera inspection. This allows us to see the exact
+          location and severity of any root intrusion before it causes a major backup.
         </li>
         <li>
           <strong>Hydro-Jetting:</strong> For minor to moderate root intrusion, professional hydro
-          jetting is the gold standard. We use high-pressure water streams (up to 4,000 PSI) to
-          cut through the roots, remove them completely, and scour the inside of the pipe walls.
-          This clears the blockage without causing further damage to the pipe itself.
+          jetting is the gold standard. We use high-pressure water streams (up to 4,000 PSI) to cut
+          through the roots, remove them completely, and scour the inside of the pipe walls. This
+          clears the blockage without causing further damage to the pipe itself.
         </li>
       </ul>
 
       <h2>What to Do If You Suspect Root Damage</h2>
       <p>
-        Don't wait until sewage is backing up into your bathtub. Call All Phase Plumbing
-        immediately if you notice any of these red flags:
+        Don't wait until sewage is backing up into your bathtub. Call All Phase Plumbing immediately
+        if you notice any of these red flags:
       </p>
       <ul>
         <li>
-          <strong>Gurgling Sounds:</strong> Especially coming from the toilet when you run the
-          sink or shower.
+          <strong>Gurgling Sounds:</strong> Especially coming from the toilet when you run the sink
+          or shower.
         </li>
         <li>
           <strong>Slow Draining:</strong> Multiple drains in your home (sinks, tubs, toilets) are
@@ -618,13 +614,13 @@ STATIC_ARTICLES.push({
       </ul>
       <p>
         If the damage is severe, meaning the pipe is cracked or collapsed, we will likely recommend{" "}
-        <strong>trenchless sewer repair</strong> to fix or replace the damaged section with
-        minimal digging, preserving your beautiful Seattle landscaping.
+        <strong>trenchless sewer repair</strong> to fix or replace the damaged section with minimal
+        digging, preserving your beautiful Seattle landscaping.
       </p>
       <p>
         Protect your home investment from the hidden threat beneath the surface. Call{" "}
-        <strong>(206) 772-6077</strong> to schedule a sewer camera inspection and save yourself
-        from a future plumbing catastrophe!
+        <strong>(206) 772-6077</strong> to schedule a sewer camera inspection and save yourself from
+        a future plumbing catastrophe!
       </p>
     </>
   ),

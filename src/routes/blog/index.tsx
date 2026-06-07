@@ -41,8 +41,10 @@ function stripHtml(html: string): string {
 const STATIC_ARTICLES = [
   {
     slug: "puget-sound-winter-plumbing-survival-guide",
-    title: "The 2026 Puget Sound Winter Plumbing Survival Guide: Performance, Prevention, and Technology",
-    excerpt: "January in the Pacific Northwest is often deceptive. While our neighbors in the Midwest are…",
+    title:
+      "The 2026 Puget Sound Winter Plumbing Survival Guide: Performance, Prevention, and Technology",
+    excerpt:
+      "January in the Pacific Northwest is often deceptive. While our neighbors in the Midwest are…",
     date: "January 6, 2026",
     comments: "No Comments",
     img: "https://images.unsplash.com/photo-1704915171712-41bd8b5652a0?w=800&q=80",
@@ -51,7 +53,8 @@ const STATIC_ARTICLES = [
   {
     slug: "handyman-vs-professional-plumber-seattle",
     title: "The Difference Between a Handyman and a Professional Plumber in Seattle",
-    excerpt: "As a homeowner in Seattle, you've probably faced a leaky faucet, a running toilet, or…",
+    excerpt:
+      "As a homeowner in Seattle, you've probably faced a leaky faucet, a running toilet, or…",
     date: "November 10, 2025",
     comments: "No Comments",
     img: "https://images.unsplash.com/photo-1607472586893-edb57bdc0e39?w=800&q=80",
@@ -69,7 +72,8 @@ const STATIC_ARTICLES = [
   {
     slug: "preventing-tree-root-damage-sewer-lines",
     title: "Preventing Tree Root Damage in Seattle Sewer Lines",
-    excerpt: "If you live in the Seattle Metro Area, you're surrounded by beautiful, mature trees. From…",
+    excerpt:
+      "If you live in the Seattle Metro Area, you're surrounded by beautiful, mature trees. From…",
     date: "November 10, 2025",
     comments: "1 Comment",
     img: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=800&q=80",
@@ -93,8 +97,7 @@ function BlogIndex() {
       <section
         className="relative border-b border-border py-10 lg:py-[60px] overflow-hidden"
         style={{
-          background:
-            "linear-gradient(135deg, #f4f8fd 0%, #e6eff9 50%, #dbe7f4 100%)",
+          background: "linear-gradient(135deg, #f4f8fd 0%, #e6eff9 50%, #dbe7f4 100%)",
         }}
       >
         <div
@@ -120,8 +123,7 @@ function BlogIndex() {
         <div
           className="absolute -top-24 -left-24 w-[420px] h-[420px] rounded-full z-0 pointer-events-none"
           style={{
-            background:
-              "radial-gradient(circle, rgba(91,155,213,0.35) 0%, rgba(91,155,213,0) 70%)",
+            background: "radial-gradient(circle, rgba(91,155,213,0.35) 0%, rgba(91,155,213,0) 70%)",
             filter: "blur(40px)",
           }}
           aria-hidden="true"
@@ -129,8 +131,7 @@ function BlogIndex() {
         <div
           className="absolute -bottom-32 -right-20 w-[480px] h-[480px] rounded-full z-0 pointer-events-none"
           style={{
-            background:
-              "radial-gradient(circle, rgba(30,58,110,0.25) 0%, rgba(30,58,110,0) 70%)",
+            background: "radial-gradient(circle, rgba(30,58,110,0.25) 0%, rgba(30,58,110,0) 70%)",
             filter: "blur(50px)",
           }}
           aria-hidden="true"
@@ -138,8 +139,7 @@ function BlogIndex() {
         <div
           className="absolute top-1/2 left-1/3 w-[300px] h-[300px] rounded-full z-0 pointer-events-none"
           style={{
-            background:
-              "radial-gradient(circle, rgba(245,200,66,0.18) 0%, rgba(245,200,66,0) 70%)",
+            background: "radial-gradient(circle, rgba(245,200,66,0.18) 0%, rgba(245,200,66,0) 70%)",
             filter: "blur(45px)",
           }}
           aria-hidden="true"
@@ -173,8 +173,7 @@ function BlogIndex() {
             <Link to="/" className="font-semibold text-primary hover:text-accent">
               Home
             </Link>{" "}
-            <span className="mx-1">-</span>{" "}
-            <span className="font-semibold">Blog</span>
+            <span className="mx-1">-</span> <span className="font-semibold">Blog</span>
           </nav>
         </div>
       </section>
@@ -246,10 +245,7 @@ function BlogIndex() {
                 const img = post._embedded?.["wp:featuredmedia"]?.[0]?.source_url;
                 const excerpt = stripHtml(post.excerpt?.rendered ?? "").slice(0, 130);
                 return (
-                  <article
-                    key={post.id}
-                    className="group flex flex-col bg-white overflow-hidden"
-                  >
+                  <article key={post.id} className="group flex flex-col bg-white overflow-hidden">
                     <Link
                       to="/blog/$slug"
                       params={{ slug: post.slug }}

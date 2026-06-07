@@ -1,6 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/layout/PageShell";
-import { ServicePageTemplate, type ServicePageContent } from "@/components/sections/ServicePageTemplate";
+import {
+  ServicePageTemplate,
+  type ServicePageContent,
+} from "@/components/sections/ServicePageTemplate";
 import { WhyUs } from "@/components/sections/WhyUs";
 
 const CONTENT: ServicePageContent = {
@@ -54,11 +57,26 @@ const CONTENT: ServicePageContent = {
     },
   ],
   faqs: [
-    { q: "Are gas lines part of plumbing?", a: "Yes, in Washington, gas piping work is performed under a plumbing license. We're qualified to install, repair, and test natural gas piping." },
-    { q: "What should I do if I smell gas?", a: "Leave the building immediately, don't operate any electrical switches, and call your gas utility's emergency line from outside. Once they've made the area safe, call us for the repair." },
-    { q: "Do you pull permits for gas work?", a: "Yes, gas line work requires permits and inspection in Seattle and most surrounding jurisdictions. We handle the paperwork." },
-    { q: "Can you run a gas line to my outdoor grill?", a: "Yes, we extend gas lines to BBQs, fire pits, patio heaters, and outdoor kitchens. Permits and inspection included." },
-    { q: "How do you find a gas leak without taking apart the wall?", a: "Calibrated electronic gas detectors and bubble-soap testing on accessible joints. For hidden leaks we use pressure-drop testing to isolate the section before opening anything." },
+    {
+      q: "Are gas lines part of plumbing?",
+      a: "Yes, in Washington, gas piping work is performed under a plumbing license. We're qualified to install, repair, and test natural gas piping.",
+    },
+    {
+      q: "What should I do if I smell gas?",
+      a: "Leave the building immediately, don't operate any electrical switches, and call your gas utility's emergency line from outside. Once they've made the area safe, call us for the repair.",
+    },
+    {
+      q: "Do you pull permits for gas work?",
+      a: "Yes, gas line work requires permits and inspection in Seattle and most surrounding jurisdictions. We handle the paperwork.",
+    },
+    {
+      q: "Can you run a gas line to my outdoor grill?",
+      a: "Yes, we extend gas lines to BBQs, fire pits, patio heaters, and outdoor kitchens. Permits and inspection included.",
+    },
+    {
+      q: "How do you find a gas leak without taking apart the wall?",
+      a: "Calibrated electronic gas detectors and bubble-soap testing on accessible joints. For hidden leaks we use pressure-drop testing to isolate the section before opening anything.",
+    },
   ],
   related: [
     { label: "Leak Detection", href: "/services/plumbing/leak-detection" },
@@ -72,7 +90,11 @@ export const Route = createFileRoute("/services/plumbing/gas-line-repair")({
   head: () => ({
     meta: [
       { title: "Seattle Gas Line Repair & Installation, All Phase Plumbing" },
-      { name: "description", content: "Seattle gas line repair, installation, and leak detection by licensed plumbers. Code-compliant, permitted, safe." },
+      {
+        name: "description",
+        content:
+          "Seattle gas line repair, installation, and leak detection by licensed plumbers. Code-compliant, permitted, safe.",
+      },
     ],
   }),
   component: () => (
@@ -81,8 +103,16 @@ export const Route = createFileRoute("/services/plumbing/gas-line-repair")({
       <WhyUs />
       <section className="py-12 bg-white">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-6">What Our Customers Say About All Phase Plumbing</h2>
-          <Link to="/about" className="inline-flex items-center justify-center px-8 py-3 text-sm font-extrabold text-white tracking-widest uppercase shadow-md hover:opacity-90 transition-all duration-200 border-4 border-[#1E3A6E]" style={{ background: "linear-gradient(135deg, #F5C842 0%, #d4a82e 100%)" }}>Read More</Link>
+          <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-6">
+            What Our Customers Say About All Phase Plumbing
+          </h2>
+          <Link
+            to="/about"
+            className="inline-flex items-center justify-center px-8 py-3 text-sm font-extrabold text-white tracking-widest uppercase shadow-md hover:opacity-90 transition-all duration-200 border-4 border-[#1E3A6E]"
+            style={{ background: "linear-gradient(135deg, #F5C842 0%, #d4a82e 100%)" }}
+          >
+            Read More
+          </Link>
         </div>
       </section>
     </PageShell>

@@ -83,11 +83,26 @@ const CONTENT: ServicePageContent = {
     },
   ],
   faqs: [
-    { q: "Do I really need a water softener in Seattle?", a: "Seattle's tap water is generally on the soft side, but well water and some neighborhoods do see hardness issues. A simple hardness test tells you for sure, we can do this during the first visit." },
-    { q: "How often should I add salt?", a: "Most homes refill every 4–8 weeks. If you're going through salt faster than that, the system may be set to over-regenerate or could have a leak, both worth diagnosing." },
-    { q: "How long does installation take?", a: "A straightforward replacement is typically 2–4 hours. New installations that need plumbing rerouting or a power outlet can take half a day." },
-    { q: "Will soft water damage my plants or lawn?", a: "Watering with high-sodium soft water long-term can affect some plants. We can install the softener so it only treats indoor water, leaving exterior hose bibs hard." },
-    { q: "Can a softener fix iron or sulfur smells?", a: "Some softeners handle low levels of iron, but heavy iron or rotten-egg smells usually need a dedicated iron filter or aeration system. We'll test and recommend the right setup." },
+    {
+      q: "Do I really need a water softener in Seattle?",
+      a: "Seattle's tap water is generally on the soft side, but well water and some neighborhoods do see hardness issues. A simple hardness test tells you for sure, we can do this during the first visit.",
+    },
+    {
+      q: "How often should I add salt?",
+      a: "Most homes refill every 4–8 weeks. If you're going through salt faster than that, the system may be set to over-regenerate or could have a leak, both worth diagnosing.",
+    },
+    {
+      q: "How long does installation take?",
+      a: "A straightforward replacement is typically 2–4 hours. New installations that need plumbing rerouting or a power outlet can take half a day.",
+    },
+    {
+      q: "Will soft water damage my plants or lawn?",
+      a: "Watering with high-sodium soft water long-term can affect some plants. We can install the softener so it only treats indoor water, leaving exterior hose bibs hard.",
+    },
+    {
+      q: "Can a softener fix iron or sulfur smells?",
+      a: "Some softeners handle low levels of iron, but heavy iron or rotten-egg smells usually need a dedicated iron filter or aeration system. We'll test and recommend the right setup.",
+    },
   ],
   related: [
     { label: "Plumbing", href: "/services/plumbing" },
@@ -101,7 +116,11 @@ export const Route = createFileRoute("/services/plumbing/water-softeners")({
   head: () => ({
     meta: [
       { title: "Seattle Water Softener Repair, Installation & Maintenance, All Phase Plumbing" },
-      { name: "description", content: "Seattle water softener repair, installation, and maintenance. Protect your plumbing and appliances from hard water damage." },
+      {
+        name: "description",
+        content:
+          "Seattle water softener repair, installation, and maintenance. Protect your plumbing and appliances from hard water damage.",
+      },
     ],
   }),
   component: () => (
@@ -113,7 +132,11 @@ export const Route = createFileRoute("/services/plumbing/water-softeners")({
           <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-6">
             What Our Customers Say About All Phase Plumbing
           </h2>
-          <Link to="/about" className="inline-flex items-center justify-center px-8 py-3 text-sm font-extrabold text-white tracking-widest uppercase shadow-md hover:opacity-90 transition-all duration-200 border-4 border-[#1E3A6E]" style={{ background: "linear-gradient(135deg, #F5C842 0%, #d4a82e 100%)" }}>
+          <Link
+            to="/about"
+            className="inline-flex items-center justify-center px-8 py-3 text-sm font-extrabold text-white tracking-widest uppercase shadow-md hover:opacity-90 transition-all duration-200 border-4 border-[#1E3A6E]"
+            style={{ background: "linear-gradient(135deg, #F5C842 0%, #d4a82e 100%)" }}
+          >
             Read More
           </Link>
         </div>

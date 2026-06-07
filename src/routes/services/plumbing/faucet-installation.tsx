@@ -149,11 +149,26 @@ const CONTENT: ServicePageContent = {
     },
   ],
   faqs: [
-    { q: "Can you install a faucet I bought myself?", a: "Yes. We install customer-supplied faucets all the time. We'll verify the model is compatible with your sink and supply lines before starting." },
-    { q: "How long does faucet installation usually take?", a: "Most replacements take 45 minutes to 90 minutes. New installs or faucets requiring shutoff valve replacement can run 2 hours or more." },
-    { q: "Do you replace the shutoff valves while you're under the sink?", a: "If the existing valves are old, stuck, or leaking, we recommend replacing them at the same time, it's much easier and cheaper now than a separate visit later." },
-    { q: "Will a touchless faucet work with my existing plumbing?", a: "Yes, but it needs a power source. We'll confirm whether you need a nearby outlet for the AC adapter or whether the battery-pack version makes more sense for your sink." },
-    { q: "What if I notice a leak a few days after installation?", a: "Call us, we stand behind our work. If something we installed is leaking, we'll come back and make it right." },
+    {
+      q: "Can you install a faucet I bought myself?",
+      a: "Yes. We install customer-supplied faucets all the time. We'll verify the model is compatible with your sink and supply lines before starting.",
+    },
+    {
+      q: "How long does faucet installation usually take?",
+      a: "Most replacements take 45 minutes to 90 minutes. New installs or faucets requiring shutoff valve replacement can run 2 hours or more.",
+    },
+    {
+      q: "Do you replace the shutoff valves while you're under the sink?",
+      a: "If the existing valves are old, stuck, or leaking, we recommend replacing them at the same time, it's much easier and cheaper now than a separate visit later.",
+    },
+    {
+      q: "Will a touchless faucet work with my existing plumbing?",
+      a: "Yes, but it needs a power source. We'll confirm whether you need a nearby outlet for the AC adapter or whether the battery-pack version makes more sense for your sink.",
+    },
+    {
+      q: "What if I notice a leak a few days after installation?",
+      a: "Call us, we stand behind our work. If something we installed is leaking, we'll come back and make it right.",
+    },
   ],
   related: [
     { label: "Plumbing", href: "/services/plumbing" },
@@ -167,7 +182,11 @@ export const Route = createFileRoute("/services/plumbing/faucet-installation")({
   head: () => ({
     meta: [
       { title: "Seattle Faucet Installation, All Phase Plumbing" },
-      { name: "description", content: "Professional kitchen, bathroom, and replacement faucet installation in Seattle. Clean installs, leak-free connections, upfront pricing." },
+      {
+        name: "description",
+        content:
+          "Professional kitchen, bathroom, and replacement faucet installation in Seattle. Clean installs, leak-free connections, upfront pricing.",
+      },
     ],
   }),
   component: () => (
@@ -179,7 +198,11 @@ export const Route = createFileRoute("/services/plumbing/faucet-installation")({
           <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-6">
             What Our Customers Say About All Phase Plumbing
           </h2>
-          <Link to="/about" className="inline-flex items-center justify-center px-8 py-3 text-sm font-extrabold text-white tracking-widest uppercase shadow-md hover:opacity-90 transition-all duration-200 border-4 border-[#1E3A6E]" style={{ background: "linear-gradient(135deg, #F5C842 0%, #d4a82e 100%)" }}>
+          <Link
+            to="/about"
+            className="inline-flex items-center justify-center px-8 py-3 text-sm font-extrabold text-white tracking-widest uppercase shadow-md hover:opacity-90 transition-all duration-200 border-4 border-[#1E3A6E]"
+            style={{ background: "linear-gradient(135deg, #F5C842 0%, #d4a82e 100%)" }}
+          >
             Read More
           </Link>
         </div>

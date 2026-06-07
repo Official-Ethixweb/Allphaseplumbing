@@ -15,13 +15,7 @@ const SERVICE_OPTIONS = [
   "Other",
 ];
 
-function ServiceSelect({
-  value,
-  onChange,
-}: {
-  value: string;
-  onChange: (v: string) => void;
-}) {
+function ServiceSelect({ value, onChange }: { value: string; onChange: (v: string) => void }) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -68,7 +62,10 @@ function ServiceSelect({
             >
               <span>{opt}</span>
               {value === opt && (
-                <Check className="size-4 shrink-0 text-[#F5C842] group-hover:text-[#1E3A6E]" strokeWidth={3} />
+                <Check
+                  className="size-4 shrink-0 text-[#F5C842] group-hover:text-[#1E3A6E]"
+                  strokeWidth={3}
+                />
               )}
             </button>
           ))}
@@ -275,11 +272,7 @@ function ContactServiceMap({ zipLocation }: { zipLocation: ZipLocation | null })
   }, [zipLocation]);
 
   return (
-    <div
-      ref={mapRef}
-      className="w-full h-full min-h-[400px] lg:min-h-full"
-      style={{ zIndex: 0 }}
-    />
+    <div ref={mapRef} className="w-full h-full min-h-[400px] lg:min-h-full" style={{ zIndex: 0 }} />
   );
 }
 
@@ -307,14 +300,27 @@ function pointInPolygon(lat: number, lon: number, poly: [number, number][]): boo
   for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
     const [yi, xi] = poly[i];
     const [yj, xj] = poly[j];
-    const intersect =
-      yi > lat !== yj > lat && lon < ((xj - xi) * (lat - yi)) / (yj - yi) + xi;
+    const intersect = yi > lat !== yj > lat && lon < ((xj - xi) * (lat - yi)) / (yj - yi) + xi;
     if (intersect) inside = !inside;
   }
   return inside;
 }
 
 /* ── ZIP geocoder hook (Nominatim, debounced) ───────────────── */
+type NominatimResult = {
+  lat: string;
+  lon: string;
+  address?: {
+    city?: string;
+    town?: string;
+    village?: string;
+    hamlet?: string;
+    suburb?: string;
+    county?: string;
+    state?: string;
+  };
+};
+
 function useZipGeocode(zip: string) {
   const [state, setState] = useState<{
     status: "idle" | "loading" | "ok" | "out" | "error";
@@ -336,7 +342,7 @@ function useZipGeocode(zip: string) {
         { headers: { Accept: "application/json" } },
       )
         .then((r) => r.json())
-        .then((data: any[]) => {
+        .then((data: NominatimResult[]) => {
           if (cancelled) return;
           if (!data || data.length === 0) {
             setState({ status: "error", location: null });
@@ -344,8 +350,7 @@ function useZipGeocode(zip: string) {
           }
           const hit = data[0];
           const a = hit.address ?? {};
-          const city =
-            a.city || a.town || a.village || a.hamlet || a.suburb || a.county || "";
+          const city = a.city || a.town || a.village || a.hamlet || a.suburb || a.county || "";
           const state_ = a.state || "";
           const label = [city, state_, zip].filter(Boolean).join(", ");
           const lat = parseFloat(hit.lat);
@@ -447,18 +452,8 @@ function ContactFormBox({
           >
             {/* Name row */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <input
-                type="text"
-                placeholder="FIRST NAME*"
-                required
-                className={inputBase}
-              />
-              <input
-                type="text"
-                placeholder="LAST NAME*"
-                required
-                className={inputBase}
-              />
+              <input type="text" placeholder="FIRST NAME*" required className={inputBase} />
+              <input type="text" placeholder="LAST NAME*" required className={inputBase} />
             </div>
 
             {/* ZIP + Phone row */}
@@ -474,13 +469,15 @@ function ContactFormBox({
                   value={zip}
                   onChange={(e) => setZip(e.target.value.replace(/\D/g, "").slice(0, 5))}
                   className={`${inputBase}
-                    ${zipStatus === "ok"
-                      ? "!border-emerald-400 !bg-emerald-500/10"
-                      : zipStatus === "out"
-                      ? "!border-amber-400 !bg-amber-500/10"
-                      : zipStatus === "error"
-                      ? "!border-red-400 !bg-red-500/10"
-                      : ""}`}
+                    ${
+                      zipStatus === "ok"
+                        ? "!border-emerald-400 !bg-emerald-500/10"
+                        : zipStatus === "out"
+                          ? "!border-amber-400 !bg-amber-500/10"
+                          : zipStatus === "error"
+                            ? "!border-red-400 !bg-red-500/10"
+                            : ""
+                    }`}
                 />
                 {zipStatus === "loading" && (
                   <Loader2 className="absolute right-3.5 top-1/2 -translate-y-1/2 size-5 text-white/60 animate-spin" />
@@ -496,12 +493,7 @@ function ContactFormBox({
                   </span>
                 )}
               </div>
-              <input
-                type="tel"
-                placeholder="PHONE*"
-                required
-                className={inputBase}
-              />
+              <input type="tel" placeholder="PHONE*" required className={inputBase} />
             </div>
 
             {/* Service dropdown */}
@@ -521,11 +513,10 @@ function ContactFormBox({
                 className="text-[11px] sm:text-[12px] text-white/50 cursor-pointer leading-relaxed select-none"
               >
                 By submitting this form and signing up for texts, you consent to receive messages
-                from All Phase Plumbing at the number provided regarding your request, updates
-                about appointments and services or promotions and offers, including messages sent
-                by autodialer. Consent is not a condition of purchase. Msg &amp; data rates may
-                apply. Msg frequency varies. Unsubscribe at any time by replying STOP. Reply HELP
-                for help.
+                from All Phase Plumbing at the number provided regarding your request, updates about
+                appointments and services or promotions and offers, including messages sent by
+                autodialer. Consent is not a condition of purchase. Msg &amp; data rates may apply.
+                Msg frequency varies. Unsubscribe at any time by replying STOP. Reply HELP for help.
               </label>
             </div>
 
@@ -596,7 +587,6 @@ function ContactServiceAreaSection({
     <div className="py-20">
       <div className="relative z-10 mx-auto px-4 max-w-[1305px]">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
-
           {/* Left Panel: Map */}
           <div
             className="bg-white rounded-3xl overflow-hidden shadow-2xl relative w-full min-h-[400px] lg:min-h-full h-full border-2 border-white/20"
@@ -617,8 +607,8 @@ function ContactServiceAreaSection({
               {showInfo
                 ? "We Serve Your Area"
                 : showOutOfArea
-                ? "Sorry, We Don't Serve Here Yet"
-                : "Find Your Service Area"}
+                  ? "Sorry, We Don't Serve Here Yet"
+                  : "Find Your Service Area"}
             </h2>
             <div className="mt-3 w-14 h-1.5 rounded-full bg-[#F5C842]" />
 
@@ -626,8 +616,8 @@ function ContactServiceAreaSection({
               {showInfo
                 ? "Great news, we dispatch local technicians to your neighborhood daily. Same-day service across Greater Seattle, with honest, upfront pricing on every job."
                 : showOutOfArea
-                ? `Looks like ${zipLocation?.label} is outside our current service area. We're sorry, we don't serve here for now. Below are the cities we currently cover.`
-                : "Enter your ZIP code in the form above and we'll instantly check coverage, drop a pin on your area, and connect you with our nearest technician."}
+                  ? `Looks like ${zipLocation?.label} is outside our current service area. We're sorry, we don't serve here for now. Below are the cities we currently cover.`
+                  : "Enter your ZIP code in the form above and we'll instantly check coverage, drop a pin on your area, and connect you with our nearest technician."}
             </p>
 
             {/* Out-of-area banner */}
@@ -647,9 +637,7 @@ function ContactServiceAreaSection({
                     <p className="font-bold text-white">
                       {zipLocation?.label} is outside our service area.
                     </p>
-                    <p className="text-white/75 mt-0.5">
-                      Sorry, we don't serve here for now.
-                    </p>
+                    <p className="text-white/75 mt-0.5">Sorry, we don't serve here for now.</p>
                   </div>
                 </div>
                 <button
@@ -731,7 +719,9 @@ function ContactServiceAreaSection({
                     <Phone className="size-5" strokeWidth={3} />
                   </span>
                   <span className="flex flex-col leading-tight">
-                    <span className="text-[10px] uppercase tracking-[0.25em] opacity-80">Call us now</span>
+                    <span className="text-[10px] uppercase tracking-[0.25em] opacity-80">
+                      Call us now
+                    </span>
                     <span className="text-[22px] sm:text-[24px] font-black">(206) 772-6077</span>
                   </span>
                 </a>
@@ -744,8 +734,12 @@ function ContactServiceAreaSection({
                     <Clock className="size-5" strokeWidth={3} />
                   </span>
                   <span className="flex flex-col leading-tight">
-                    <span className="text-[10px] uppercase tracking-[0.25em] text-[#F5C842]">Availability</span>
-                    <span className="text-[18px] sm:text-[20px] font-black text-white">Open 24/7, Same-day Service</span>
+                    <span className="text-[10px] uppercase tracking-[0.25em] text-[#F5C842]">
+                      Availability
+                    </span>
+                    <span className="text-[18px] sm:text-[20px] font-black text-white">
+                      Open 24/7, Same-day Service
+                    </span>
                   </span>
                 </div>
               </div>

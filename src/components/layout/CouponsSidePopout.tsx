@@ -50,10 +50,9 @@ export function CouponsSidePopout() {
       setSectionVisible(false);
       return;
     }
-    const obs = new IntersectionObserver(
-      ([entry]) => setSectionVisible(entry.isIntersecting),
-      { threshold: 0 },
-    );
+    const obs = new IntersectionObserver(([entry]) => setSectionVisible(entry.isIntersecting), {
+      threshold: 0,
+    });
     obs.observe(target);
     return () => obs.disconnect();
   }, [location.pathname]);

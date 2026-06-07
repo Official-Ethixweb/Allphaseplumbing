@@ -70,7 +70,9 @@ const CONTENT: ServicePageContent = {
     },
     {
       heading: "Your Trusted Commercial Plumber in Seattle",
-      paragraphs: ["As a trusted commercial plumber in Seattle, All Phase Plumbing is proud to serve:"],
+      paragraphs: [
+        "As a trusted commercial plumber in Seattle, All Phase Plumbing is proud to serve:",
+      ],
       list: [
         "Office Buildings: Maintenance, restrooms, and water supply systems",
         "Restaurants: Grease trap cleaning, kitchen drain repair, and line maintenance",

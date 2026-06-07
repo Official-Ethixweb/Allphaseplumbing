@@ -1,6 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/layout/PageShell";
-import { ServicePageTemplate, type ServicePageContent } from "@/components/sections/ServicePageTemplate";
+import {
+  ServicePageTemplate,
+  type ServicePageContent,
+} from "@/components/sections/ServicePageTemplate";
 import { WhyUs } from "@/components/sections/WhyUs";
 
 const CONTENT: ServicePageContent = {
@@ -48,11 +51,26 @@ const CONTENT: ServicePageContent = {
     },
   ],
   faqs: [
-    { q: "How long does a water line replacement take?", a: "Trenchless replacements are often completed in a single day. Traditional dig-and-replace can take 1–3 days depending on length and depth." },
-    { q: "Will my water be off the whole time?", a: "Service is typically off for several hours while the new line is connected. We coordinate the shutdown window with you in advance." },
-    { q: "Who's responsible, me or the city?", a: "The city owns the line to the meter; everything from the meter to your house is yours. We work on the homeowner side and coordinate with the city when meter or shutoff work is needed." },
-    { q: "Will you need to tear up my yard?", a: "Often not. Trenchless methods need only small access pits. Even traditional excavation is planned to minimize landscape damage." },
-    { q: "What pipe material do you install?", a: "HDPE (high-density polyethylene) for buried mains, flexible, corrosion-proof, and rated for 50+ years." },
+    {
+      q: "How long does a water line replacement take?",
+      a: "Trenchless replacements are often completed in a single day. Traditional dig-and-replace can take 1–3 days depending on length and depth.",
+    },
+    {
+      q: "Will my water be off the whole time?",
+      a: "Service is typically off for several hours while the new line is connected. We coordinate the shutdown window with you in advance.",
+    },
+    {
+      q: "Who's responsible, me or the city?",
+      a: "The city owns the line to the meter; everything from the meter to your house is yours. We work on the homeowner side and coordinate with the city when meter or shutoff work is needed.",
+    },
+    {
+      q: "Will you need to tear up my yard?",
+      a: "Often not. Trenchless methods need only small access pits. Even traditional excavation is planned to minimize landscape damage.",
+    },
+    {
+      q: "What pipe material do you install?",
+      a: "HDPE (high-density polyethylene) for buried mains, flexible, corrosion-proof, and rated for 50+ years.",
+    },
   ],
   related: [
     { label: "Pipe Replacement", href: "/services/plumbing/pipe-replacement" },
@@ -66,7 +84,11 @@ export const Route = createFileRoute("/services/plumbing/water-lines")({
   head: () => ({
     meta: [
       { title: "Seattle Water Line Repair & Replacement, All Phase Plumbing" },
-      { name: "description", content: "Seattle water line repair and trenchless replacement. Diagnose pressure loss, leaks, and aging service lines without tearing up your yard." },
+      {
+        name: "description",
+        content:
+          "Seattle water line repair and trenchless replacement. Diagnose pressure loss, leaks, and aging service lines without tearing up your yard.",
+      },
     ],
   }),
   component: () => (
@@ -75,8 +97,16 @@ export const Route = createFileRoute("/services/plumbing/water-lines")({
       <WhyUs />
       <section className="py-12 bg-white">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-6">What Our Customers Say About All Phase Plumbing</h2>
-          <Link to="/about" className="inline-flex items-center justify-center px-8 py-3 text-sm font-extrabold text-white tracking-widest uppercase shadow-md hover:opacity-90 transition-all duration-200 border-4 border-[#1E3A6E]" style={{ background: "linear-gradient(135deg, #F5C842 0%, #d4a82e 100%)" }}>Read More</Link>
+          <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-6">
+            What Our Customers Say About All Phase Plumbing
+          </h2>
+          <Link
+            to="/about"
+            className="inline-flex items-center justify-center px-8 py-3 text-sm font-extrabold text-white tracking-widest uppercase shadow-md hover:opacity-90 transition-all duration-200 border-4 border-[#1E3A6E]"
+            style={{ background: "linear-gradient(135deg, #F5C842 0%, #d4a82e 100%)" }}
+          >
+            Read More
+          </Link>
         </div>
       </section>
     </PageShell>

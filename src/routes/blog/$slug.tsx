@@ -37,8 +37,7 @@ function ArticleHero({ title, gradient }: { title: string; gradient: string }) {
       <div
         className="absolute -top-24 -left-24 w-[420px] h-[420px] rounded-full z-0 pointer-events-none"
         style={{
-          background:
-            "radial-gradient(circle, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0) 70%)",
+          background: "radial-gradient(circle, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0) 70%)",
           filter: "blur(40px)",
         }}
         aria-hidden="true"

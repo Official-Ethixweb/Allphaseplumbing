@@ -122,11 +122,26 @@ const CONTENT: ServicePageContent = {
     },
   ],
   faqs: [
-    { q: "How long does bathtub installation take?", a: "A standard like-for-like tub swap is typically one day. Soaking tubs or full bathroom remodels can take 2–4 days depending on flooring, plumbing rerouting, and tile work." },
-    { q: "Do I need to upgrade my floor for a soaking tub?", a: "Often yes, soaking tubs filled with water are very heavy. We assess your floor framing and reinforce if needed before installing." },
-    { q: "Can you install a walk-in tub for accessibility?", a: "Yes. Walk-in tubs require specific plumbing, electrical, and structural considerations we handle as part of the installation." },
-    { q: "What's included in the installation?", a: "Old tub removal, plumbing prep, leveling, secure mounting, drain/overflow connection, sealing, and leak testing. Tile and finish work can be coordinated with our partner contractors." },
-    { q: "Will you haul away my old tub?", a: "Yes, disposal of the old tub is included with installation." },
+    {
+      q: "How long does bathtub installation take?",
+      a: "A standard like-for-like tub swap is typically one day. Soaking tubs or full bathroom remodels can take 2–4 days depending on flooring, plumbing rerouting, and tile work.",
+    },
+    {
+      q: "Do I need to upgrade my floor for a soaking tub?",
+      a: "Often yes, soaking tubs filled with water are very heavy. We assess your floor framing and reinforce if needed before installing.",
+    },
+    {
+      q: "Can you install a walk-in tub for accessibility?",
+      a: "Yes. Walk-in tubs require specific plumbing, electrical, and structural considerations we handle as part of the installation.",
+    },
+    {
+      q: "What's included in the installation?",
+      a: "Old tub removal, plumbing prep, leveling, secure mounting, drain/overflow connection, sealing, and leak testing. Tile and finish work can be coordinated with our partner contractors.",
+    },
+    {
+      q: "Will you haul away my old tub?",
+      a: "Yes, disposal of the old tub is included with installation.",
+    },
   ],
   related: [
     { label: "Plumbing", href: "/services/plumbing" },
@@ -140,7 +155,11 @@ export const Route = createFileRoute("/services/plumbing/bathtub-installation")(
   head: () => ({
     meta: [
       { title: "Seattle Bathtub Installation, All Phase Plumbing" },
-      { name: "description", content: "Professional bathtub installation in Seattle, standard, soaking, and walk-in tubs. Watertight, leak-tested, code-compliant." },
+      {
+        name: "description",
+        content:
+          "Professional bathtub installation in Seattle, standard, soaking, and walk-in tubs. Watertight, leak-tested, code-compliant.",
+      },
     ],
   }),
   component: () => (
@@ -152,7 +171,11 @@ export const Route = createFileRoute("/services/plumbing/bathtub-installation")(
           <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-6">
             What Our Customers Say About All Phase Plumbing
           </h2>
-          <Link to="/about" className="inline-flex items-center justify-center px-8 py-3 text-sm font-extrabold text-white tracking-widest uppercase shadow-md hover:opacity-90 transition-all duration-200 border-4 border-[#1E3A6E]" style={{ background: "linear-gradient(135deg, #F5C842 0%, #d4a82e 100%)" }}>
+          <Link
+            to="/about"
+            className="inline-flex items-center justify-center px-8 py-3 text-sm font-extrabold text-white tracking-widest uppercase shadow-md hover:opacity-90 transition-all duration-200 border-4 border-[#1E3A6E]"
+            style={{ background: "linear-gradient(135deg, #F5C842 0%, #d4a82e 100%)" }}
+          >
             Read More
           </Link>
         </div>

@@ -1,6 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/layout/PageShell";
-import { ServicePageTemplate, type ServicePageContent } from "@/components/sections/ServicePageTemplate";
+import {
+  ServicePageTemplate,
+  type ServicePageContent,
+} from "@/components/sections/ServicePageTemplate";
 import { WhyUs } from "@/components/sections/WhyUs";
 
 const CONTENT: ServicePageContent = {
@@ -48,11 +51,26 @@ const CONTENT: ServicePageContent = {
     },
   ],
   faqs: [
-    { q: "Can you convert my tub to a walk-in shower?", a: "Yes, we handle the plumbing side of tub-to-shower conversions including drain relocation and supply line adjustments. We coordinate with your tile or shower-pan installer." },
-    { q: "What's the difference between pressure-balanced and thermostatic valves?", a: "Pressure-balanced valves keep temperature steady when pressure changes. Thermostatic valves let you preset an exact temperature. Thermostatic is more comfortable; pressure-balanced is more common in modern homes." },
-    { q: "Do you install rain heads and body sprays?", a: "Yes. They require larger supply lines and sometimes a higher-flow valve, we'll spec the right setup so all heads work at full pressure simultaneously." },
-    { q: "How long does shower installation take?", a: "Plumbing rough-in is typically 1–2 days. Total project time depends on tile and finish work, usually 4–10 days for a full shower build." },
-    { q: "Will the bathroom be unusable during installation?", a: "Usually for several days while plumbing, waterproofing, and tile cure. We coordinate timing to minimize disruption." },
+    {
+      q: "Can you convert my tub to a walk-in shower?",
+      a: "Yes, we handle the plumbing side of tub-to-shower conversions including drain relocation and supply line adjustments. We coordinate with your tile or shower-pan installer.",
+    },
+    {
+      q: "What's the difference between pressure-balanced and thermostatic valves?",
+      a: "Pressure-balanced valves keep temperature steady when pressure changes. Thermostatic valves let you preset an exact temperature. Thermostatic is more comfortable; pressure-balanced is more common in modern homes.",
+    },
+    {
+      q: "Do you install rain heads and body sprays?",
+      a: "Yes. They require larger supply lines and sometimes a higher-flow valve, we'll spec the right setup so all heads work at full pressure simultaneously.",
+    },
+    {
+      q: "How long does shower installation take?",
+      a: "Plumbing rough-in is typically 1–2 days. Total project time depends on tile and finish work, usually 4–10 days for a full shower build.",
+    },
+    {
+      q: "Will the bathroom be unusable during installation?",
+      a: "Usually for several days while plumbing, waterproofing, and tile cure. We coordinate timing to minimize disruption.",
+    },
   ],
   related: [
     { label: "Bathtub Installation", href: "/services/plumbing/bathtub-installation" },
@@ -66,7 +84,11 @@ export const Route = createFileRoute("/services/plumbing/shower-installation")({
   head: () => ({
     meta: [
       { title: "Seattle Shower Installation, All Phase Plumbing" },
-      { name: "description", content: "Seattle shower installation, new builds, tub-to-shower conversions, valve replacement, ADA walk-ins. Licensed plumbers, code-compliant work." },
+      {
+        name: "description",
+        content:
+          "Seattle shower installation, new builds, tub-to-shower conversions, valve replacement, ADA walk-ins. Licensed plumbers, code-compliant work.",
+      },
     ],
   }),
   component: () => (
@@ -75,8 +97,16 @@ export const Route = createFileRoute("/services/plumbing/shower-installation")({
       <WhyUs />
       <section className="py-12 bg-white">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-6">What Our Customers Say About All Phase Plumbing</h2>
-          <Link to="/about" className="inline-flex items-center justify-center px-8 py-3 text-sm font-extrabold text-white tracking-widest uppercase shadow-md hover:opacity-90 transition-all duration-200 border-4 border-[#1E3A6E]" style={{ background: "linear-gradient(135deg, #F5C842 0%, #d4a82e 100%)" }}>Read More</Link>
+          <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-6">
+            What Our Customers Say About All Phase Plumbing
+          </h2>
+          <Link
+            to="/about"
+            className="inline-flex items-center justify-center px-8 py-3 text-sm font-extrabold text-white tracking-widest uppercase shadow-md hover:opacity-90 transition-all duration-200 border-4 border-[#1E3A6E]"
+            style={{ background: "linear-gradient(135deg, #F5C842 0%, #d4a82e 100%)" }}
+          >
+            Read More
+          </Link>
         </div>
       </section>
     </PageShell>

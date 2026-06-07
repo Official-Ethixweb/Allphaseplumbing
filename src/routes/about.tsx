@@ -70,10 +70,26 @@ function AboutHero() {
 /* ── 2. Core Intro Section ("We Protect Your Home") ── */
 function AboutIntro() {
   const points = [
-    { Icon: ShieldCheck, title: "Licensed & Insured", body: "Every job backed by certified, bonded technicians." },
-    { Icon: Clock, title: "24/7 Emergency Response", body: "Same-day service across Greater Seattle." },
-    { Icon: Award, title: "35+ Years of Trust", body: "Family-owned and serving the community since 1989." },
-    { Icon: Wrench, title: "Honest, Upfront Pricing", body: "No surprises, clear quotes before we start work." },
+    {
+      Icon: ShieldCheck,
+      title: "Licensed & Insured",
+      body: "Every job backed by certified, bonded technicians.",
+    },
+    {
+      Icon: Clock,
+      title: "24/7 Emergency Response",
+      body: "Same-day service across Greater Seattle.",
+    },
+    {
+      Icon: Award,
+      title: "35+ Years of Trust",
+      body: "Family-owned and serving the community since 1989.",
+    },
+    {
+      Icon: Wrench,
+      title: "Honest, Upfront Pricing",
+      body: "No surprises, clear quotes before we start work.",
+    },
   ];
 
   return (
@@ -106,7 +122,11 @@ function AboutIntro() {
             <div className="mt-5 w-16 h-1.5 rounded-full bg-[#F5C842]" />
 
             <p className="mt-6 text-[15px] sm:text-[17px] text-gray-600 leading-relaxed">
-              At All Phase Plumbing, nothing speaks louder than the words of our satisfied customers. We've proudly earned the trust of homeowners across the Greater Seattle Area by delivering fast, reliable, and affordable plumbing services every single time. From emergency repairs to full system installations, our clients appreciate our honesty, professionalism, and quality workmanship.
+              At All Phase Plumbing, nothing speaks louder than the words of our satisfied
+              customers. We've proudly earned the trust of homeowners across the Greater Seattle
+              Area by delivering fast, reliable, and affordable plumbing services every single time.
+              From emergency repairs to full system installations, our clients appreciate our
+              honesty, professionalism, and quality workmanship.
             </p>
 
             {/* feature points */}
@@ -120,7 +140,9 @@ function AboutIntro() {
                     <Icon className="size-5" strokeWidth={2.4} />
                   </span>
                   <div>
-                    <div className="text-[15px] font-black text-[#1E3A6E] leading-tight">{title}</div>
+                    <div className="text-[15px] font-black text-[#1E3A6E] leading-tight">
+                      {title}
+                    </div>
                     <div className="text-[13.5px] text-gray-500 mt-1 leading-snug">{body}</div>
                   </div>
                 </li>
@@ -136,7 +158,9 @@ function AboutIntro() {
                            shadow-[0_10px_25px_-8px_rgba(30,58,110,0.55)]
                            hover:-translate-y-0.5 hover:shadow-[0_14px_30px_-8px_rgba(30,58,110,0.65)]
                            active:scale-[0.98] transition-all duration-200"
-                style={{ background: "linear-gradient(135deg,#1E3A6E 0%,#2d5fa8 60%,#4A7BC4 100%)" }}
+                style={{
+                  background: "linear-gradient(135deg,#1E3A6E 0%,#2d5fa8 60%,#4A7BC4 100%)",
+                }}
               >
                 <span
                   className="absolute inset-y-0 -left-1 w-1.5 bg-[#F5C842]"
@@ -146,7 +170,9 @@ function AboutIntro() {
                   <Phone className="size-4.5" strokeWidth={3} />
                 </span>
                 <span className="flex flex-col leading-tight text-left">
-                  <span className="text-[10px] uppercase tracking-[0.22em] opacity-80">Call us 24/7</span>
+                  <span className="text-[10px] uppercase tracking-[0.22em] opacity-80">
+                    Call us 24/7
+                  </span>
                   <span className="text-[19px] font-black">(206) 772-6077</span>
                 </span>
               </a>
@@ -210,7 +236,9 @@ function AboutIntro() {
                 ★
               </div>
               <div>
-                <div className="text-[14px] font-black text-[#1E3A6E] leading-none">Family Owned</div>
+                <div className="text-[14px] font-black text-[#1E3A6E] leading-none">
+                  Family Owned
+                </div>
                 <div className="text-[12px] text-gray-500 mt-1">Since 1989</div>
               </div>
             </div>
@@ -242,9 +270,18 @@ function AboutInterview() {
   const total = TEAM_VIDEOS.length;
   const current = TEAM_VIDEOS[activeIdx];
 
-  const prev = () => { setActiveIdx((i) => (i === 0 ? total - 1 : i - 1)); setResetKey((k) => k + 1); };
-  const next = () => { setActiveIdx((i) => (i === total - 1 ? 0 : i + 1)); setResetKey((k) => k + 1); };
-  const goTo = (i: number) => { setActiveIdx(i); setResetKey((k) => k + 1); };
+  const prev = () => {
+    setActiveIdx((i) => (i === 0 ? total - 1 : i - 1));
+    setResetKey((k) => k + 1);
+  };
+  const next = () => {
+    setActiveIdx((i) => (i === total - 1 ? 0 : i + 1));
+    setResetKey((k) => k + 1);
+  };
+  const goTo = (i: number) => {
+    setActiveIdx(i);
+    setResetKey((k) => k + 1);
+  };
 
   /* ── Auto-slide every 3 s (pauses when lightbox is open) ── */
   useEffect(() => {
@@ -329,7 +366,9 @@ function AboutInterview() {
             </h2>
             <div className="mt-4 w-14 h-1.5 rounded-full bg-[#F5C842]" />
             <p className="mt-5 text-[15px] sm:text-[16px] text-gray-600 leading-relaxed">
-              The people behind All Phase Plumbing, born and raised in the Pacific Northwest with decades of plumbing experience between them. Click any video to hear their story in their own words.
+              The people behind All Phase Plumbing, born and raised in the Pacific Northwest with
+              decades of plumbing experience between them. Click any video to hear their story in
+              their own words.
             </p>
 
             {/* Team list, name + designation */}
@@ -358,7 +397,9 @@ function AboutInterview() {
                         {i + 1}
                       </span>
                       <span className="flex flex-col leading-tight min-w-0">
-                        <span className="text-[15px] font-black text-[#1E3A6E] truncate">{m.name}</span>
+                        <span className="text-[15px] font-black text-[#1E3A6E] truncate">
+                          {m.name}
+                        </span>
                         <span className="text-[12.5px] font-semibold uppercase tracking-wider text-[#4A7BC4] mt-0.5 truncate">
                           {m.role}
                         </span>
@@ -395,7 +436,13 @@ function AboutInterview() {
             onClick={() => setLightboxOpen(false)}
             aria-label="Close"
           >
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="size-7">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              className="size-7"
+            >
               <path d="M18 6 6 18M6 6l12 12" />
             </svg>
           </button>
@@ -403,11 +450,20 @@ function AboutInterview() {
           {/* Prev arrow */}
           <button
             type="button"
-            onClick={(e) => { e.stopPropagation(); prev(); }}
+            onClick={(e) => {
+              e.stopPropagation();
+              prev();
+            }}
             className="absolute left-3 sm:left-6 p-3 text-white/70 hover:text-white transition-colors"
             aria-label="Previous video"
           >
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="size-8 sm:size-10">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              className="size-8 sm:size-10"
+            >
               <path d="M15 18l-6-6 6-6" />
             </svg>
           </button>
@@ -415,11 +471,20 @@ function AboutInterview() {
           {/* Next arrow */}
           <button
             type="button"
-            onClick={(e) => { e.stopPropagation(); next(); }}
+            onClick={(e) => {
+              e.stopPropagation();
+              next();
+            }}
             className="absolute right-3 sm:right-6 p-3 text-white/70 hover:text-white transition-colors"
             aria-label="Next video"
           >
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="size-8 sm:size-10">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              className="size-8 sm:size-10"
+            >
               <path d="M9 18l6-6-6-6" />
             </svg>
           </button>
@@ -449,9 +514,7 @@ function AboutActionBanner() {
   return (
     <section className="bg-white py-12 w-full">
       {/* Full-width Blue Gradient Banner from total left to right */}
-      <div
-        className="w-full bg-gradient-to-r from-[#1E3A6E] via-[#244585] to-[#4A7BC4] py-16 px-6 sm:px-12 relative overflow-hidden text-center shadow-xl border-y border-white/10"
-      >
+      <div className="w-full bg-gradient-to-r from-[#1E3A6E] via-[#244585] to-[#4A7BC4] py-16 px-6 sm:px-12 relative overflow-hidden text-center shadow-xl border-y border-white/10">
         {/* Particle background (same as Why Us home section) */}
         <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
           <Particles
@@ -470,14 +533,22 @@ function AboutActionBanner() {
         </div>
 
         {/* Inline SVG Outline of Space Needle on the Left side */}
-        <svg className="absolute left-[-20px] bottom-[-20px] h-[150px] sm:h-[220px] w-auto opacity-[0.08] text-white pointer-events-none select-none" viewBox="0 0 100 250" fill="currentColor">
+        <svg
+          className="absolute left-[-20px] bottom-[-20px] h-[150px] sm:h-[220px] w-auto opacity-[0.08] text-white pointer-events-none select-none"
+          viewBox="0 0 100 250"
+          fill="currentColor"
+        >
           <path d="M45,250 L55,250 L55,100 L65,100 L55,80 L70,80 L55,70 L55,20 L45,20 L45,70 L30,70 L45,80 L35,80 L45,100 L45,250 Z" />
           <ellipse cx="50" cy="80" rx="25" ry="10" />
           <ellipse cx="50" cy="70" rx="15" ry="6" />
         </svg>
 
         {/* Inline SVG Outline of Water Heater on the Right side */}
-        <svg className="absolute right-[-10px] top-[-10px] h-[140px] sm:h-[200px] w-auto opacity-[0.08] text-white pointer-events-none select-none" viewBox="0 0 100 200" fill="currentColor">
+        <svg
+          className="absolute right-[-10px] top-[-10px] h-[140px] sm:h-[200px] w-auto opacity-[0.08] text-white pointer-events-none select-none"
+          viewBox="0 0 100 200"
+          fill="currentColor"
+        >
           <rect x="25" y="20" width="50" height="150" rx="25" />
           <rect x="45" y="5" width="10" height="15" />
           <circle cx="50" cy="80" r="10" />
@@ -489,7 +560,7 @@ function AboutActionBanner() {
           <p className="text-white text-[20px] sm:text-[25px] font-bold leading-relaxed mb-8 drop-shadow-sm">
             At All Phase Plumbing, nothing speaks louder than the words of our satisfied customers.
           </p>
-          
+
           {/* Pointy corners contact button */}
           <Link
             to="/contact"

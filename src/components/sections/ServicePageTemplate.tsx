@@ -62,7 +62,10 @@ function SidebarContactCard() {
   return (
     <div className="bg-[#6B9EF8] rounded-xl shadow-xl border-2 border-[#1E3A6E] overflow-hidden">
       <div className="px-6 py-6 text-white">
-        <h3 className="text-[28px] font-bold text-center" style={{ fontFamily: "Inter, sans-serif" }}>
+        <h3
+          className="text-[28px] font-bold text-center"
+          style={{ fontFamily: "Inter, sans-serif" }}
+        >
           Contact Us Today
         </h3>
         <p className="text-[#FFB800] font-semibold text-[18px] mt-1">Same Day Service</p>
@@ -307,10 +310,7 @@ export function ServicePageTemplate({ content }: { content: ServicePageContent }
                     </h2>
                   )}
                   {block.paragraphs?.map((p, pIdx) => (
-                    <p
-                      key={pIdx}
-                      className="text-[16px] text-gray-700 leading-relaxed mb-4"
-                    >
+                    <p key={pIdx} className="text-[16px] text-gray-700 leading-relaxed mb-4">
                       {p}
                     </p>
                   ))}

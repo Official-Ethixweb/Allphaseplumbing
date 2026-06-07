@@ -23,8 +23,7 @@ export const Route = createFileRoute("/coupons")({
       <section
         className="relative border-b border-border py-16 lg:py-[90px] overflow-hidden"
         style={{
-          background:
-            "linear-gradient(135deg, #f4f8fd 0%, #e6eff9 50%, #dbe7f4 100%)",
+          background: "linear-gradient(135deg, #f4f8fd 0%, #e6eff9 50%, #dbe7f4 100%)",
         }}
       >
         {/* Faint blurred skyline */}
@@ -43,8 +42,7 @@ export const Route = createFileRoute("/coupons")({
         <div
           className="absolute -top-24 -left-24 w-[420px] h-[420px] rounded-full z-0 pointer-events-none"
           style={{
-            background:
-              "radial-gradient(circle, rgba(91,155,213,0.35) 0%, rgba(91,155,213,0) 70%)",
+            background: "radial-gradient(circle, rgba(91,155,213,0.35) 0%, rgba(91,155,213,0) 70%)",
             filter: "blur(40px)",
           }}
           aria-hidden="true"
@@ -52,8 +50,7 @@ export const Route = createFileRoute("/coupons")({
         <div
           className="absolute -bottom-32 -right-20 w-[480px] h-[480px] rounded-full z-0 pointer-events-none"
           style={{
-            background:
-              "radial-gradient(circle, rgba(30,58,110,0.25) 0%, rgba(30,58,110,0) 70%)",
+            background: "radial-gradient(circle, rgba(30,58,110,0.25) 0%, rgba(30,58,110,0) 70%)",
             filter: "blur(50px)",
           }}
           aria-hidden="true"
@@ -61,8 +58,7 @@ export const Route = createFileRoute("/coupons")({
         <div
           className="absolute top-1/2 left-1/3 w-[300px] h-[300px] rounded-full z-0 pointer-events-none"
           style={{
-            background:
-              "radial-gradient(circle, rgba(245,200,66,0.18) 0%, rgba(245,200,66,0) 70%)",
+            background: "radial-gradient(circle, rgba(245,200,66,0.18) 0%, rgba(245,200,66,0) 70%)",
             filter: "blur(45px)",
           }}
           aria-hidden="true"
@@ -103,8 +99,7 @@ export const Route = createFileRoute("/coupons")({
             <Link to="/" className="font-semibold text-primary hover:text-accent">
               Home
             </Link>{" "}
-            <span className="mx-1">-</span>{" "}
-            <span className="font-semibold">Coupons</span>
+            <span className="mx-1">-</span> <span className="font-semibold">Coupons</span>
           </nav>
         </div>
       </section>
@@ -119,12 +114,11 @@ export const Route = createFileRoute("/coupons")({
             At All Phase Plumbing, we believe top-quality plumbing shouldn't come with a hefty price
             tag. That's why we offer exclusive Seattle plumbing specials to help homeowners and
             businesses across the greater Seattle area save on essential services. Whether you're
-            looking for plumbing coupons for a quick repair or limited-time drain cleaning
-            specials, we make it easy to get expert service at a great value. Our special offers
-            are available to customers throughout the region, including Tukwila, Auburn, and Federal
-            Way. From discounts on water heater repairs to savings on full system replacements,
-            we're always updating our deals to help you get the services you need without breaking
-            the bank.
+            looking for plumbing coupons for a quick repair or limited-time drain cleaning specials,
+            we make it easy to get expert service at a great value. Our special offers are available
+            to customers throughout the region, including Tukwila, Auburn, and Federal Way. From
+            discounts on water heater repairs to savings on full system replacements, we're always
+            updating our deals to help you get the services you need without breaking the bank.
           </p>
         </div>
       </section>

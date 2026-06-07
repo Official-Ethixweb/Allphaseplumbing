@@ -81,11 +81,7 @@ export function PillNavItem({
       }
       if (hoverLabel) {
         gsap.set(hoverLabel, { y: Math.ceil(h + 100), opacity: 0 });
-        tl.to(
-          hoverLabel,
-          { y: 0, opacity: 1, duration: 2, ease: EASE, overwrite: "auto" },
-          0,
-        );
+        tl.to(hoverLabel, { y: 0, opacity: 1, duration: 2, ease: EASE, overwrite: "auto" }, 0);
       }
       tlRef.current = tl;
     };

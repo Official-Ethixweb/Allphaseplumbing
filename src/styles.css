@@ -20,7 +20,7 @@ body {
 
 /* ── PillNav active state: navy pill, white label, small dot indicator below ── */
 .pn-pill.pn-pill-active {
-  background: var(--pn-base, #1E3A6E) !important;
+  background: var(--pn-base, #1e3a6e) !important;
   color: var(--pn-hover-text, #ffffff) !important;
 }
 .pn-pill.pn-pill-active .pn-label {
@@ -34,7 +34,7 @@ body {
   transform: translateX(-50%);
   width: 10px;
   height: 10px;
-  background: var(--pn-base, #1E3A6E);
+  background: var(--pn-base, #1e3a6e);
   border-radius: 0 !important;
   z-index: 4;
   pointer-events: none;
@@ -439,7 +439,9 @@ body {
 .heading-pre-animate {
   opacity: 0 !important;
   transform: translateY(24px) !important;
-  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1) !important;
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1) !important;
 }
 
 .heading-fade-in {
@@ -449,8 +451,14 @@ body {
 
 /* ─── Hero cycling tagline: each line slides up from below ─── */
 @keyframes heroCyclingIn {
-  0%   { opacity: 0; transform: translateY(60px); }
-  100% { opacity: 1; transform: translateY(0); }
+  0% {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 .hero-cycling-line {
   animation: heroCyclingIn 0.75s cubic-bezier(0.22, 1, 0.36, 1) both;
@@ -459,28 +467,53 @@ body {
 
 /* ─── Mobile bottom-nav center button: subtle pulse ring ─── */
 @keyframes appPulse {
-  0%   { box-shadow: 0 0 0 0 rgba(107,159,228,0.55); }
-  70%  { box-shadow: 0 0 0 14px rgba(107,159,228,0); }
-  100% { box-shadow: 0 0 0 0 rgba(107,159,228,0); }
+  0% {
+    box-shadow: 0 0 0 0 rgba(107, 159, 228, 0.55);
+  }
+  70% {
+    box-shadow: 0 0 0 14px rgba(107, 159, 228, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(107, 159, 228, 0);
+  }
 }
 
 /* Reserve space at the bottom of every page on mobile so fixed bottom nav
    doesn't cover the last bit of content. */
 @media (max-width: 1023px) {
-  body { padding-bottom: 92px; }
+  body {
+    padding-bottom: 92px;
+  }
 }
 
 /* ─── Mobile bottom nav: restore rounded shapes
    (override the global border-radius: 0 !important reset) ─── */
-.app-mbn-bar { border-radius: 28px !important; }
+.app-mbn-bar {
+  border-radius: 28px !important;
+}
 .app-mbn-call,
-.app-mbn-call * { border-radius: 9999px !important; }
-.app-mbn-pill { border-radius: 9999px !important; }
-.app-mbn-sheet { border-top-left-radius: 24px !important; border-top-right-radius: 24px !important; }
-.app-mbn-handle { border-radius: 9999px !important; }
+.app-mbn-call * {
+  border-radius: 9999px !important;
+}
+.app-mbn-pill {
+  border-radius: 9999px !important;
+}
+.app-mbn-sheet {
+  border-top-left-radius: 24px !important;
+  border-top-right-radius: 24px !important;
+}
+.app-mbn-handle {
+  border-radius: 9999px !important;
+}
 .app-mbn-search,
-.app-mbn-close { border-radius: 8px !important; }
-.app-mbn-close { border-radius: 9999px !important; }
+.app-mbn-close {
+  border-radius: 8px !important;
+}
+.app-mbn-close {
+  border-radius: 9999px !important;
+}
 
 /* ─── Coupon ticket notches: real circles (override global border-radius:0) ─── */
-.coupon-notch { border-radius: 9999px !important; }
+.coupon-notch {
+  border-radius: 9999px !important;
+}

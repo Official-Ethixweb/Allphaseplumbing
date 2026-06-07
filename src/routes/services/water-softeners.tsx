@@ -45,9 +45,7 @@ const CONTENT: ServicePageContent = {
     },
     {
       heading: "Seattle Water Softener Maintenance",
-      paragraphs: [
-        "Our Maintenance Services Include:",
-      ],
+      paragraphs: ["Our Maintenance Services Include:"],
       list: [
         "Checking and refilling salt levels",
         "Cleaning and sanitizing the brine tank",
@@ -58,9 +56,7 @@ const CONTENT: ServicePageContent = {
     },
     {
       heading: "Why Choose All Phase Plumbing for Water Softeners in Seattle?",
-      paragraphs: [
-        "Here's what sets us apart:",
-      ],
+      paragraphs: ["Here's what sets us apart:"],
       list: [
         "Licensed and insured local plumbers",
         "Honest, upfront pricing with no hidden fees",

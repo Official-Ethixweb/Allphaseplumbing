@@ -1,6 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/layout/PageShell";
-import { ServicePageTemplate, type ServicePageContent } from "@/components/sections/ServicePageTemplate";
+import {
+  ServicePageTemplate,
+  type ServicePageContent,
+} from "@/components/sections/ServicePageTemplate";
 import { WhyUs } from "@/components/sections/WhyUs";
 
 const CONTENT: ServicePageContent = {
@@ -52,11 +55,26 @@ const CONTENT: ServicePageContent = {
     },
   ],
   faqs: [
-    { q: "Do you pump septic tanks yourselves?", a: "We focus on the plumbing connections, the lines into and out of the tank. We coordinate with licensed septic pumping contractors when tank pumping is needed." },
-    { q: "How often should I pump my septic tank?", a: "Every 3–5 years for typical residential use. Larger households or heavy water use may need pumping more often." },
-    { q: "Can I use a garbage disposal with a septic system?", a: "It's possible but adds significant solids to the tank, which means pumping more often. We can advise on whether your system is sized for it." },
-    { q: "My drain field smells, what's wrong?", a: "Could be a saturated field, failed lateral, or solids that have escaped a poorly-maintained tank. Camera inspection of the outlet line helps diagnose." },
-    { q: "Do I need a sewer camera inspection if I'm buying a septic home?", a: "Strongly recommended, along with a tank inspection by a licensed septic contractor. We do the line inspection portion." },
+    {
+      q: "Do you pump septic tanks yourselves?",
+      a: "We focus on the plumbing connections, the lines into and out of the tank. We coordinate with licensed septic pumping contractors when tank pumping is needed.",
+    },
+    {
+      q: "How often should I pump my septic tank?",
+      a: "Every 3–5 years for typical residential use. Larger households or heavy water use may need pumping more often.",
+    },
+    {
+      q: "Can I use a garbage disposal with a septic system?",
+      a: "It's possible but adds significant solids to the tank, which means pumping more often. We can advise on whether your system is sized for it.",
+    },
+    {
+      q: "My drain field smells, what's wrong?",
+      a: "Could be a saturated field, failed lateral, or solids that have escaped a poorly-maintained tank. Camera inspection of the outlet line helps diagnose.",
+    },
+    {
+      q: "Do I need a sewer camera inspection if I'm buying a septic home?",
+      a: "Strongly recommended, along with a tank inspection by a licensed septic contractor. We do the line inspection portion.",
+    },
   ],
   related: [
     { label: "Sewer Services", href: "/services/sewer-services" },
@@ -70,7 +88,11 @@ export const Route = createFileRoute("/services/plumbing/septic-tank-service")({
   head: () => ({
     meta: [
       { title: "Septic Tank Service Seattle Area, All Phase Plumbing" },
-      { name: "description", content: "Septic system plumbing service across the Seattle area, drain line repair, cleanouts, baffles, and coordination with septic pumpers." },
+      {
+        name: "description",
+        content:
+          "Septic system plumbing service across the Seattle area, drain line repair, cleanouts, baffles, and coordination with septic pumpers.",
+      },
     ],
   }),
   component: () => (
@@ -79,8 +101,16 @@ export const Route = createFileRoute("/services/plumbing/septic-tank-service")({
       <WhyUs />
       <section className="py-12 bg-white">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-6">What Our Customers Say About All Phase Plumbing</h2>
-          <Link to="/about" className="inline-flex items-center justify-center px-8 py-3 text-sm font-extrabold text-white tracking-widest uppercase shadow-md hover:opacity-90 transition-all duration-200 border-4 border-[#1E3A6E]" style={{ background: "linear-gradient(135deg, #F5C842 0%, #d4a82e 100%)" }}>Read More</Link>
+          <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-6">
+            What Our Customers Say About All Phase Plumbing
+          </h2>
+          <Link
+            to="/about"
+            className="inline-flex items-center justify-center px-8 py-3 text-sm font-extrabold text-white tracking-widest uppercase shadow-md hover:opacity-90 transition-all duration-200 border-4 border-[#1E3A6E]"
+            style={{ background: "linear-gradient(135deg, #F5C842 0%, #d4a82e 100%)" }}
+          >
+            Read More
+          </Link>
         </div>
       </section>
     </PageShell>

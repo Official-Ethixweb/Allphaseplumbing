@@ -21,23 +21,12 @@ const CONTENT: ServicePageContent = {
     },
     {
       heading: "Professional Fixture Replacement Services",
-      paragraphs: [
-        "Common fixtures we replace include:",
-      ],
-      list: [
-        "Faucets",
-        "Toilets",
-        "Showers",
-        "Bathtubs",
-        "Sinks",
-        "Valves and trim components",
-      ],
+      paragraphs: ["Common fixtures we replace include:"],
+      list: ["Faucets", "Toilets", "Showers", "Bathtubs", "Sinks", "Valves and trim components"],
     },
     {
       heading: "Signs You Need Fixture Replacement",
-      paragraphs: [
-        "If you notice any of the following, replacement may be the best solution:",
-      ],
+      paragraphs: ["If you notice any of the following, replacement may be the best solution:"],
       list: [
         "Constant dripping or leaking",
         "Rust, corrosion, or mineral buildup",
@@ -53,18 +42,11 @@ const CONTENT: ServicePageContent = {
       paragraphs: [
         "Faucets are among the most frequently used plumbing fixtures. Replacing a faucet improves:",
       ],
-      list: [
-        "Water flow consistency",
-        "Leak prevention",
-        "Ease of use",
-        "Overall appearance",
-      ],
+      list: ["Water flow consistency", "Leak prevention", "Ease of use", "Overall appearance"],
     },
     {
       heading: "Toilet Fixture Replacement",
-      paragraphs: [
-        "Modern toilet fixtures are designed for:",
-      ],
+      paragraphs: ["Modern toilet fixtures are designed for:"],
       list: [
         "Improved flushing efficiency",
         "Reduced water usage",
@@ -74,9 +56,7 @@ const CONTENT: ServicePageContent = {
     },
     {
       heading: "Shower Fixture Replacement",
-      paragraphs: [
-        "Replacing shower fixtures can:",
-      ],
+      paragraphs: ["Replacing shower fixtures can:"],
       list: [
         "Improve temperature control",
         "Restore water pressure",
@@ -86,15 +66,8 @@ const CONTENT: ServicePageContent = {
     },
     {
       heading: "Why Timely Fixture Replacement Matters",
-      paragraphs: [
-        "Delaying fixture replacement can lead to:",
-      ],
-      list: [
-        "Hidden water damage",
-        "Mold growth",
-        "Structural issues",
-        "Increased water bills",
-      ],
+      paragraphs: ["Delaying fixture replacement can lead to:"],
+      list: ["Hidden water damage", "Mold growth", "Structural issues", "Increased water bills"],
     },
     {
       heading: "Schedule Fixture Replacement Service",
@@ -145,7 +118,8 @@ export const Route = createFileRoute("/services/fixture-replacement")({
       { property: "og:title", content: "Fixture Replacement | All Phase Plumbing" },
       {
         property: "og:description",
-        content: "Professional fixture replacement services, reliable, code-compliant, and efficient.",
+        content:
+          "Professional fixture replacement services, reliable, code-compliant, and efficient.",
       },
     ],
   }),

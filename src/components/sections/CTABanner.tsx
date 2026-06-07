@@ -104,7 +104,9 @@ export function CTABanner() {
                 className="px-6 sm:px-8 py-4 sm:py-5"
                 style={{ background: "linear-gradient(135deg, #1E3A6E 0%, #6B9FE4 100%)" }}
               >
-                <h2 className="text-[26px] sm:text-[32px] font-bold text-white text-center">{opts.cta_heading}</h2>
+                <h2 className="text-[26px] sm:text-[32px] font-bold text-white text-center">
+                  {opts.cta_heading}
+                </h2>
                 <p className="text-[#FFB800] font-semibold text-[16px] sm:text-[19px] mt-1 text-center">
                   {opts.cta_subheading}
                 </p>

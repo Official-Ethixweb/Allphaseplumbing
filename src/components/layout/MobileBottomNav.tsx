@@ -1,8 +1,6 @@
 import { useState, useEffect, useMemo, useRef } from "react";
 import { Link, useLocation, useNavigate } from "@tanstack/react-router";
-import {
-  Home, Info, MapPin, Wrench, CalendarCheck, X, Search,
-} from "lucide-react";
+import { Home, Info, MapPin, Wrench, CalendarCheck, X, Search } from "lucide-react";
 
 /* ── Plumbing services list (used by the bottom-sheet) ──────────────────── */
 const PLUMBING_SERVICES: { to: string; label: string }[] = [
@@ -184,12 +182,7 @@ export function MobileBottomNav() {
         style={{ paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 0.5rem)" }}
       >
         <div className="grid grid-cols-5 items-end relative">
-          <NavBtn
-            to="/"
-            label="Home"
-            active={location.pathname === "/"}
-            Icon={Home}
-          />
+          <NavBtn to="/" label="Home" active={location.pathname === "/"} Icon={Home} />
           <NavBtn
             to="/service-area"
             label="Areas"
@@ -208,8 +201,7 @@ export function MobileBottomNav() {
                        shadow-[0_8px_22px_-4px_rgba(74,123,196,0.65)]
                        ring-4 ring-[#0f2246]"
             style={{
-              background:
-                "linear-gradient(135deg,#1E3A6E 0%,#3a6cb8 45%,#6B9FE4 100%)",
+              background: "linear-gradient(135deg,#1E3A6E 0%,#3a6cb8 45%,#6B9FE4 100%)",
             }}
           >
             <CalendarCheck className="size-6" strokeWidth={2.4} />
@@ -224,12 +216,7 @@ export function MobileBottomNav() {
             />
           </button>
 
-          <NavBtn
-            to="/about"
-            label="About"
-            active={isActive("/about")}
-            Icon={Info}
-          />
+          <NavBtn to="/about" label="About" active={isActive("/about")} Icon={Info} />
           <NavBtn
             as="button"
             label="Services"

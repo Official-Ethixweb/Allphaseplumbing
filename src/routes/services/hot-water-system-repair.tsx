@@ -34,9 +34,7 @@ const CONTENT: ServicePageContent = {
     },
     {
       heading: "Common Hot Water System Problems",
-      paragraphs: [
-        "Common signs you need hot water system repair include:",
-      ],
+      paragraphs: ["Common signs you need hot water system repair include:"],
       list: [
         "No hot water",
         "Lukewarm or inconsistent water temperature",
@@ -85,9 +83,7 @@ const CONTENT: ServicePageContent = {
     },
     {
       heading: "Electric Hot Water System Repair",
-      paragraphs: [
-        "Common electric hot water repairs include:",
-      ],
+      paragraphs: ["Common electric hot water repairs include:"],
       list: [
         "Heating element replacement",
         "Thermostat repair or adjustment",
