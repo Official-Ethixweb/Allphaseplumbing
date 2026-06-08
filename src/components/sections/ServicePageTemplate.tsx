@@ -1,9 +1,26 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { Phone, Plus, Minus, ChevronRight, Percent, ArrowRight } from "lucide-react";
+import { Phone, Plus, Minus, ChevronRight } from "lucide-react";
 import { useSiteOptions } from "@/hooks/use-site-options";
 import { StarBorder } from "@/components/ui/StarBorder";
-import GlareHover from "@/components/ui/GlareHover";
+import wwd1 from "@/assets/wwd-1.svg";
+import wwd2 from "@/assets/wwd-2.svg";
+import wwd3 from "@/assets/wwd-3.svg";
+import wwd4 from "@/assets/wwd-4.svg";
+import wwd1Dark from "@/assets/wwd-1-dark.svg";
+import wwd2Dark from "@/assets/wwd-2-dark.svg";
+import wwd3Dark from "@/assets/wwd-3-dark.svg";
+import wwd4Dark from "@/assets/wwd-4-dark.svg";
+
+/** Pick the best matching home-page icon for a sidebar service label. */
+function iconForLabel(label: string): { light: string; dark: string } {
+  const l = label.toLowerCase();
+  if (l.includes("drain")) return { light: wwd4, dark: wwd4Dark };
+  if (l.includes("sewer") || l.includes("septic")) return { light: wwd3, dark: wwd3Dark };
+  if (l.includes("water heater") || l.includes("tankless") || l.includes("hot water"))
+    return { light: wwd2, dark: wwd2Dark };
+  return { light: wwd1, dark: wwd1Dark }; // default: plumbing/pipes
+}
 
 export type ServiceFAQ = { q: string; a: string };
 
@@ -130,78 +147,58 @@ function SidebarContactCard() {
   );
 }
 
-/* ───── Sidebar related services ───── */
+/* ───── Sidebar related services
+   Each tile shows the matching home-page icon. At rest the card is navy
+   with the light-colored icon; on hover it inverts to a white card with
+   the dark icon (mirroring the light → dark crossfade on the homepage
+   What We Do grid). ───── */
 function SidebarServicesMenu({ related }: { related: RelatedService[] }) {
   return (
     <div>
       <h3 className="text-[20px] font-bold uppercase tracking-wider text-[#1E3A6E] text-center mb-4">
         Services
       </h3>
-      <div className="grid grid-cols-2 gap-3">
-        {related.map((r) => (
-          <Link
-            key={r.href + r.label}
-            to={r.href}
-            className="group flex flex-col items-center justify-center bg-[#1E3A6E] text-white rounded-md aspect-square p-4 text-center hover:bg-[#2d5fa8] transition-colors"
-          >
-            <span className="text-[14px] font-bold uppercase tracking-wide leading-tight group-hover:underline">
-              {r.label}
-            </span>
-          </Link>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-/* ───── Sidebar coupon (matches the homepage ticket design) ───── */
-function SidebarCoupon() {
-  return (
-    <div className="relative flex flex-col h-[220px]">
-      {/* Side notches */}
-      <div className="absolute -left-2 top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-white z-20 border border-[#1E3A7B]/20" />
-      <div className="absolute -right-2 top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-white z-20 border border-[#1E3A7B]/20" />
-
-      <GlareHover
-        width="100%"
-        height="100%"
-        background="transparent"
-        borderRadius="0.75rem"
-        borderColor="transparent"
-        glareColor="#94a3b8"
-        glareOpacity={0.18}
-        glareAngle={-45}
-        glareSize={300}
-        transitionDuration={650}
-        className="flex-1 shadow-md hover:shadow-[0_8px_30px_rgba(30,58,110,0.25)] hover:-translate-y-1 transition-all duration-300"
-        style={{ border: "2px solid #1E3A7B", borderRadius: "0.75rem" }}
-      >
-        <div className="w-full h-full flex self-stretch">
-          {/* Left navy stub */}
-          <div className="flex flex-col items-center justify-center w-[30%] bg-[#1E3A6E] px-3 border-r-2 border-dashed border-white/40 shrink-0 self-stretch">
-            <Percent className="size-7 text-white mb-2" />
-            <span className="text-2xl font-black text-white leading-none tracking-tight">10%</span>
-          </div>
-          {/* Right body */}
-          <div className="flex-1 bg-white py-4 px-4 flex flex-col justify-center self-stretch">
-            <h3 className="font-bold text-gray-900 text-[17px] leading-snug">
-              10% Off Service Call
-            </h3>
-            <p className="text-[13px] text-gray-500 mt-1 leading-relaxed">
-              Up to $100 off your next plumbing service call.
-            </p>
-            <span className="inline-block bg-gray-100 text-gray-600 text-xs font-mono px-2 py-1 rounded mt-2 w-fit">
-              APP-10
-            </span>
+      <div className="grid grid-cols-2 gap-x-4 gap-y-6">
+        {related.map((r) => {
+          const icon = iconForLabel(r.label);
+          return (
             <Link
-              to="/coupons"
-              className="inline-flex items-center gap-1 text-[#F5C842] font-semibold text-sm mt-2 hover:gap-2 transition-all"
+              key={r.href + r.label}
+              to={r.href}
+              className="group flex flex-col items-center justify-start text-center
+                         px-1 py-2
+                         hover:-translate-y-0.5 transition-transform duration-200"
             >
-              CLAIM OFFER <ArrowRight className="size-3.5" />
+              {/* Icon stack — light fades to dark on hover (matches home page) */}
+              <span className="relative block w-[112px] h-[112px] sm:w-[128px] sm:h-[128px] mb-2">
+                <img
+                  src={icon.light}
+                  alt=""
+                  aria-hidden="true"
+                  className="absolute inset-0 w-full h-full object-contain
+                             opacity-100 group-hover:opacity-0
+                             transition-opacity duration-150 ease-out"
+                />
+                <img
+                  src={icon.dark}
+                  alt=""
+                  aria-hidden="true"
+                  className="absolute inset-0 w-full h-full object-contain
+                             opacity-0 group-hover:opacity-100
+                             transition-opacity duration-150 ease-out"
+                />
+              </span>
+              <span
+                className="text-[13px] sm:text-[14px] font-bold uppercase tracking-wide leading-tight
+                           text-[#1E3A6E] group-hover:text-[#4A7BC4]
+                           transition-colors duration-150"
+              >
+                {r.label}
+              </span>
             </Link>
-          </div>
-        </div>
-      </GlareHover>
+          );
+        })}
+      </div>
     </div>
   );
 }
@@ -332,7 +329,6 @@ export function ServicePageTemplate({ content }: { content: ServicePageContent }
             <aside className="space-y-8">
               <SidebarContactCard />
               <SidebarServicesMenu related={content.related} />
-              <SidebarCoupon />
             </aside>
           </div>
         </div>

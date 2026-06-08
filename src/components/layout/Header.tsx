@@ -249,26 +249,35 @@ export function Header() {
         </div>
       </div>
 
-      {/* Phone CTA + Book Now chips, hang OUTSIDE the white header, stacked on its bottom-right edge */}
-      <div className="lg:hidden absolute top-full right-0 z-40 -mt-px flex flex-col items-end">
+      {/* Phone CTA strip — full-width under the white header, with the
+          "Available 24/7" tagline on the LEFT and the call number on the RIGHT */}
+      <div className="lg:hidden absolute top-full left-0 right-0 z-40 -mt-px flex flex-col">
         <a
           href={opts.phone_href}
           aria-label={`Call ${opts.phone}`}
-          className="inline-flex items-center gap-1.5 px-4 py-2.5 text-white font-bold text-[14px] tracking-wide active:scale-[0.97] transition-transform"
+          className="flex w-full items-center justify-between gap-3 px-4 py-2.5 text-white tracking-wide active:scale-[0.99] transition-transform leading-tight"
           style={{
             background: "linear-gradient(135deg, #0f2246 0%, #1E3A6E 50%, #4A7BC4 100%)",
-            border: "1.5px solid #1E3A6E",
-            borderTop: "none",
+            borderBottom: "1.5px solid #1E3A6E",
             boxShadow: "0 4px 10px -2px rgba(30,58,110,0.45)",
           }}
         >
-          <Phone className="size-3.5" />
-          {opts.phone}
+          <span className="text-[11.5px] sm:text-[12px] font-semibold tracking-[0.06em] text-white">
+            AVAILABLE 24/7 · SAME DAY SERVICE
+          </span>
+          <span
+            aria-hidden="true"
+            className="h-9 w-[3px] bg-white/70 shrink-0"
+          />
+          <span className="inline-flex items-center gap-1.5 font-bold text-[14px] whitespace-nowrap">
+            <Phone className="size-3.5" />
+            {opts.phone}
+          </span>
         </a>
         <a
           href="/#book-now"
           aria-label="Book now"
-          className="inline-flex items-center gap-1.5 px-4 py-2.5 text-[#1E3A6E] font-bold text-[14px] tracking-wide active:scale-[0.97] transition-transform"
+          className="self-end inline-flex items-center gap-1.5 px-4 py-2.5 text-[#1E3A6E] font-bold text-[14px] tracking-wide active:scale-[0.97] transition-transform"
           style={{
             background: "#F5C842",
             border: "1.5px solid #1E3A6E",
