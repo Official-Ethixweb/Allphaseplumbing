@@ -12,6 +12,7 @@ import {
 import appCss from "../styles.css?url";
 import { CouponsSidePopout } from "@/components/layout/CouponsSidePopout";
 import { MobileBottomNav } from "@/components/layout/MobileBottomNav";
+import { ChatbotWidget } from "@/components/layout/ChatbotWidget";
 
 function NotFoundComponent() {
   return (
@@ -204,6 +205,7 @@ function RootComponent() {
       <Outlet />
       <CouponsSidePopout />
       <MobileBottomNav />
+      <ChatbotWidget />
     </QueryClientProvider>
   );
 }

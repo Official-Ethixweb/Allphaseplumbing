@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { useSiteOptions } from "@/hooks/use-site-options";
 import { StarBorder } from "@/components/ui/StarBorder";
+import mascotWatermark from "@/assets/mascot watermark.svg";
 
 /* Shared treatments reused across the service page. */
 const HEADING_FONT = { fontFamily: "'Poppins', sans-serif" } as const;
@@ -348,14 +349,28 @@ export function ServicePageTemplate({ content }: { content: ServicePageContent }
                   {(block.heading || block.list) && <CallUsLine />}
                 </div>
               ))}
-
-              <ServiceFAQ faqs={content.faqs} title={content.breadcrumbLabel} />
             </div>
 
             {/* Sidebar */}
             <aside className="space-y-8">
               <SidebarContactCard />
+
+              {/* Mascot watermark — sits under the form, then sticks in place as
+                  the user scrolls and stops above the FAQ (desktop only). */}
+              <div className="hidden lg:block sticky top-24">
+                <img
+                  src={mascotWatermark}
+                  alt=""
+                  aria-hidden="true"
+                  className="w-full h-auto select-none pointer-events-none"
+                />
+              </div>
             </aside>
+          </div>
+
+          {/* FAQ — full width below the grid, so the sticky watermark stops here */}
+          <div className="max-w-4xl">
+            <ServiceFAQ faqs={content.faqs} title={content.breadcrumbLabel} />
           </div>
         </div>
       </section>

@@ -6,7 +6,6 @@ import { Services } from "@/components/sections/Services";
 import { WhyUs } from "@/components/sections/WhyUs";
 import { Badges } from "@/components/sections/Badges";
 import { GoogleReviewsMarquee } from "@/components/sections/GoogleReviewsMarquee";
-import { Coupons } from "@/components/sections/Coupons";
 import { TeamSection } from "@/components/sections/TeamSection";
 import { ServiceArea } from "@/components/sections/ServiceArea";
 import { BlogPreview } from "@/components/sections/BlogPreview";
@@ -42,7 +41,6 @@ function Index() {
         <Badges />
         <TeamSection />
         <GoogleReviewsMarquee />
-        <Coupons />
         <CTABanner />
         <ServiceArea />
         <BlogPreview />

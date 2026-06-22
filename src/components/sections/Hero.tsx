@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, type CSSProperties } from "react";
 import { Star, Home, Building2, Phone } from "lucide-react";
 import { StarBorder } from "@/components/ui/StarBorder";
+import Particles from "@/components/ui/Particles";
 import mascot from "@/assets/mascot.svg";
 import { useSiteOptions } from "@/hooks/use-site-options";
 import { gsap } from "gsap";
@@ -310,23 +311,40 @@ export function Hero() {
         {/* ── Full-width form card, sits flush at the bottom of the hero (25% wider than container) ── */}
         <div
           id="book-now"
-          className="mt-0 sm:mt-2 scroll-mt-20 w-full lg:[width:112.5%] lg:[margin-left:-6.25%] lg:[margin-right:-6.25%]"
+          className="mt-0 sm:mt-2 scroll-mt-20 w-full lg:w-[90%] lg:mx-auto"
         >
           <div
-            className="rounded-t-2xl overflow-hidden border-[4px] sm:border-[6px] border-[#1E3A6E]"
+            className="relative rounded-t-2xl overflow-hidden"
             style={{
-              background: "#6B9EF8",
-              boxShadow: "0 -4px 40px rgba(0,0,0,0.13), 0 2px 8px rgba(0,0,0,0.06)",
+              background: "linear-gradient(150deg, #25497f 0%, #1E3A6E 45%, #15294e 100%)",
+              boxShadow: "0 -4px 40px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.08)",
             }}
           >
+            {/* Particle backdrop, drifts inside the form box */}
+            <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
+              <Particles
+                particleCount={170}
+                particleSpread={13}
+                speed={0.45}
+                particleBaseSize={130}
+                sizeRandomness={1.1}
+                alphaParticles={true}
+                cameraDistance={20}
+                disableRotation={true}
+                moveParticlesOnHover={false}
+                particleColors={["#ffffff", "#eaf2ff", "#cfe0f9"]}
+                className="w-full h-full"
+              />
+            </div>
+
             {/* Residential / Commercial tabs */}
-            <div className="flex border-b border-[#1E3A6E]/30">
+            <div className="relative z-10 flex border-b border-white/15">
               <button
                 type="button"
                 onClick={() => setServiceType("residential")}
                 className={`flex-1 sm:flex-none flex items-center justify-center gap-1.5 sm:gap-3 px-3 py-3.5 sm:px-10 sm:py-5 text-base sm:text-[26px] font-semibold transition-all duration-300 border-b-4 ${
                   serviceType === "residential"
-                    ? "border-[#F5C842] text-white bg-white/25 shadow-[inset_0_-3px_0_#F5C842,0_4px_12px_rgba(30,58,110,0.25)] -translate-y-[1px] scale-[1.02]"
+                    ? "border-white text-white bg-white/25 shadow-[inset_0_-3px_0_#ffffff,0_4px_12px_rgba(0,0,0,0.25)] -translate-y-[1px] scale-[1.02]"
                     : "border-transparent text-white/70 hover:text-white hover:bg-white/10 bg-transparent"
                 }`}
               >
@@ -337,7 +355,7 @@ export function Hero() {
                 onClick={() => setServiceType("commercial")}
                 className={`flex-1 sm:flex-none flex items-center justify-center gap-1.5 sm:gap-3 px-3 py-3.5 sm:px-10 sm:py-5 text-base sm:text-[26px] font-semibold transition-all duration-300 border-b-4 ${
                   serviceType === "commercial"
-                    ? "border-[#F5C842] text-white bg-white/25 shadow-[inset_0_-3px_0_#F5C842,0_4px_12px_rgba(30,58,110,0.25)] -translate-y-[1px] scale-[1.02]"
+                    ? "border-white text-white bg-white/25 shadow-[inset_0_-3px_0_#ffffff,0_4px_12px_rgba(0,0,0,0.25)] -translate-y-[1px] scale-[1.02]"
                     : "border-transparent text-white/70 hover:text-white hover:bg-white/10 bg-transparent"
                 }`}
               >
@@ -346,7 +364,7 @@ export function Hero() {
             </div>
 
             {/* Form body, split into promo (left) + form (right) on large screens */}
-            <div className="px-4 py-4 sm:px-8 sm:py-6 lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,2.4fr)] lg:gap-8">
+            <div className="relative z-10 px-4 py-4 sm:px-8 sm:py-6 lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,2.4fr)] lg:gap-8">
               {/* Contact promo (left column on lg) */}
               <div className="mb-4 lg:mb-0 text-white lg:border-r lg:border-white/25 lg:pr-6">
                 <h2
@@ -355,7 +373,7 @@ export function Hero() {
                 >
                   Contact us today
                 </h2>
-                <p className="mt-2 text-[19px] sm:text-[22px] font-bold leading-snug text-[#F5C842]">
+                <p className="mt-2 text-[19px] sm:text-[22px] font-bold leading-snug text-white">
                   Same Day Service
                 </p>
                 <p className="hidden sm:block text-[16.5px] sm:text-[19px] font-semibold leading-snug mt-1">
@@ -488,6 +506,7 @@ export function Hero() {
                   <div className="mt-3.5 sm:mt-4 flex justify-center">
                     <StarBorder
                       type="submit"
+                      color="#F5C842"
                       className="inline-block active:scale-[0.98] transition-all"
                       innerClassName="font-bold px-8 py-2.5 text-[17px] sm:px-16 sm:py-3 sm:text-[22px]"
                       innerStyle={{
@@ -525,11 +544,11 @@ export function Hero() {
                   <p className="mt-3 text-[12px] sm:text-[13px] text-white/75 leading-relaxed border-t border-white/15 pt-2.5">
                     By entering your email address, you agree to receive emails about services,
                     updates or promotions, and you agree to our{" "}
-                    <a href="/about" className="underline hover:text-[#F5C842]">
+                    <a href="/about" className="underline hover:text-white">
                       Terms
                     </a>{" "}
                     and{" "}
-                    <a href="/about" className="underline hover:text-[#F5C842]">
+                    <a href="/about" className="underline hover:text-white">
                       Privacy Policy
                     </a>
                     . You may unsubscribe at any time.
