@@ -345,6 +345,16 @@ body {
     lightPulse 4s ease-in-out infinite 2.2s;
 }
 
+/* ─── Mobile (< lg): drop the van slide-in animation ─────────────────────── */
+/* The van still fades in via its Tailwind opacity transition; only the
+   horizontal slide motion is removed on mobile. PC is untouched. */
+@media (max-width: 1023px) {
+  .animate-van-slide {
+    animation: none;
+    transform: none;
+  }
+}
+
 /* ─── Leaflet z-index containment: prevent map from escaping sticky header ── */
 /* The outer div uses isolation:isolate which already scopes things, but these  */
 /* explicit overrides act as a second guard.                                     */

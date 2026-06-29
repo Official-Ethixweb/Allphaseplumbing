@@ -131,9 +131,18 @@ const Particles = ({
     const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
     if (reduceMotion) return;
 
-    // Keep DPR at 1 for particles, soft round sprites don't benefit from retina sampling
-    // and rendering at 2x/3x triples the fill-rate cost.
-    const dpr = pixelRatio ?? 1;
+    // Mobile (< lg): render the particles at lower resolution and a capped frame
+    // rate to cut the GPU fill-rate and main-thread cost. They still animate.
+    // PC (>= 1024px) keeps full resolution and an uncapped frame rate.
+    const isMobile = window.matchMedia?.("(max-width: 1023px)").matches ?? false;
+
+    // Keep DPR low for particles — soft round sprites don't benefit from retina
+    // sampling and rendering at 2x/3x triples the fill-rate cost. On mobile we
+    // drop below 1 to render fewer pixels still.
+    const dpr = pixelRatio ?? (isMobile ? 0.6 : 1);
+
+    // Minimum ms between rendered frames. Mobile caps to ~30fps; PC is uncapped.
+    const frameIntervalMs = isMobile ? 1000 / 30 : 0;
 
     /* eslint-disable-next-line @typescript-eslint/no-explicit-any -- OGL WebGL objects captured across nested rAF closures; precise typing requires non-null guards that add no runtime safety here. */
     let renderer: any, gl: any, camera: any, geometry: any, program: any, particles: any;
@@ -215,14 +224,23 @@ const Particles = ({
       particles = new Mesh(gl, { mode: gl.POINTS, geometry, program });
 
       let lastTime = performance.now();
+      let lastRender = lastTime;
       let elapsed = 0;
 
       const update = (t: number) => {
         animationFrameId = requestAnimationFrame(update);
         if (!isVisible) {
           lastTime = t; // avoid huge delta when we resume
+          lastRender = t;
           return;
         }
+        // Mobile FPS cap: skip frames that arrive sooner than the interval so we
+        // render ~30fps instead of ~60. lastTime is left untouched on skipped
+        // frames so the accumulated delta keeps motion at the same speed.
+        if (frameIntervalMs > 0 && t - lastRender < frameIntervalMs) {
+          return;
+        }
+        lastRender = t;
         const delta = t - lastTime;
         lastTime = t;
         elapsed += delta * speed;

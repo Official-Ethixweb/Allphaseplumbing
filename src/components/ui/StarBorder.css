@@ -62,3 +62,13 @@
     opacity: 0;
   }
 }
+
+/* ─── Mobile (< lg): remove the animated star-glow around CTA buttons ─────── */
+/* Hides the moving gradient layers entirely so the button renders clean and
+   static on mobile. Desktop keeps the animated border. */
+@media (max-width: 1023px) {
+  .border-gradient-bottom,
+  .border-gradient-top {
+    display: none;
+  }
+}
