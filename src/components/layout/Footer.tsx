@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Phone, MapPin, Clock } from "lucide-react";
 import logo from "@/assets/app-logo-white.svg";
-import mascot from "@/assets/mascot.svg";
+import mascot from "@/assets/better-mascot.webp";
 import { slugify } from "@/data/area-content";
 
 const CITIES = [

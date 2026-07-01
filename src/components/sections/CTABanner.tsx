@@ -2,6 +2,9 @@ import { useState, useEffect, useRef } from "react";
 import vanImg from "@/assets/van.png";
 import { useSiteOptions } from "@/hooks/use-site-options";
 import { StarBorder } from "@/components/ui/StarBorder";
+import { Recaptcha } from "@/components/ui/Recaptcha";
+import { useRecaptchaGate } from "@/hooks/use-recaptcha-gate";
+import { submitLeadFromForm } from "@/lib/lead-form";
 
 const SERVICE_OPTIONS = [
   "Plumbing Repair",
@@ -23,7 +26,9 @@ export function CTABanner() {
   });
 
   const [isAnimated, setIsAnimated] = useState(false);
+  const [sent, setSent] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
+  const captcha = useRecaptchaGate();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -43,9 +48,19 @@ export function CTABanner() {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    /* form submission handled externally */
+    const el = e.currentTarget as HTMLFormElement;
+    if (await captcha.verify()) {
+      await submitLeadFromForm(el, {
+        source: "CTA Banner",
+        name: form.name,
+        email: form.email,
+        phone: form.phone,
+        service: form.service,
+      });
+      setSent(true);
+    }
   }
 
   const inputCls =
@@ -163,6 +178,12 @@ export function CTABanner() {
                     ))}
                   </select>
 
+                  <Recaptcha ref={captcha.ref} onVerify={captcha.setToken} />
+                  {captcha.error && (
+                    <p className="text-[13px] font-semibold text-red-600">
+                      Please confirm you're not a robot to continue.
+                    </p>
+                  )}
                   <StarBorder
                     type="submit"
                     className="block w-full active:scale-[0.98] transition-all"
@@ -175,6 +196,11 @@ export function CTABanner() {
                   >
                     CONTACT US TODAY
                   </StarBorder>
+                  {sent && (
+                    <p className="text-[14px] font-bold text-[#1E3A6E] text-center bg-[#1E3A6E]/10 px-5 py-2.5 rounded-lg">
+                      ✓ Thanks, we'll be in touch shortly.
+                    </p>
+                  )}
                 </form>
               </div>
             </div>

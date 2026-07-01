@@ -49,8 +49,8 @@ function MascotAvatar({ size = 44, ring = true }: { size?: number; ring?: boolea
         style={{
           overflow: "hidden",
           backgroundImage: `url(${chatbotFace})`,
-          backgroundSize: "128%",
-          backgroundPosition: "50% 18%",
+          backgroundSize: "cover",
+          backgroundPosition: "50% 22%",
         }}
       />
     </span>
@@ -330,7 +330,7 @@ export function ChatbotWidget() {
           role="dialog"
           aria-label="All Phase chat assistant"
           className={`ap-chat-panel ${closing ? "ap-chat-out" : "ap-chat-in"}
-                     mb-3 flex h-[min(540px,calc(100dvh-180px))] w-[min(370px,calc(100vw-2rem))] flex-col
+                     mb-3 flex h-[min(680px,calc(100dvh-120px))] w-[min(440px,calc(100vw-2rem))] flex-col
                      overflow-hidden border border-black/10 bg-white
                      shadow-[0_24px_60px_-12px_rgba(15,34,70,0.5)]`}
         >
@@ -339,10 +339,10 @@ export function ChatbotWidget() {
             className="flex items-center gap-3 px-4 py-3.5 text-white"
             style={{ background: "linear-gradient(135deg,#0f2246 0%,#1E3A6E 55%,#2d5fa8 100%)" }}
           >
-            <MascotAvatar size={42} />
+            <MascotAvatar size={48} />
             <div className="min-w-0 flex-1">
-              <p className="text-[15px] font-bold leading-tight">All Phase Assistant</p>
-              <p className="flex items-center gap-1.5 text-[12px] text-white/80">
+              <p className="text-[17px] font-bold leading-tight">All Phase Assistant</p>
+              <p className="flex items-center gap-1.5 text-[13px] text-white/80">
                 <span className="ap-circle inline-block size-2 bg-[#4ade80]" />
                 Online · replies instantly
               </p>
@@ -351,25 +351,25 @@ export function ChatbotWidget() {
               type="button"
               onClick={closeChat}
               aria-label="Close chat"
-              className="inline-flex size-8 items-center justify-center text-white/80 transition-colors hover:bg-white/15 hover:text-white"
+              className="inline-flex size-9 items-center justify-center text-white/80 transition-colors hover:bg-white/15 hover:text-white"
             >
-              <X className="size-5" />
+              <X className="size-6" />
             </button>
           </div>
 
           {/* Messages */}
-          <div ref={scrollRef} className="flex-1 space-y-3 overflow-y-auto bg-[#f4f7fb] px-3.5 py-4">
+          <div ref={scrollRef} className="flex-1 space-y-3.5 overflow-y-auto bg-[#f4f7fb] px-4 py-4">
             {messages.map((m, i) =>
               m.from === "bot" ? (
                 <div key={i} className="ap-msg flex items-end gap-2">
-                  <MascotAvatar size={28} ring={false} />
-                  <div className="max-w-[78%] bg-white px-3.5 py-2.5 text-[14px] leading-snug text-[#1E3A6E] shadow-sm">
+                  <MascotAvatar size={32} ring={false} />
+                  <div className="max-w-[80%] bg-white px-4 py-3 text-[15px] leading-snug text-[#1E3A6E] shadow-sm">
                     {m.text}
                   </div>
                 </div>
               ) : (
                 <div key={i} className="ap-msg flex justify-end">
-                  <div className="max-w-[78%] bg-[#1E3A6E] px-3.5 py-2.5 text-[14px] leading-snug text-white shadow-sm">
+                  <div className="max-w-[80%] bg-[#1E3A6E] px-4 py-3 text-[15px] leading-snug text-white shadow-sm">
                     {m.text}
                   </div>
                 </div>
@@ -378,7 +378,7 @@ export function ChatbotWidget() {
 
             {typing && (
               <div className="ap-msg flex items-end gap-2">
-                <MascotAvatar size={28} ring={false} />
+                <MascotAvatar size={32} ring={false} />
                 <div className="flex items-center gap-1 bg-white px-3.5 py-3 shadow-sm">
                   {[0, 1, 2].map((d) => (
                     <span
@@ -394,13 +394,13 @@ export function ChatbotWidget() {
 
           {/* Quick replies (only show when INIT or ASK_RESTART) */}
           {(flowState === "INIT" || flowState === "ASK_RESTART") && !typing && (
-            <div className="flex flex-wrap gap-2 border-t border-black/5 bg-white px-3.5 pt-3">
+            <div className="flex flex-wrap gap-2 border-t border-black/5 bg-white px-4 pt-3.5">
               {(flowState === "INIT" ? QUICK_REPLIES : ["Yes", "No"]).map((q) => (
                 <button
                   key={q}
                   type="button"
                   onClick={() => handleInput(q)}
-                  className="border border-[#1E3A6E]/25 bg-[#eef4fb] px-3 py-1.5 text-[12.5px] font-semibold text-[#1E3A6E] transition-all duration-200 hover:scale-105 hover:bg-[#1E3A6E] hover:text-white active:scale-95"
+                  className="border border-[#1E3A6E]/25 bg-[#eef4fb] px-3.5 py-2 text-[13.5px] font-semibold text-[#1E3A6E] transition-all duration-200 hover:scale-105 hover:bg-[#1E3A6E] hover:text-white active:scale-95"
                 >
                   {q}
                 </button>
@@ -410,7 +410,7 @@ export function ChatbotWidget() {
 
           {/* Composer */}
           <form
-            className="flex items-center gap-2 bg-white p-3"
+            className="flex items-center gap-2 bg-white p-3.5"
             onSubmit={(e) => {
               e.preventDefault();
               handleInput(input);
@@ -419,7 +419,7 @@ export function ChatbotWidget() {
             <a
               href={opts.phone_href}
               aria-label="Call us"
-              className="inline-flex size-10 shrink-0 items-center justify-center bg-[#F5C842] text-[#1E3A6E] transition-transform duration-200 hover:scale-110 active:scale-95"
+              className="inline-flex size-11 shrink-0 items-center justify-center bg-[#F5C842] text-[#1E3A6E] transition-transform duration-200 hover:scale-110 active:scale-95"
             >
               <Phone className="size-5" strokeWidth={2.4} />
             </a>
@@ -427,15 +427,15 @@ export function ChatbotWidget() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Type a message…"
-              className="min-w-0 flex-1 border-2 border-[#1E3A6E]/15 bg-[#f4f7fb] px-4 py-2.5 text-[14px] text-[#1E3A6E] placeholder:text-gray-400 transition-colors duration-200 focus:border-[#1E3A6E] focus:bg-white focus:outline-none"
+              className="min-w-0 flex-1 border-2 border-[#1E3A6E]/15 bg-[#f4f7fb] px-4 py-3 text-[15px] text-[#1E3A6E] placeholder:text-gray-400 transition-colors duration-200 focus:border-[#1E3A6E] focus:bg-white focus:outline-none"
             />
             <button
               type="submit"
               aria-label="Send message"
               disabled={!input.trim()}
-              className="inline-flex size-10 shrink-0 items-center justify-center bg-[#1E3A6E] text-white transition-all duration-200 hover:scale-110 hover:bg-[#16305c] active:scale-95 disabled:scale-100 disabled:opacity-40"
+              className="inline-flex size-11 shrink-0 items-center justify-center bg-[#1E3A6E] text-white transition-all duration-200 hover:scale-110 hover:bg-[#16305c] active:scale-95 disabled:scale-100 disabled:opacity-40"
             >
-              <Send className="size-[18px]" />
+              <Send className="size-5" />
             </button>
           </form>
         </div>
