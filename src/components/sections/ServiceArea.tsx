@@ -1,11 +1,15 @@
 import { Link } from "@tanstack/react-router";
-import { MapPin } from "lucide-react";
+import { Check, Loader2, MapPin, Phone, ShieldCheck } from "lucide-react";
 import { StarBorder } from "@/components/ui/StarBorder";
 import { useSiteOptions } from "@/hooks/use-site-options";
 import { slugify } from "@/data/area-content";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Particles from "@/components/ui/Particles";
 import { enableTwoFingerPan } from "@/lib/leaflet-two-finger-pan";
+import { useZipGeocode } from "@/hooks/use-zip-geocode";
+import type { ZipLocation } from "@/lib/service-area-geo";
+import { Recaptcha, type RecaptchaHandle } from "@/components/ui/Recaptcha";
+import { verifyRecaptcha } from "@/lib/recaptcha.functions";
 
 /* ── Leaflet dynamic import (avoids SSR issues) ───────────────────────────── */
 declare global {
@@ -14,9 +18,12 @@ declare global {
   }
 }
 
-function ServiceMap() {
+function ServiceMap({ zipLocation }: { zipLocation: ZipLocation | null }) {
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<import("leaflet").Map | null>(null);
+  const zipMarkerRef = useRef<import("leaflet").Marker | null>(null);
+  const LRef = useRef<typeof import("leaflet") | null>(null);
+  const originalBoundsRef = useRef<import("leaflet").LatLngBounds | null>(null);
   const teardownTouchRef = useRef<(() => void) | null>(null);
 
   useEffect(() => {
@@ -25,6 +32,7 @@ function ServiceMap() {
     // Dynamically import Leaflet to avoid SSR issues
     import("leaflet").then((L) => {
       if (!mapRef.current || mapInstanceRef.current) return;
+      LRef.current = L;
 
       /* ── Leaflet CSS ── */
       if (!document.getElementById("leaflet-css")) {
@@ -113,7 +121,8 @@ function ServiceMap() {
         .openPopup();
 
       /* ── Fit map to polygon ── */
-      map.fitBounds(polygon.getBounds(), { padding: [32, 32] });
+      originalBoundsRef.current = polygon.getBounds();
+      map.fitBounds(originalBoundsRef.current, { padding: [32, 32] });
 
       /* ── Mobile: require two fingers to pan ── */
       if (mapRef.current) {
@@ -131,6 +140,66 @@ function ServiceMap() {
     };
   }, []);
 
+  // React to zip lookup, fly the map smoothly and drop a highlight marker
+  useEffect(() => {
+    const map = mapInstanceRef.current;
+    const L = LRef.current;
+    if (!map || !L) return;
+
+    if (zipMarkerRef.current) {
+      zipMarkerRef.current.remove();
+      zipMarkerRef.current = null;
+    }
+
+    if (!zipLocation) {
+      if (originalBoundsRef.current) {
+        map.flyToBounds(originalBoundsRef.current, {
+          padding: [32, 32],
+          duration: 1.2,
+          easeLinearity: 0.25,
+        });
+      }
+      return;
+    }
+
+    map.flyTo([zipLocation.lat, zipLocation.lon], 12, {
+      animate: true,
+      duration: 1.4,
+      easeLinearity: 0.25,
+    });
+
+    const zipIcon = L.divIcon({
+      className: "",
+      html: `<div style="
+        background: linear-gradient(135deg,#F5C842,#e6b228);
+        color:#1E3A6E;
+        border-radius:50% 50% 50% 0;
+        transform:rotate(-45deg);
+        width:36px;height:36px;
+        border:3px solid #1E3A6E;
+        box-shadow:0 4px 14px rgba(30,58,110,0.5);
+        display:flex;align-items:center;justify-content:center;
+        animation: zipPinDrop 0.5s ease-out;">
+        <span style="transform:rotate(45deg);font-size:16px;">📍</span>
+      </div>
+      <style>@keyframes zipPinDrop{0%{transform:rotate(-45deg) translateY(-40px);opacity:0}100%{transform:rotate(-45deg) translateY(0);opacity:1}}</style>`,
+      iconSize: [36, 36],
+      iconAnchor: [18, 36],
+      popupAnchor: [0, -40],
+    });
+
+    zipMarkerRef.current = L.marker([zipLocation.lat, zipLocation.lon], { icon: zipIcon })
+      .addTo(map)
+      .bindPopup(
+        `<div style="font-family:Inter,sans-serif;font-weight:700;color:#1E3A6E;font-size:13px;line-height:1.4;max-width:220px">
+          Your Area<br>
+          <span style="font-weight:400;color:#555;font-size:12px">${zipLocation.label}</span>
+        </div>`,
+        { maxWidth: 240 },
+      )
+      .openPopup();
+  }, [zipLocation]);
+
   return (
     <div
       ref={mapRef}
@@ -140,9 +209,193 @@ function ServiceMap() {
   );
 }
 
+/* ── ZIP search + availability check, gated by reCAPTCHA to keep the
+   Nominatim lookup from being spammed by bots ─────────────────────── */
+type CheckStatus = "idle" | "loading" | "ok" | "out" | "error" | "needs-captcha" | "verifying";
+
+function ZipAvailabilityCheck({ onResult }: { onResult: (loc: ZipLocation | null) => void }) {
+  const [zip, setZip] = useState("");
+  const [captchaToken, setCaptchaToken] = useState("");
+  const [status, setStatus] = useState<CheckStatus>("idle");
+  const [result, setResult] = useState<{ served: boolean; location: ZipLocation } | null>(null);
+  const captchaRef = useRef<RecaptchaHandle>(null);
+
+  const { status: geoStatus, location: geoLocation } = useZipGeocode(
+    status === "loading" ? zip : "",
+  );
+
+  // Once the debounced geocode resolves, surface the result and hand the
+  // pin off to the map.
+  useEffect(() => {
+    if (status !== "loading") return;
+    if (geoStatus === "ok" || geoStatus === "out") {
+      setResult({ served: geoStatus === "ok", location: geoLocation! });
+      setStatus(geoStatus);
+      onResult(geoLocation);
+    } else if (geoStatus === "error") {
+      setStatus("error");
+      onResult(null);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [geoStatus, geoLocation, status]);
+
+  function reset() {
+    setZip("");
+    setResult(null);
+    setStatus("idle");
+    setCaptchaToken("");
+    captchaRef.current?.reset();
+    onResult(null);
+  }
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!/^\d{5}$/.test(zip)) return;
+
+    if (!captchaToken) {
+      setStatus("needs-captcha");
+      return;
+    }
+
+    setStatus("verifying");
+    const verify = await verifyRecaptcha({ data: { token: captchaToken } });
+    captchaRef.current?.reset();
+    setCaptchaToken("");
+
+    if (!verify.success) {
+      setStatus("needs-captcha");
+      return;
+    }
+
+    setStatus("loading");
+  }
+
+  const showBanner = status === "ok" || status === "out";
+
+  return (
+    <div
+      className="mx-auto mb-10 max-w-[720px] rounded-2xl border border-white/20 p-5 sm:p-6"
+      style={{ background: "rgba(15,34,70,0.55)" }}
+    >
+      <div className="flex items-center gap-2 mb-1">
+        <ShieldCheck className="size-4 text-[#F5C842]" />
+        <p className="text-[12px] font-bold uppercase tracking-widest text-[#F5C842]">
+          Check Your Address
+        </p>
+      </div>
+      <h3 className="text-white font-black text-[20px] sm:text-[22px] leading-tight">
+        Do we service your ZIP code?
+      </h3>
+
+      <form onSubmit={handleSubmit} className="mt-4 space-y-4">
+        <div className="flex flex-col sm:flex-row gap-3">
+          <div className="relative flex-1">
+            <input
+              type="text"
+              inputMode="numeric"
+              maxLength={5}
+              pattern="\d{5}"
+              placeholder="ENTER ZIP CODE*"
+              required
+              value={zip}
+              onChange={(e) => {
+                setZip(e.target.value.replace(/\D/g, "").slice(0, 5));
+                if (status !== "idle") {
+                  setStatus("idle");
+                  setResult(null);
+                  onResult(null);
+                }
+              }}
+              className={`w-full rounded-xl border-2 border-white/20 bg-white/10 backdrop-blur-sm px-4 py-3.5 text-[14px] sm:text-[15px] font-semibold text-white placeholder:text-white/45 focus:outline-none focus:border-[#F5C842] focus:bg-white/15 transition-all duration-200
+                ${status === "ok" ? "!border-emerald-400 !bg-emerald-500/10" : ""}
+                ${status === "out" ? "!border-amber-400 !bg-amber-500/10" : ""}
+                ${status === "error" ? "!border-red-400 !bg-red-500/10" : ""}`}
+            />
+            {(status === "loading" || status === "verifying") && (
+              <Loader2 className="absolute right-3.5 top-1/2 -translate-y-1/2 size-5 text-white/60 animate-spin" />
+            )}
+            {status === "ok" && (
+              <Check className="absolute right-3.5 top-1/2 -translate-y-1/2 size-5 text-emerald-400" strokeWidth={3} />
+            )}
+          </div>
+          <button
+            type="submit"
+            disabled={zip.length !== 5 || status === "loading" || status === "verifying"}
+            className="shrink-0 inline-flex items-center justify-center bg-[#F5C842] text-[#1E3A6E] font-black text-[14px] sm:text-[15px] uppercase tracking-wide px-6 py-3.5 rounded-xl hover:bg-[#eec136] active:scale-[0.98] transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed"
+          >
+            Check Availability
+          </button>
+        </div>
+
+        {status === "needs-captcha" && (
+          <div className="flex flex-col gap-2">
+            <p className="text-[13px] text-amber-300 font-semibold">
+              Please confirm you're not a robot to continue.
+            </p>
+            <Recaptcha ref={captchaRef} onVerify={setCaptchaToken} />
+          </div>
+        )}
+      </form>
+
+      {showBanner && result && (
+        <div
+          className={`mt-4 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 rounded-2xl px-5 py-4 border animate-in fade-in slide-in-from-bottom-2 duration-300 ${
+            result.served
+              ? "border-emerald-400/40 bg-emerald-500/10"
+              : "border-amber-400/40 bg-amber-500/10"
+          }`}
+          role="alert"
+        >
+          <div className="flex items-start gap-3 flex-1 min-w-0">
+            <div
+              className={`flex items-center justify-center size-9 rounded-xl shrink-0 font-black ${
+                result.served ? "text-white bg-emerald-500" : "text-[#1E3A6E]"
+              }`}
+              style={!result.served ? { background: "linear-gradient(135deg,#F5C842,#e6b228)" } : undefined}
+            >
+              {result.served ? <Check className="size-5" strokeWidth={3} /> : "!"}
+            </div>
+            <div className="text-white/90 text-[14px] leading-relaxed min-w-0">
+              <p className="font-bold text-white truncate">{result.location.label}</p>
+              <p className="text-white/75 mt-0.5">
+                {result.served
+                  ? "Great news, we serve your area! Same-day service available."
+                  : "Sorry, we don't currently serve this area."}
+              </p>
+            </div>
+          </div>
+          {result.served ? (
+            <a
+              href="tel:+12067726077"
+              className="shrink-0 inline-flex items-center justify-center gap-2 bg-white text-[#1E3A6E] font-bold text-[13px] px-4 py-2.5 rounded-xl hover:bg-[#F5C842] transition-colors duration-150"
+            >
+              <Phone className="size-4" /> Call Now
+            </a>
+          ) : (
+            <button
+              type="button"
+              onClick={reset}
+              className="shrink-0 inline-flex items-center justify-center gap-2 bg-[#F5C842] text-[#1E3A6E] font-bold text-[13px] px-4 py-2.5 rounded-xl hover:bg-[#eec136] transition-colors duration-150"
+            >
+              Try Another ZIP
+            </button>
+          )}
+        </div>
+      )}
+
+      {status === "error" && (
+        <div className="mt-4 rounded-xl bg-red-500/15 border border-red-300/40 text-white px-4 py-3 text-sm">
+          Couldn't find that ZIP code. Double-check it or call us directly.
+        </div>
+      )}
+    </div>
+  );
+}
+
 export function ServiceArea() {
   const opts = useSiteOptions();
   const cities = opts.service_area_cities;
+  const [zipLocation, setZipLocation] = useState<ZipLocation | null>(null);
 
   return (
     <section
@@ -184,6 +437,9 @@ export function ServiceArea() {
           </p>
         </div>
 
+        {/* ZIP search + availability check */}
+        <ZipAvailabilityCheck onResult={setZipLocation} />
+
         {/* Two-column layout: map LEFT, city list RIGHT */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* ── LEFT: Map, full-bleed on mobile, contained on desktop ── */}
@@ -191,7 +447,7 @@ export function ServiceArea() {
             className="-mx-4 lg:mx-0 rounded-none lg:rounded-2xl overflow-hidden border-y-2 lg:border-2 border-white/25 shadow-2xl bg-white order-1 h-[300px] sm:h-[380px] lg:h-[500px]"
             style={{ isolation: "isolate", position: "relative" }}
           >
-            <ServiceMap />
+            <ServiceMap zipLocation={zipLocation} />
           </div>
 
           {/* ── RIGHT (desktop) / BELOW (mobile): City list ── */}

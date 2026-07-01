@@ -14,6 +14,9 @@ import { useSiteOptions } from "@/hooks/use-site-options";
 import { StarBorder } from "@/components/ui/StarBorder";
 import Particles from "@/components/ui/Particles";
 import mascotWatermark from "@/assets/mascot watermark.svg";
+import { Recaptcha } from "@/components/ui/Recaptcha";
+import { useRecaptchaGate } from "@/hooks/use-recaptcha-gate";
+import { submitLeadFromForm } from "@/lib/lead-form";
 
 /* Shared treatments reused across the service page. */
 const HEADING_FONT = { fontFamily: "'Poppins', sans-serif" } as const;
@@ -140,6 +143,8 @@ function ServicePageHero({ content }: { content: ServicePageContent }) {
 /* ───── Sidebar contact form ───── */
 function SidebarContactCard() {
   const opts = useSiteOptions();
+  const [sent, setSent] = useState(false);
+  const captcha = useRecaptchaGate();
   return (
     <div 
       className="relative rounded-xl overflow-hidden"
@@ -175,28 +180,42 @@ function SidebarContactCard() {
         <p className="text-white/90 text-[15px] text-center mt-2">Get a flat-rate quote today.</p>
       </div>
 
-      <form className="relative z-10 px-5 pb-6 space-y-3" onSubmit={(e) => e.preventDefault()}>
+      <form
+        className="relative z-10 px-5 pb-6 space-y-3"
+        onSubmit={async (e) => {
+          e.preventDefault();
+          const form = e.currentTarget;
+          if (await captcha.verify()) {
+            await submitLeadFromForm(form, { source: "Service Page" });
+            setSent(true);
+          }
+        }}
+      >
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <input
             type="text"
+            name="firstName"
             placeholder="FIRST NAME*"
             className="w-full rounded-md border-2 border-[#1E3A6E] bg-white px-4 py-3.5 text-[16px] font-semibold text-[#1E3A6E] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#1E3A6E]"
             required
           />
           <input
             type="text"
+            name="lastName"
             placeholder="LAST NAME*"
             className="w-full rounded-md border-2 border-[#1E3A6E] bg-white px-4 py-3.5 text-[16px] font-semibold text-[#1E3A6E] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#1E3A6E]"
             required
           />
           <input
             type="email"
+            name="email"
             placeholder="EMAIL*"
             className="w-full sm:col-span-2 rounded-md border-2 border-[#1E3A6E] bg-white px-4 py-3.5 text-[16px] font-semibold text-[#1E3A6E] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#1E3A6E]"
             required
           />
           <input
             type="tel"
+            name="phone"
             placeholder="PHONE*"
             className="w-full sm:col-span-2 rounded-md border-2 border-[#1E3A6E] bg-white px-4 py-3.5 text-[16px] font-semibold text-[#1E3A6E] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#1E3A6E]"
             required
@@ -204,6 +223,7 @@ function SidebarContactCard() {
         </div>
         <select
           required
+          name="service"
           defaultValue=""
           className="w-full rounded-md border-2 border-[#1E3A6E] bg-white px-4 py-3.5 text-[15px] font-semibold text-[#1E3A6E] focus:outline-none focus:ring-2 focus:ring-[#1E3A6E]"
         >
@@ -221,12 +241,23 @@ function SidebarContactCard() {
           Phase Plumbing. Msg &amp; data rates may apply. Reply STOP to unsubscribe. Reply HELP for
           help.
         </p>
+        <Recaptcha ref={captcha.ref} onVerify={captcha.setToken} />
+        {captcha.error && (
+          <p className="text-[12px] font-semibold text-red-200">
+            Please confirm you're not a robot to continue.
+          </p>
+        )}
         <button
           type="submit"
           className="w-full bg-[#F5C842] text-[#1E3A6E] font-bold text-[15px] py-3 rounded-md border-2 border-[#1E3A6E] hover:bg-[#f0c030] transition-colors"
         >
           CONTACT US
         </button>
+        {sent && (
+          <p className="text-[13px] font-bold text-white text-center bg-white/10 px-4 py-2.5 rounded-md">
+            ✓ Thanks, we'll be in touch shortly.
+          </p>
+        )}
       </form>
     </div>
   );

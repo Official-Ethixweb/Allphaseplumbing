@@ -23,6 +23,9 @@ import { CityHighlightMap } from "@/components/sections/CityHighlightMap";
 import { SERVICES, ServiceCard } from "@/components/sections/Services";
 import Particles from "@/components/ui/Particles";
 import { GOOGLE_REVIEWS, slugify, type AreaContent } from "@/data/area-content";
+import { Recaptcha } from "@/components/ui/Recaptcha";
+import { useRecaptchaGate } from "@/hooks/use-recaptcha-gate";
+import { submitLeadFromForm } from "@/lib/lead-form";
 
 /* Shared heading font treatment used across the site (Poppins, navy, heavy). */
 const HEADING_FONT = { fontFamily: "'Poppins', sans-serif" } as const;
@@ -574,6 +577,8 @@ function Contact({ area }: { area: AreaContent }) {
   const opts = useSiteOptions();
   const [serviceType, setServiceType] = useState<"residential" | "commercial">("residential");
   const [smsOptIn, setSmsOptIn] = useState(false);
+  const [sent, setSent] = useState(false);
+  const captcha = useRecaptchaGate();
 
   const tabCls = (active: boolean) =>
     `flex-1 flex items-center justify-center gap-2 px-3 py-3.5 text-[15px] sm:text-[18px] font-semibold transition-all duration-300 border-b-4 ${
@@ -663,11 +668,23 @@ function Contact({ area }: { area: AreaContent }) {
                 Let Us Call You
               </h3>
 
-              <form onSubmit={(e) => e.preventDefault()}>
+              <form
+                onSubmit={async (e) => {
+                  e.preventDefault();
+                  const form = e.currentTarget;
+                  if (await captcha.verify()) {
+                    await submitLeadFromForm(form, {
+                      source: `Area Page — ${area.name}`,
+                      serviceType,
+                    });
+                    setSent(true);
+                  }
+                }}
+              >
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3">
-                  <input type="text" placeholder="FULL NAME*" required className={HERO_INPUT_CLS} />
-                  <input type="tel" placeholder="PHONE*" required className={HERO_INPUT_CLS} />
-                  <input type="email" placeholder="EMAIL*" required className={HERO_INPUT_CLS} />
+                  <input type="text" name="name" placeholder="FULL NAME*" required className={HERO_INPUT_CLS} />
+                  <input type="tel" name="phone" placeholder="PHONE*" required className={HERO_INPUT_CLS} />
+                  <input type="email" name="email" placeholder="EMAIL*" required className={HERO_INPUT_CLS} />
                   <input
                     type="text"
                     name="city"
@@ -677,6 +694,7 @@ function Contact({ area }: { area: AreaContent }) {
                   />
                   <select
                     required
+                    name="service"
                     defaultValue=""
                     className={`${HERO_INPUT_CLS} sm:col-span-2 appearance-none`}
                     style={{
@@ -712,7 +730,13 @@ function Contact({ area }: { area: AreaContent }) {
                   </select>
                 </div>
 
-                <div className="mt-4 flex justify-center">
+                <div className="mt-4 flex flex-col items-center gap-3">
+                  <Recaptcha ref={captcha.ref} onVerify={captcha.setToken} />
+                  {captcha.error && (
+                    <p className="text-[13px] font-semibold text-red-700">
+                      Please confirm you're not a robot to continue.
+                    </p>
+                  )}
                   <StarBorder
                     type="submit"
                     className="inline-block active:scale-[0.98] transition-all"
@@ -725,6 +749,11 @@ function Contact({ area }: { area: AreaContent }) {
                   >
                     Send Request
                   </StarBorder>
+                  {sent && (
+                    <p className="text-[13px] font-bold text-white text-center bg-white/15 px-4 py-2 rounded-lg">
+                      ✓ Thanks, we'll be in touch shortly.
+                    </p>
+                  )}
                 </div>
 
                 <div className="mt-4 flex items-start gap-2">

@@ -4,13 +4,16 @@ import { useSiteOptions } from "@/hooks/use-site-options";
 import Particles from "@/components/ui/Particles";
 import { StarBorder } from "@/components/ui/StarBorder";
 import { ServiceArea } from "@/components/sections/ServiceArea";
+import { Recaptcha } from "@/components/ui/Recaptcha";
+import { useRecaptchaGate } from "@/hooks/use-recaptcha-gate";
+import { submitLeadFromForm } from "@/lib/lead-form";
 
 import textLogo from "@/assets/App updated logo.png";
 import teamImg from "@/assets/team.jpg";
 import team1 from "@/assets/team-1.webp";
 import team3 from "@/assets/team-3.webp";
 import peekingMascot from "@/assets/peeking mascot watermark.svg";
-import mascot from "@/assets/mascot.svg";
+import mascot from "@/assets/better-mascot.webp";
 
 export interface LandingServiceItem {
   title: string;
@@ -53,6 +56,25 @@ function LandingHeader({ trackingPhone }: { trackingPhone?: string }) {
           <div className="shrink-0 translate-y-1">
             <img src={textLogo} alt="All Phase Plumbing" className="h-[54px] sm:h-[80px] w-auto object-contain" />
           </div>
+
+          {/* Trust strip, fills the gap between logo and CTA (desktop only) */}
+          <div className="hidden lg:flex items-center gap-6 xl:gap-8 text-[#1E3A6E]">
+            <div className="flex items-center gap-2">
+              <Star className="size-5 text-[#F5C842] fill-current shrink-0" />
+              <span className="font-bold text-[14px] leading-tight whitespace-nowrap">4.9 Stars on Google</span>
+            </div>
+            <div className="h-8 w-px bg-gray-200" />
+            <div className="flex items-center gap-2">
+              <ShieldCheck className="size-5 text-[#4A7BC4] shrink-0" />
+              <span className="font-bold text-[14px] leading-tight whitespace-nowrap">Licensed &amp; Insured</span>
+            </div>
+            <div className="h-8 w-px bg-gray-200" />
+            <div className="flex items-center gap-2">
+              <Clock className="size-5 text-[#4A7BC4] shrink-0" />
+              <span className="font-bold text-[14px] leading-tight whitespace-nowrap">24/7 Emergency Service</span>
+            </div>
+          </div>
+
           <div className="flex items-center">
             <StarBorder
               as="a"
@@ -80,6 +102,8 @@ function LandingHeader({ trackingPhone }: { trackingPhone?: string }) {
 
 /* ── Lead Form ── */
 function LeadForm({ title = "Request a Service", className = "" }: { title?: string, className?: string }) {
+  const [sent, setSent] = useState(false);
+  const captcha = useRecaptchaGate();
   return (
     <div className={`relative bg-[#1E3A6E] p-8 sm:p-12 text-white ${className}`}>
       <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
@@ -94,22 +118,45 @@ function LeadForm({ title = "Request a Service", className = "" }: { title?: str
           Fill out the form and we'll get back to you within the hour. Same-day service available.
         </p>
 
-        <form onSubmit={(e) => e.preventDefault()} className="space-y-4">
+        <form
+          onSubmit={async (e) => {
+            e.preventDefault();
+            const form = e.currentTarget;
+            if (await captcha.verify()) {
+              await submitLeadFromForm(form, { source: `Landing Page — ${title}` });
+              setSent(true);
+            }
+          }}
+          className="space-y-4"
+        >
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <input type="text" placeholder="FIRST NAME*" required className="w-full rounded bg-white/5 border border-white/20 px-4 py-3.5 text-[15px] font-semibold text-white placeholder:text-white/60 focus:outline-none focus:ring-2 focus:ring-[#F5C842] focus:bg-white/10 transition-all" />
-            <input type="text" placeholder="LAST NAME*" required className="w-full rounded bg-white/5 border border-white/20 px-4 py-3.5 text-[15px] font-semibold text-white placeholder:text-white/60 focus:outline-none focus:ring-2 focus:ring-[#F5C842] focus:bg-white/10 transition-all" />
-            <input type="text" placeholder="ZIP CODE*" required className="w-full rounded bg-white/5 border border-white/20 px-4 py-3.5 text-[15px] font-semibold text-white placeholder:text-white/60 focus:outline-none focus:ring-2 focus:ring-[#F5C842] focus:bg-white/10 transition-all" />
-            <input type="tel" placeholder="PHONE*" required className="w-full rounded bg-white/5 border border-white/20 px-4 py-3.5 text-[15px] font-semibold text-white placeholder:text-white/60 focus:outline-none focus:ring-2 focus:ring-[#F5C842] focus:bg-white/10 transition-all" />
+            <input type="text" name="firstName" placeholder="FIRST NAME*" required className="w-full rounded bg-white/5 border border-white/20 px-4 py-3.5 text-[15px] font-semibold text-white placeholder:text-white/60 focus:outline-none focus:ring-2 focus:ring-[#F5C842] focus:bg-white/10 transition-all" />
+            <input type="text" name="lastName" placeholder="LAST NAME*" required className="w-full rounded bg-white/5 border border-white/20 px-4 py-3.5 text-[15px] font-semibold text-white placeholder:text-white/60 focus:outline-none focus:ring-2 focus:ring-[#F5C842] focus:bg-white/10 transition-all" />
+            <input type="text" name="zip" placeholder="ZIP CODE*" required className="w-full rounded bg-white/5 border border-white/20 px-4 py-3.5 text-[15px] font-semibold text-white placeholder:text-white/60 focus:outline-none focus:ring-2 focus:ring-[#F5C842] focus:bg-white/10 transition-all" />
+            <input type="tel" name="phone" placeholder="PHONE*" required className="w-full rounded bg-white/5 border border-white/20 px-4 py-3.5 text-[15px] font-semibold text-white placeholder:text-white/60 focus:outline-none focus:ring-2 focus:ring-[#F5C842] focus:bg-white/10 transition-all" />
           </div>
           <div className="flex items-start gap-3 mt-6 pt-2">
-            <input id={`sms-optin-${title.replace(/\s+/g, '')}`} type="checkbox" defaultChecked className="mt-1 size-4 rounded bg-white/10 border-white/20 accent-[#F5C842] cursor-pointer shrink-0" />
+            <input id={`sms-optin-${title.replace(/\s+/g, '')}`} name="smsOptIn" type="checkbox" defaultChecked className="mt-1 size-4 rounded bg-white/10 border-white/20 accent-[#F5C842] cursor-pointer shrink-0" />
             <label htmlFor={`sms-optin-${title.replace(/\s+/g, '')}`} className="text-[12px] text-white/70 cursor-pointer leading-relaxed">
               By submitting this form and signing up for texts, you consent to receive messages from All Phase Plumbing at the number provided regarding your request. Msg &amp; data rates may apply.
             </label>
           </div>
-          <button type="submit" className="w-full max-w-sm mx-auto block mt-8 bg-[#F5C842] text-[#1E3A6E] font-black text-lg py-4 px-8 rounded shadow-[0_8px_20px_-6px_rgba(0,0,0,0.3)] hover:bg-[#eec136] hover:-translate-y-0.5 active:scale-[0.98] transition-all tracking-wide uppercase">
+          <div className="flex flex-col items-center gap-3 mt-6">
+            <Recaptcha ref={captcha.ref} onVerify={captcha.setToken} />
+            {captcha.error && (
+              <p className="text-[13px] font-semibold text-red-300">
+                Please confirm you're not a robot to continue.
+              </p>
+            )}
+          </div>
+          <button type="submit" className="w-full max-w-sm mx-auto block mt-2 bg-[#F5C842] text-[#1E3A6E] font-black text-lg py-4 px-8 rounded shadow-[0_8px_20px_-6px_rgba(0,0,0,0.3)] hover:bg-[#eec136] hover:-translate-y-0.5 active:scale-[0.98] transition-all tracking-wide uppercase">
             SEND REQUEST
           </button>
+          {sent && (
+            <p className="text-[14px] font-bold text-white text-center bg-white/10 px-5 py-2.5 rounded mt-4">
+              ✓ Thanks, we'll be in touch shortly.
+            </p>
+          )}
         </form>
       </div>
     </div>

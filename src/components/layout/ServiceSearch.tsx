@@ -120,7 +120,7 @@ export function ServiceSearch({ className = "" }: { className?: string }) {
   };
 
   return (
-    <div ref={wrapRef} className={`relative w-full max-w-[260px] ${className}`}>
+    <div ref={wrapRef} className={`relative w-[350px] ${className}`}>
       <div className="relative">
         <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-white/70" />
         <input

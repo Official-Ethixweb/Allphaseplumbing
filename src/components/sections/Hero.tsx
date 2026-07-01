@@ -2,11 +2,14 @@ import { useState, useEffect, useRef, type CSSProperties } from "react";
 import { Star, Home, Building2, Phone } from "lucide-react";
 import { StarBorder } from "@/components/ui/StarBorder";
 import Particles from "@/components/ui/Particles";
-import mascot from "@/assets/mascot.svg";
+import mascot from "@/assets/better-mascot.webp";
 import { useSiteOptions } from "@/hooks/use-site-options";
 import { gsap } from "gsap";
 import { SplitText as GSAPSplitText } from "gsap/SplitText";
 import { useGSAP } from "@gsap/react";
+import { Recaptcha } from "@/components/ui/Recaptcha";
+import { useRecaptchaGate } from "@/hooks/use-recaptcha-gate";
+import { submitLeadFromForm } from "@/lib/lead-form";
 
 gsap.registerPlugin(GSAPSplitText, useGSAP);
 
@@ -167,6 +170,8 @@ export function Hero({
   const [serviceType, setServiceType] = useState<"residential" | "commercial">("residential");
   const [smsOptIn, setSmsOptIn] = useState(false);
   const [mascotIn, setMascotIn] = useState(false);
+  const [sent, setSent] = useState(false);
+  const captcha = useRecaptchaGate();
 
   /* Defer the background video + WebGL particles until the page is loaded and
      idle. Poster image is the LCP element; video/particles must not compete
@@ -325,7 +330,7 @@ export function Hero({
                          rounded-xl rounded-b-none sm:rounded-b-xl sm:inline-flex sm:w-auto
                          backdrop-blur-md"
               style={{
-                background: "rgba(255,255,255,0.18)",
+                background: "rgba(255,255,255,0.9)",
                 border: "1px solid rgba(255,255,255,0.35)",
                 boxShadow: "0 8px 24px -6px rgba(15,34,70,0.35)",
               }}
@@ -345,14 +350,7 @@ export function Hero({
                 <span className="text-[#EA4335]">e</span>
               </p>
               <div className="flex items-center gap-2 sm:gap-2.5 mt-1.5">
-                <span
-                  className="text-[15px] sm:text-[19px] font-semibold text-white"
-                  style={{
-                    WebkitTextStroke: "0.8px #1E3A6E",
-                    paintOrder: "stroke fill",
-                    textShadow: "0 2px 6px rgba(15,34,70,0.55)",
-                  }}
-                >
+                <span className="text-[15px] sm:text-[19px] font-semibold text-[#1E3A6E]">
                   5 Star Reviews
                 </span>
                 <div className="flex gap-0.5">
@@ -380,7 +378,7 @@ export function Hero({
                 alt="All Phase Plumbing technician"
                 aria-hidden="true"
                 className="h-[420px] xl:h-[480px] w-auto object-contain drop-shadow-2xl select-none pointer-events-none"
-                style={{ transform: "translateY(calc(2% + 3px))" }}
+                style={{ transform: "translateY(calc(2% + 6px))" }}
                 loading="lazy"
                 decoding="async"
                 width={380}
@@ -391,7 +389,7 @@ export function Hero({
         </div>
 
         {/* ── Full-width form card, sits flush at the bottom of the hero (25% wider than container) ── */}
-        <div id="book-now" className="mt-0 sm:mt-2 scroll-mt-20 w-full lg:w-[90%] lg:mx-auto">
+        <div id="book-now" className="mt-0 sm:mt-2 scroll-mt-20 w-full lg:w-[108%] lg:mx-auto">
           <div
             className="relative rounded-t-2xl overflow-hidden"
             style={{
@@ -504,10 +502,24 @@ export function Hero({
                   Let Us Call You
                 </h2>
 
-                <form onSubmit={(e) => e.preventDefault()}>
+                <form
+                  onSubmit={async (e) => {
+                    e.preventDefault();
+                    const form = e.currentTarget;
+                    if (await captcha.verify()) {
+                      await submitLeadFromForm(form, {
+                        source: "Homepage Hero",
+                        serviceType,
+                        smsOptIn,
+                      });
+                      setSent(true);
+                    }
+                  }}
+                >
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2.5 sm:gap-3 items-stretch">
                     <input
                       type="text"
+                      name="name"
                       placeholder="FULL NAME*"
                       required
                       className="rounded-lg border-2 border-[#1E3A6E] bg-white px-3.5 py-2.5 sm:px-4 sm:py-3.5 text-[14px] sm:text-[15px] font-semibold text-[#1E3A6E] placeholder:text-gray-400 placeholder:font-semibold focus:outline-none focus:ring-2 focus:ring-[#1E3A6E] transition-shadow"
@@ -515,6 +527,7 @@ export function Hero({
 
                     <input
                       type="tel"
+                      name="phone"
                       placeholder="PHONE*"
                       required
                       className="rounded-lg border-2 border-[#1E3A6E] bg-white px-3.5 py-2.5 sm:px-4 sm:py-3.5 text-[14px] sm:text-[15px] font-semibold text-[#1E3A6E] placeholder:text-gray-400 placeholder:font-semibold focus:outline-none focus:ring-2 focus:ring-[#1E3A6E] transition-shadow"
@@ -522,6 +535,7 @@ export function Hero({
 
                     <input
                       type="email"
+                      name="email"
                       placeholder="EMAIL*"
                       required
                       className="rounded-lg border-2 border-[#1E3A6E] bg-white px-3.5 py-2.5 sm:px-4 sm:py-3.5 text-[14px] sm:text-[15px] font-semibold text-[#1E3A6E] placeholder:text-gray-400 placeholder:font-semibold focus:outline-none focus:ring-2 focus:ring-[#1E3A6E] transition-shadow"
@@ -529,6 +543,7 @@ export function Hero({
 
                     <input
                       type="text"
+                      name="zip"
                       placeholder="ZIP CODE*"
                       required
                       maxLength={10}
@@ -537,6 +552,7 @@ export function Hero({
 
                     <select
                       required
+                      name="service"
                       defaultValue=""
                       className="rounded-lg border-2 border-[#1E3A6E] bg-white px-3.5 py-2.5 sm:px-4 sm:py-3.5 text-[14px] sm:text-[15px] font-semibold text-[#1E3A6E] focus:outline-none focus:ring-2 focus:ring-[#1E3A6E] transition-shadow sm:col-span-2 lg:col-span-1 appearance-none"
                       style={{
@@ -584,7 +600,13 @@ export function Hero({
                     </select>
                   </div>
 
-                  <div className="mt-3.5 sm:mt-4 flex justify-center">
+                  <div className="mt-3.5 sm:mt-4 flex flex-col items-center gap-3">
+                    <Recaptcha ref={captcha.ref} onVerify={captcha.setToken} />
+                    {captcha.error && (
+                      <p className="text-[13px] font-semibold text-red-300">
+                        Please confirm you're not a robot to continue.
+                      </p>
+                    )}
                     <StarBorder
                       type="submit"
                       color="#F5C842"
@@ -598,6 +620,11 @@ export function Hero({
                     >
                       Send Request
                     </StarBorder>
+                    {sent && (
+                      <p className="text-[14px] font-bold text-white text-center bg-white/10 px-5 py-2.5 rounded-xl border border-white/20">
+                        ✓ Thanks, we'll be in touch shortly.
+                      </p>
+                    )}
                   </div>
 
                   {/* SMS opt-in */}

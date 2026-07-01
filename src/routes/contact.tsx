@@ -5,6 +5,11 @@ import { Badges } from "@/components/sections/Badges";
 import { MapPin, Phone, Clock, Loader2, ChevronDown, Check } from "lucide-react";
 import Particles from "@/components/ui/Particles";
 import { enableTwoFingerPan } from "@/lib/leaflet-two-finger-pan";
+import { useZipGeocode } from "@/hooks/use-zip-geocode";
+import type { ZipLocation } from "@/lib/service-area-geo";
+import { Recaptcha } from "@/components/ui/Recaptcha";
+import { useRecaptchaGate } from "@/hooks/use-recaptcha-gate";
+import { submitLeadFromForm } from "@/lib/lead-form";
 
 /* ── Custom styled service select ───────────────────────────── */
 const SERVICE_OPTIONS = [
@@ -98,8 +103,6 @@ export const Route = createFileRoute("/contact")({
 });
 
 /* ── Leaflet dynamic map component ───────────────────────────── */
-type ZipLocation = { lat: number; lon: number; label: string };
-
 function ContactServiceMap({ zipLocation }: { zipLocation: ZipLocation | null }) {
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<import("leaflet").Map | null>(null);
@@ -276,105 +279,6 @@ function ContactServiceMap({ zipLocation }: { zipLocation: ZipLocation | null })
   );
 }
 
-/* ── Service-area polygon (must match the one drawn on the map) ── */
-const SERVICE_AREA_POLYGON: [number, number][] = [
-  [47.77, -122.42],
-  [47.77, -122.05],
-  [47.68, -122.04],
-  [47.6, -121.97],
-  [47.49, -122.03],
-  [47.32, -122.03],
-  [47.24, -122.13],
-  [47.22, -122.32],
-  [47.26, -122.52],
-  [47.35, -122.58],
-  [47.48, -122.55],
-  [47.62, -122.52],
-  [47.73, -122.48],
-  [47.77, -122.42],
-];
-
-/** Standard ray-casting point-in-polygon test. */
-function pointInPolygon(lat: number, lon: number, poly: [number, number][]): boolean {
-  let inside = false;
-  for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
-    const [yi, xi] = poly[i];
-    const [yj, xj] = poly[j];
-    const intersect = yi > lat !== yj > lat && lon < ((xj - xi) * (lat - yi)) / (yj - yi) + xi;
-    if (intersect) inside = !inside;
-  }
-  return inside;
-}
-
-/* ── ZIP geocoder hook (Nominatim, debounced) ───────────────── */
-type NominatimResult = {
-  lat: string;
-  lon: string;
-  address?: {
-    city?: string;
-    town?: string;
-    village?: string;
-    hamlet?: string;
-    suburb?: string;
-    county?: string;
-    state?: string;
-  };
-};
-
-function useZipGeocode(zip: string) {
-  const [state, setState] = useState<{
-    status: "idle" | "loading" | "ok" | "out" | "error";
-    location: ZipLocation | null;
-  }>({ status: "idle", location: null });
-
-  useEffect(() => {
-    if (!/^\d{5}$/.test(zip)) {
-      setState({ status: "idle", location: null });
-      return;
-    }
-
-    let cancelled = false;
-    setState((s) => ({ ...s, status: "loading" }));
-
-    const t = setTimeout(() => {
-      fetch(
-        `https://nominatim.openstreetmap.org/search?postalcode=${zip}&country=US&format=json&addressdetails=1&limit=1`,
-        { headers: { Accept: "application/json" } },
-      )
-        .then((r) => r.json())
-        .then((data: NominatimResult[]) => {
-          if (cancelled) return;
-          if (!data || data.length === 0) {
-            setState({ status: "error", location: null });
-            return;
-          }
-          const hit = data[0];
-          const a = hit.address ?? {};
-          const city = a.city || a.town || a.village || a.hamlet || a.suburb || a.county || "";
-          const state_ = a.state || "";
-          const label = [city, state_, zip].filter(Boolean).join(", ");
-          const lat = parseFloat(hit.lat);
-          const lon = parseFloat(hit.lon);
-          const served = pointInPolygon(lat, lon, SERVICE_AREA_POLYGON);
-          setState({
-            status: served ? "ok" : "out",
-            location: { lat, lon, label },
-          });
-        })
-        .catch(() => {
-          if (!cancelled) setState({ status: "error", location: null });
-        });
-    }, 450);
-
-    return () => {
-      cancelled = true;
-      clearTimeout(t);
-    };
-  }, [zip]);
-
-  return state;
-}
-
 function ContactHero() {
   return (
     <section className="relative bg-[#eef4fb] pt-16 pb-12 sm:pt-[90px] sm:pb-[68px] overflow-hidden border-b border-[#1E3A6E]/10">
@@ -420,6 +324,7 @@ function ContactFormBox({
   const [smsOptIn, setSmsOptIn] = useState(false);
   const [status, setStatus] = useState<"idle" | "sent">("idle");
   const [service, setService] = useState("");
+  const captcha = useRecaptchaGate();
 
   const inputBase =
     "w-full rounded-xl border-2 border-white/20 bg-white/10 backdrop-blur-sm px-4 py-3.5 text-[14px] sm:text-[15px] font-semibold text-white placeholder:text-white/45 focus:outline-none focus:border-[#F5C842] focus:bg-white/15 transition-all duration-200";
@@ -444,16 +349,37 @@ function ContactFormBox({
         {/* Form card */}
         <div className="mx-auto max-w-[860px] p-6 sm:p-10">
           <form
-            onSubmit={(e) => {
+            onSubmit={async (e) => {
               e.preventDefault();
-              setStatus("sent");
+              const form = e.currentTarget;
+              if (await captcha.verify()) {
+                await submitLeadFromForm(form, {
+                  source: "Contact Page",
+                  zip,
+                  service,
+                  smsOptIn,
+                });
+                setStatus("sent");
+              }
             }}
             className="space-y-4 sm:space-y-5"
           >
             {/* Name row */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <input type="text" placeholder="FIRST NAME*" required className={inputBase} />
-              <input type="text" placeholder="LAST NAME*" required className={inputBase} />
+              <input
+                type="text"
+                name="firstName"
+                placeholder="FIRST NAME*"
+                required
+                className={inputBase}
+              />
+              <input
+                type="text"
+                name="lastName"
+                placeholder="LAST NAME*"
+                required
+                className={inputBase}
+              />
             </div>
 
             {/* ZIP + Phone row */}
@@ -493,7 +419,7 @@ function ContactFormBox({
                   </span>
                 )}
               </div>
-              <input type="tel" placeholder="PHONE*" required className={inputBase} />
+              <input type="tel" name="phone" placeholder="PHONE*" required className={inputBase} />
             </div>
 
             {/* Service dropdown */}
@@ -525,6 +451,12 @@ function ContactFormBox({
 
             {/* Submit */}
             <div className="flex flex-col items-center gap-4">
+              <Recaptcha ref={captcha.ref} onVerify={captcha.setToken} />
+              {captcha.error && (
+                <p className="text-[13px] font-semibold text-red-300">
+                  Please confirm you're not a robot to continue.
+                </p>
+              )}
               <button
                 type="submit"
                 className="inline-flex items-center justify-center active:scale-[0.98] transition-all duration-200
