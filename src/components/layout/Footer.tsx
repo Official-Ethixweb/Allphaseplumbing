@@ -159,7 +159,7 @@ export function Footer() {
 
       {/* ── Copyright bar ── */}
       <div className="relative z-10 bg-[#0f2246] border-t border-white/10 py-4 text-center">
-        <p className="text-[12px] font-medium tracking-widest text-white/40 uppercase">
+        <p className="text-[12px] font-medium tracking-widest text-white/70 uppercase">
           © {new Date().getFullYear()} All Phase Plumbing · All Rights Reserved · Tukwila, WA ·
           Lic. #ALLPHPS793PE
         </p>

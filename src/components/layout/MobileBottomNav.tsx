@@ -94,6 +94,7 @@ export function MobileBottomNav() {
           servicesOpen ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
         aria-hidden={!servicesOpen}
+        inert={!servicesOpen}
       >
         {/* Backdrop */}
         <button

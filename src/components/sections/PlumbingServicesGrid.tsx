@@ -47,7 +47,7 @@ export function PlumbingServicesGrid() {
     <section className="bg-white py-12 sm:py-16">
       <div className="container mx-auto px-4 max-w-[1305px]">
         <div className="mb-8">
-          <span className="inline-block text-[12px] sm:text-[13px] font-bold uppercase tracking-[0.22em] text-[#6B9FE4] mb-2.5">
+          <span className="inline-block text-[12px] sm:text-[13px] font-bold uppercase tracking-[0.22em] text-[#3A66AD] mb-2.5">
             Full Service List
           </span>
           <h2

@@ -225,6 +225,7 @@ function SidebarContactCard() {
           required
           name="service"
           defaultValue=""
+          aria-label="Service needed"
           className="w-full rounded-md border-2 border-[#1E3A6E] bg-white px-4 py-3.5 text-[15px] font-semibold text-[#1E3A6E] focus:outline-none focus:ring-2 focus:ring-[#1E3A6E]"
         >
           <option value="" disabled>
@@ -269,7 +270,7 @@ function CallUsLine() {
   return (
     <p className="text-[16px] font-bold text-[#1E3A6E] my-5">
       Call Us:{" "}
-      <a href={opts.phone_href} className="text-[#4A7BC4] hover:underline">
+      <a href={opts.phone_href} className="text-[#3A66AD] hover:underline">
         {opts.phone}
       </a>
     </p>
@@ -301,7 +302,7 @@ function ServiceFAQ({ faqs, title }: { faqs: ServiceFAQ[]; title: string }) {
                 aria-expanded={open}
                 className="w-full flex items-center justify-between gap-3 px-5 py-4 text-left bg-[#eef4fb] hover:bg-[#dde9f6] transition-colors"
               >
-                <span className="font-semibold text-[#4A7BC4] text-[16px]">{f.q}</span>
+                <span className="font-semibold text-[#3A66AD] text-[16px]">{f.q}</span>
                 <Plus
                   className={`size-5 text-[#4A7BC4] shrink-0 transition-transform duration-300 ease-out ${
                     open ? "rotate-45" : ""
@@ -338,7 +339,7 @@ export function ServicePageTemplate({ content }: { content: ServicePageContent }
             <div>
               {/* Dominant intro heading with eyebrow */}
               {content.introEyebrow && (
-                <span className="inline-block text-[13px] sm:text-[15px] font-bold uppercase tracking-widest text-[#6B9FE4] mb-3">
+                <span className="inline-block text-[13px] sm:text-[15px] font-bold uppercase tracking-widest text-[#3A66AD] mb-3">
                   {content.introEyebrow}
                 </span>
               )}
@@ -371,7 +372,7 @@ export function ServicePageTemplate({ content }: { content: ServicePageContent }
                       <span className="block text-[15px] font-extrabold text-[#1E3A6E] leading-tight">
                         {s.title}
                       </span>
-                      <span className="block text-[12.5px] text-gray-500 leading-snug mt-0.5">
+                      <span className="block text-[12.5px] text-gray-600 leading-snug mt-0.5">
                         {s.sub}
                       </span>
                     </span>

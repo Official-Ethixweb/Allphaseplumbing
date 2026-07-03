@@ -210,7 +210,7 @@ function Services({ area }: { area: AreaContent }) {
     <section className="py-16 sm:py-20 bg-[#f7f9fc]">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <span className="inline-block text-[13px] sm:text-[15px] font-bold uppercase tracking-widest text-[#6B9FE4] mb-3">
+          <span className="inline-block text-[13px] sm:text-[15px] font-bold uppercase tracking-widest text-[#3A66AD] mb-3">
             What We Do
           </span>
           <h2
@@ -237,7 +237,7 @@ function WhyChooseUs({ area }: { area: AreaContent }) {
     <section className="py-16 sm:py-20 bg-white">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <span className="inline-block text-[13px] sm:text-[15px] font-bold uppercase tracking-widest text-[#6B9FE4] mb-3">
+          <span className="inline-block text-[13px] sm:text-[15px] font-bold uppercase tracking-widest text-[#3A66AD] mb-3">
             The All Phase Difference
           </span>
           <h2
@@ -283,7 +283,7 @@ function AreasWeCover({ area }: { area: AreaContent }) {
     <section className="py-16 sm:py-20 bg-[#eef4fb]">
       <div className="container mx-auto px-4">
         <div className="text-center mb-10">
-          <span className="inline-block text-[13px] sm:text-[15px] font-bold uppercase tracking-widest text-[#6B9FE4] mb-3">
+          <span className="inline-block text-[13px] sm:text-[15px] font-bold uppercase tracking-widest text-[#3A66AD] mb-3">
             Areas We Cover
           </span>
           <h2
@@ -447,6 +447,7 @@ function Testimonials({ area }: { area: AreaContent }) {
               </div>
               <div
                 className="flex gap-0.5 mt-3"
+                role="img"
                 aria-label={`${t.rating} out of 5 stars`}
               >
                 {Array.from({ length: 5 }).map((_, i) => (
@@ -518,7 +519,7 @@ function FAQ({ area }: { area: AreaContent }) {
     <section className="py-16 sm:py-20 bg-[#f7f9fc]">
       <div className="container mx-auto px-4 max-w-3xl">
         <div className="text-center mb-10">
-          <span className="inline-block text-[13px] sm:text-[15px] font-bold uppercase tracking-widest text-[#6B9FE4] mb-3">
+          <span className="inline-block text-[13px] sm:text-[15px] font-bold uppercase tracking-widest text-[#3A66AD] mb-3">
             FAQ
           </span>
           <h2
@@ -583,8 +584,8 @@ function Contact({ area }: { area: AreaContent }) {
   const tabCls = (active: boolean) =>
     `flex-1 flex items-center justify-center gap-2 px-3 py-3.5 text-[15px] sm:text-[18px] font-semibold transition-all duration-300 border-b-4 ${
       active
-        ? "border-[#F5C842] text-white bg-white/25 shadow-[inset_0_-3px_0_#F5C842]"
-        : "border-transparent text-white/70 hover:text-white hover:bg-white/10"
+        ? "border-[#F5C842] text-white bg-[#1E3A6E]/40 shadow-[inset_0_-3px_0_#F5C842]"
+        : "border-transparent text-white/90 hover:text-white hover:bg-white/10"
     }`;
 
   return (
@@ -638,7 +639,7 @@ function Contact({ area }: { area: AreaContent }) {
           <div
             className="rounded-2xl overflow-hidden border-[4px] border-[#1E3A6E]"
             style={{
-              background: "#6B9EF8",
+              background: "#3A66AD",
               boxShadow: "0 12px 40px rgba(30,58,110,0.18)",
             }}
           >
@@ -714,6 +715,7 @@ function Contact({ area }: { area: AreaContent }) {
                     required
                     name="service"
                     defaultValue=""
+                    aria-label="Service needed"
                     className={`${HERO_INPUT_CLS} sm:col-span-2 appearance-none`}
                     style={{
                       backgroundImage: `url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231E3A6E' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e")`,
@@ -751,7 +753,7 @@ function Contact({ area }: { area: AreaContent }) {
                 <div className="mt-4 flex flex-col items-center gap-3">
                   <Recaptcha ref={captcha.ref} onVerify={captcha.setToken} />
                   {captcha.error && (
-                    <p className="text-[13px] font-semibold text-red-700">
+                    <p className="text-[13px] font-semibold text-red-100">
                       Please confirm you're not a robot to continue.
                     </p>
                   )}
@@ -792,7 +794,7 @@ function Contact({ area }: { area: AreaContent }) {
                   </label>
                 </div>
 
-                <p className="mt-3 text-[12px] sm:text-[13px] text-white/75 leading-relaxed border-t border-white/15 pt-2.5">
+                <p className="mt-3 text-[12px] sm:text-[13px] text-white/90 leading-relaxed border-t border-white/15 pt-2.5">
                   By submitting, you agree to our{" "}
                   <a href="/about" className="underline hover:text-[#F5C842]">
                     Terms

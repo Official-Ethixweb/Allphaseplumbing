@@ -107,7 +107,7 @@ function AboutIntro() {
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* ── LEFT: copy + points + CTA ── */}
           <div>
-            <span className="inline-block text-xs sm:text-sm font-extrabold uppercase tracking-[0.25em] text-[#4A7BC4] mb-3">
+            <span className="inline-block text-xs sm:text-sm font-extrabold uppercase tracking-[0.25em] text-[#3A66AD] mb-3">
               About All Phase
             </span>
 
@@ -354,7 +354,7 @@ function AboutInterview() {
 
           {/* ── RIGHT: description + team list ── */}
           <div>
-            <span className="inline-block text-xs sm:text-sm font-extrabold uppercase tracking-[0.25em] text-[#4A7BC4] mb-3">
+            <span className="inline-block text-xs sm:text-sm font-extrabold uppercase tracking-[0.25em] text-[#3A66AD] mb-3">
               Meet the Crew
             </span>
             <h2
@@ -399,12 +399,12 @@ function AboutInterview() {
                         <span className="text-[15px] font-black text-[#1E3A6E] truncate">
                           {m.name}
                         </span>
-                        <span className="text-[12.5px] font-semibold uppercase tracking-wider text-[#4A7BC4] mt-0.5 truncate">
+                        <span className="text-[12.5px] font-semibold uppercase tracking-wider text-[#3A66AD] mt-0.5 truncate">
                           {m.role}
                         </span>
                       </span>
                       {active && (
-                        <span className="ml-auto text-[10px] font-black uppercase tracking-widest text-[#F5C842] shrink-0">
+                        <span className="ml-auto text-[10px] font-black uppercase tracking-widest text-[#946300] shrink-0">
                           Now playing
                         </span>
                       )}
