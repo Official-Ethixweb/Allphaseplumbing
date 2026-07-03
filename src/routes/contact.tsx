@@ -114,60 +114,63 @@ function ContactServiceMap({ zipLocation }: { zipLocation: ZipLocation | null })
   useEffect(() => {
     if (!mapRef.current || mapInstanceRef.current) return;
 
-    import("leaflet").then((L) => {
-      if (!mapRef.current || mapInstanceRef.current) return;
-      LRef.current = L;
+    // Defer Leaflet init until the map nears the viewport — keeps the chunk
+    // and map tiles off the critical path. Dynamic import avoids SSR issues.
+    const initMap = () =>
+      import("leaflet").then((L) => {
+        if (!mapRef.current || mapInstanceRef.current) return;
+        LRef.current = L;
 
-      if (!document.getElementById("leaflet-css")) {
-        const link = document.createElement("link");
-        link.id = "leaflet-css";
-        link.rel = "stylesheet";
-        link.href = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css";
-        document.head.appendChild(link);
-      }
+        if (!document.getElementById("leaflet-css")) {
+          const link = document.createElement("link");
+          link.id = "leaflet-css";
+          link.rel = "stylesheet";
+          link.href = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css";
+          document.head.appendChild(link);
+        }
 
-      const map = L.map(mapRef.current, {
-        center: [47.52, -122.18],
-        zoom: 10,
-        scrollWheelZoom: false,
-        zoomControl: true,
-        attributionControl: false,
-      });
-      mapInstanceRef.current = map;
+        const map = L.map(mapRef.current, {
+          center: [47.52, -122.18],
+          zoom: 10,
+          scrollWheelZoom: false,
+          zoomControl: true,
+          attributionControl: false,
+        });
+        mapInstanceRef.current = map;
 
-      L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
-        attribution:
-          '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/">CARTO</a>',
-        maxZoom: 19,
-      }).addTo(map);
+        L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
+          attribution:
+            '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/">CARTO</a>',
+          maxZoom: 19,
+        }).addTo(map);
 
-      const serviceAreaCoords: [number, number][] = [
-        [47.77, -122.42],
-        [47.77, -122.05],
-        [47.68, -122.04],
-        [47.6, -121.97],
-        [47.49, -122.03],
-        [47.32, -122.03],
-        [47.24, -122.13],
-        [47.22, -122.32],
-        [47.26, -122.52],
-        [47.35, -122.58],
-        [47.48, -122.55],
-        [47.62, -122.52],
-        [47.73, -122.48],
-        [47.77, -122.42],
-      ];
+        const serviceAreaCoords: [number, number][] = [
+          [47.77, -122.42],
+          [47.77, -122.05],
+          [47.68, -122.04],
+          [47.6, -121.97],
+          [47.49, -122.03],
+          [47.32, -122.03],
+          [47.24, -122.13],
+          [47.22, -122.32],
+          [47.26, -122.52],
+          [47.35, -122.58],
+          [47.48, -122.55],
+          [47.62, -122.52],
+          [47.73, -122.48],
+          [47.77, -122.42],
+        ];
 
-      const polygon = L.polygon(serviceAreaCoords, {
-        color: "#1E3A6E",
-        weight: 2.5,
-        fillColor: "#1E3A6E",
-        fillOpacity: 0.22,
-      }).addTo(map);
+        const polygon = L.polygon(serviceAreaCoords, {
+          color: "#1E3A6E",
+          weight: 2.5,
+          fillColor: "#1E3A6E",
+          fillOpacity: 0.22,
+        }).addTo(map);
 
-      const pin = L.divIcon({
-        className: "",
-        html: `<div style="
+        const pin = L.divIcon({
+          className: "",
+          html: `<div style="
           background: linear-gradient(135deg,#1E3A6E,#4A7BC4);
           color:#fff;
           border-radius:50% 50% 50% 0;
@@ -178,32 +181,44 @@ function ContactServiceMap({ zipLocation }: { zipLocation: ZipLocation | null })
           display:flex;align-items:center;justify-content:center;">
           <span style="transform:rotate(45deg);font-size:14px;">📍</span>
         </div>`,
-        iconSize: [32, 32],
-        iconAnchor: [16, 32],
-        popupAnchor: [0, -36],
-      });
+          iconSize: [32, 32],
+          iconAnchor: [16, 32],
+          popupAnchor: [0, -36],
+        });
 
-      L.marker([47.4729, -122.2171], { icon: pin })
-        .addTo(map)
-        .bindPopup(
-          `<div style="font-family:Inter,sans-serif;font-weight:700;color:#1E3A6E;font-size:13px;line-height:1.4">
+        L.marker([47.4729, -122.2171], { icon: pin })
+          .addTo(map)
+          .bindPopup(
+            `<div style="font-family:Inter,sans-serif;font-weight:700;color:#1E3A6E;font-size:13px;line-height:1.4">
             All Phase Plumbing<br>
             <span style="font-weight:400;color:#555;font-size:12px">Tukwila, WA · (206) 772-6077</span>
           </div>`,
-          { maxWidth: 220 },
-        )
-        .openPopup();
+            { maxWidth: 220 },
+          )
+          .openPopup();
 
-      originalBoundsRef.current = polygon.getBounds();
-      map.fitBounds(originalBoundsRef.current, { padding: [32, 32] });
+        originalBoundsRef.current = polygon.getBounds();
+        map.fitBounds(originalBoundsRef.current, { padding: [32, 32] });
 
-      /* ── Mobile: require two fingers to pan ── */
-      if (mapRef.current) {
-        teardownTouchRef.current = enableTwoFingerPan(map, mapRef.current);
-      }
-    });
+        /* ── Mobile: require two fingers to pan ── */
+        if (mapRef.current) {
+          teardownTouchRef.current = enableTwoFingerPan(map, mapRef.current);
+        }
+      });
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          io.disconnect();
+          void initMap();
+        }
+      },
+      { rootMargin: "200px" },
+    );
+    io.observe(mapRef.current);
 
     return () => {
+      io.disconnect();
       teardownTouchRef.current?.();
       teardownTouchRef.current = null;
       if (mapInstanceRef.current) {

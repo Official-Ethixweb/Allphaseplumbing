@@ -5,7 +5,7 @@ import { ArrowLeft } from "lucide-react";
 import { PageShell } from "@/components/layout/PageShell";
 import { fetchPostBySlug } from "@/lib/wordpress.functions";
 import { getStaticArticle } from "@/data/articles";
-import skylineBg from "@/assets/seattle-skyline.jpg";
+import skylineBg from "@/assets/seattle-skyline.webp";
 
 export const Route = createFileRoute("/blog/$slug")({
   head: () => ({

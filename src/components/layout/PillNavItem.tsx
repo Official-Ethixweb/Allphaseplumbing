@@ -1,6 +1,5 @@
 import { useEffect, useRef, type ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
-import { gsap } from "gsap";
 
 type Props = {
   to: string;
@@ -47,52 +46,67 @@ export function PillNavItem({
     const hoverLabel = hoverLabelRef.current;
     if (!pill || !circle) return;
 
-    const layout = () => {
-      const rect = pill.getBoundingClientRect();
-      const w = rect.width;
-      const h = rect.height;
-      if (w === 0 || h === 0) return;
-      // Geometry copied from the user-supplied PillNav: a circle whose chord
-      // matches the pill width, so the rise looks tangent to the bottom edge.
-      const R = (w * w) / 4 + h * h;
-      const r = R / (2 * h);
-      const D = Math.ceil(2 * r) + 2;
-      const delta = Math.ceil(r - Math.sqrt(Math.max(0, r * r - (w * w) / 4))) + 1;
-      const originY = D - delta;
+    /* gsap is dynamically imported so the hover animation never blocks first
+       paint — the nav is fully usable before it arrives. */
+    let cancelled = false;
+    let removeListeners: (() => void) | null = null;
 
-      circle.style.width = `${D}px`;
-      circle.style.height = `${D}px`;
-      circle.style.bottom = `-${delta}px`;
+    import("gsap").then(({ gsap }) => {
+      if (cancelled || !pill.isConnected) return;
 
-      gsap.set(circle, {
-        xPercent: -50,
-        scale: 0,
-        transformOrigin: `50% ${originY}px`,
-      });
+      const layout = () => {
+        const rect = pill.getBoundingClientRect();
+        const w = rect.width;
+        const h = rect.height;
+        if (w === 0 || h === 0) return;
+        // Geometry copied from the user-supplied PillNav: a circle whose chord
+        // matches the pill width, so the rise looks tangent to the bottom edge.
+        const R = (w * w) / 4 + h * h;
+        const r = R / (2 * h);
+        const D = Math.ceil(2 * r) + 2;
+        const delta = Math.ceil(r - Math.sqrt(Math.max(0, r * r - (w * w) / 4))) + 1;
+        const originY = D - delta;
 
-      if (label) gsap.set(label, { y: 0 });
-      if (hoverLabel) gsap.set(hoverLabel, { y: h + 12, opacity: 0 });
+        circle.style.width = `${D}px`;
+        circle.style.height = `${D}px`;
+        circle.style.bottom = `-${delta}px`;
 
+        gsap.set(circle, {
+          xPercent: -50,
+          scale: 0,
+          transformOrigin: `50% ${originY}px`,
+        });
+
+        if (label) gsap.set(label, { y: 0 });
+        if (hoverLabel) gsap.set(hoverLabel, { y: h + 12, opacity: 0 });
+
+        tlRef.current?.kill();
+        const tl = gsap.timeline({ paused: true });
+        tl.to(circle, { scale: 1.2, xPercent: -50, duration: 2, ease: EASE, overwrite: "auto" }, 0);
+        if (label) {
+          tl.to(label, { y: -(h + 8), duration: 2, ease: EASE, overwrite: "auto" }, 0);
+        }
+        if (hoverLabel) {
+          gsap.set(hoverLabel, { y: Math.ceil(h + 100), opacity: 0 });
+          tl.to(hoverLabel, { y: 0, opacity: 1, duration: 2, ease: EASE, overwrite: "auto" }, 0);
+        }
+        tlRef.current = tl;
+      };
+
+      layout();
+      const onResize = () => layout();
+      window.addEventListener("resize", onResize);
+      if (document.fonts?.ready) {
+        document.fonts.ready.then(layout).catch(() => {});
+      }
+      removeListeners = () => window.removeEventListener("resize", onResize);
+    });
+
+    return () => {
+      cancelled = true;
+      removeListeners?.();
       tlRef.current?.kill();
-      const tl = gsap.timeline({ paused: true });
-      tl.to(circle, { scale: 1.2, xPercent: -50, duration: 2, ease: EASE, overwrite: "auto" }, 0);
-      if (label) {
-        tl.to(label, { y: -(h + 8), duration: 2, ease: EASE, overwrite: "auto" }, 0);
-      }
-      if (hoverLabel) {
-        gsap.set(hoverLabel, { y: Math.ceil(h + 100), opacity: 0 });
-        tl.to(hoverLabel, { y: 0, opacity: 1, duration: 2, ease: EASE, overwrite: "auto" }, 0);
-      }
-      tlRef.current = tl;
     };
-
-    layout();
-    const onResize = () => layout();
-    window.addEventListener("resize", onResize);
-    if (document.fonts?.ready) {
-      document.fonts.ready.then(layout).catch(() => {});
-    }
-    return () => window.removeEventListener("resize", onResize);
   }, []);
 
   const handleEnter = () => {

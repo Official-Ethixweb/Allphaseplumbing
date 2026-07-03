@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import vanImg from "@/assets/van.png";
+import vanImg from "@/assets/van.webp";
 import { useSiteOptions } from "@/hooks/use-site-options";
 import { StarBorder } from "@/components/ui/StarBorder";
 import { Recaptcha } from "@/components/ui/Recaptcha";
@@ -26,6 +26,10 @@ export function CTABanner() {
   });
 
   const [isAnimated, setIsAnimated] = useState(false);
+  /* The decorative Unsplash backdrop only starts downloading once the section
+     is within ~600px of the viewport — it must not compete with above-the-fold
+     resources at page load. */
+  const [bgReady, setBgReady] = useState(false);
   const [sent, setSent] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
   const captcha = useRecaptchaGate();
@@ -37,10 +41,23 @@ export function CTABanner() {
       },
       { threshold: 0.15 },
     );
+    const bgObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setBgReady(true);
+          bgObserver.disconnect();
+        }
+      },
+      { rootMargin: "600px 0px" },
+    );
     const current = sectionRef.current;
-    if (current) observer.observe(current);
+    if (current) {
+      observer.observe(current);
+      bgObserver.observe(current);
+    }
     return () => {
       if (current) observer.unobserve(current);
+      bgObserver.disconnect();
     };
   }, []);
 
@@ -73,7 +90,10 @@ export function CTABanner() {
       style={{
         /* Sits behind a ~90% dark navy overlay, so low quality/width is
            imperceptible — keep this image small for mobile payload. */
-        backgroundImage: `url('https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=1024&q=42&fm=webp')`,
+        backgroundColor: "#0a1628",
+        backgroundImage: bgReady
+          ? `url('https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=800&q=40&fm=webp')`
+          : undefined,
         backgroundSize: "cover",
         backgroundPosition: "center 40%",
       }}

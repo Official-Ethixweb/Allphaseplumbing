@@ -26,6 +26,15 @@ export const Route = createFileRoute("/")({
         content: "Same-day plumbing service across Tukwila and Greater Seattle.",
       },
     ],
+    links: [
+      // Hero video poster is the LCP image — fetch it at top priority
+      {
+        rel: "preload",
+        as: "image",
+        href: "/videos/seattle-bg-poster.webp",
+        fetchPriority: "high",
+      },
+    ],
   }),
   component: Index,
 });

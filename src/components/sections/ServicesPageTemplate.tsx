@@ -34,7 +34,7 @@ import { GOOGLE_REVIEWS } from "@/data/area-content";
 import { GoogleReviewsMarquee } from "@/components/sections/GoogleReviewsMarquee";
 import { CTABanner } from "@/components/sections/CTABanner";
 import Particles from "@/components/ui/Particles";
-import teamPhoto from "@/assets/plumbing_service_hero.png";
+import teamPhoto from "@/assets/plumbing-service-hero.webp";
 
 const HEADING_FONT = { fontFamily: "'Poppins', sans-serif" } as const;
 const GOLD_GRADIENT = "linear-gradient(135deg, #F5C842 0%, #d4a82e 100%)";
@@ -376,14 +376,14 @@ function IntroContent() {
         <p className="text-[16px] sm:text-[17px] text-gray-600 leading-relaxed mb-4">
           Since 1989, All Phase Plumbing has been the team Greater Seattle homeowners and businesses
           call when something goes wrong with their plumbing. We handle the full range of work, from
-          routine repairs and drain cleaning to water heater installs, repiping, and trenchless sewer
-          replacement, so you never have to juggle multiple contractors for one project.
+          routine repairs and drain cleaning to water heater installs, repiping, and trenchless
+          sewer replacement, so you never have to juggle multiple contractors for one project.
         </p>
         <p className="text-[16px] text-gray-600 leading-relaxed">
           Every job is performed by our own licensed, bonded, and insured plumbers, priced with a
-          clear flat-rate quote up front, and backed by a written workmanship guarantee. Whether it's
-          a planned upgrade or a 2am emergency, you get the same honest, professional service that has
-          earned us the trust of thousands of local customers.
+          clear flat-rate quote up front, and backed by a written workmanship guarantee. Whether
+          it's a planned upgrade or a 2am emergency, you get the same honest, professional service
+          that has earned us the trust of thousands of local customers.
         </p>
       </div>
     </section>
@@ -453,15 +453,16 @@ export function WhyChooseUs() {
             <div className="space-y-5 text-[16px] sm:text-[17px] text-gray-600 leading-relaxed">
               <p>
                 When you invite a plumber into your home or business, you need to know they are
-                experienced, trustworthy, and fully equipped to handle the job. At All Phase Plumbing,
-                we pride ourselves on delivering top-tier service without the sales pressure or hidden fees.
+                experienced, trustworthy, and fully equipped to handle the job. At All Phase
+                Plumbing, we pride ourselves on delivering top-tier service without the sales
+                pressure or hidden fees.
               </p>
               <p>
                 Our philosophy is simple: diagnose the issue accurately, provide a clear and upfront
-                solution, and execute the repair or installation flawlessly. We invest heavily in the
-                latest technology—from advanced leak detection to high-powered hydro jetting—ensuring
-                that our solutions are not just temporary fixes, but long-term improvements for your
-                property's plumbing infrastructure.
+                solution, and execute the repair or installation flawlessly. We invest heavily in
+                the latest technology—from advanced leak detection to high-powered hydro
+                jetting—ensuring that our solutions are not just temporary fixes, but long-term
+                improvements for your property's plumbing infrastructure.
               </p>
               <p>
                 We understand that plumbing emergencies disrupt your life. That's why our dedicated

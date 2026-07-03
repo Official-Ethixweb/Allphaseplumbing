@@ -150,135 +150,146 @@ const Particles = ({
     let cancelled = false;
     let isVisible = true; // gate the rAF loop so offscreen instances cost ~0
 
-    import("ogl").then(({ Renderer, Camera, Geometry, Program, Mesh }) => {
-      if (cancelled) return;
-      renderer = new Renderer({ dpr, depth: false, alpha: true });
-      gl = renderer.gl;
-      container.appendChild(gl.canvas);
-      gl.clearColor(0, 0, 0, 0);
+    /* Defer the ogl download + WebGL setup until the container is close to the
+       viewport. Below-the-fold sections (reviews marquee, footer CTAs…) then
+       cost nothing at page load. */
+    let started = false;
+    const start = () => {
+      if (started || cancelled) return;
+      started = true;
+      import("ogl").then(({ Renderer, Camera, Geometry, Program, Mesh }) => {
+        if (cancelled) return;
+        renderer = new Renderer({ dpr, depth: false, alpha: true });
+        gl = renderer.gl;
+        container.appendChild(gl.canvas);
+        gl.clearColor(0, 0, 0, 0);
 
-      camera = new Camera(gl, { fov: 15 });
-      camera.position.set(0, 0, cameraDistance);
+        camera = new Camera(gl, { fov: 15 });
+        camera.position.set(0, 0, cameraDistance);
 
-      const resize = () => {
-        const width = container.clientWidth;
-        const height = container.clientHeight;
-        renderer.setSize(width, height);
-        camera.perspective({ aspect: gl.canvas.width / gl.canvas.height });
-      };
-      window.addEventListener("resize", resize, false);
-      resize();
+        const resize = () => {
+          const width = container.clientWidth;
+          const height = container.clientHeight;
+          renderer.setSize(width, height);
+          camera.perspective({ aspect: gl.canvas.width / gl.canvas.height });
+        };
+        window.addEventListener("resize", resize, false);
+        resize();
 
-      const handleMouseMove = (e: MouseEvent) => {
-        const rect = container.getBoundingClientRect();
-        const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-        const y = -(((e.clientY - rect.top) / rect.height) * 2 - 1);
-        mouseRef.current = { x, y };
-      };
-
-      if (moveParticlesOnHover) {
-        container.addEventListener("mousemove", handleMouseMove);
-      }
-
-      const count = particleCount;
-      const positions = new Float32Array(count * 3);
-      const randoms = new Float32Array(count * 4);
-      const colors = new Float32Array(count * 3);
-      const palette = particleColors && particleColors.length > 0 ? particleColors : defaultColors;
-
-      for (let i = 0; i < count; i++) {
-        let x, y, z, len;
-        do {
-          x = Math.random() * 2 - 1;
-          y = Math.random() * 2 - 1;
-          z = Math.random() * 2 - 1;
-          len = x * x + y * y + z * z;
-        } while (len > 1 || len === 0);
-        const r = Math.cbrt(Math.random());
-        positions.set([x * r, y * r, z * r], i * 3);
-        randoms.set([Math.random(), Math.random(), Math.random(), Math.random()], i * 4);
-        const col = hexToRgb(palette[Math.floor(Math.random() * palette.length)]);
-        colors.set(col, i * 3);
-      }
-
-      geometry = new Geometry(gl, {
-        position: { size: 3, data: positions },
-        random: { size: 4, data: randoms },
-        color: { size: 3, data: colors },
-      });
-
-      program = new Program(gl, {
-        vertex,
-        fragment,
-        uniforms: {
-          uTime: { value: 0 },
-          uSpread: { value: particleSpread },
-          uBaseSize: { value: particleBaseSize * dpr },
-          uSizeRandomness: { value: sizeRandomness },
-          uAlphaParticles: { value: alphaParticles ? 1 : 0 },
-        },
-        transparent: true,
-        depthTest: false,
-      });
-
-      particles = new Mesh(gl, { mode: gl.POINTS, geometry, program });
-
-      let lastTime = performance.now();
-      let lastRender = lastTime;
-      let elapsed = 0;
-
-      const update = (t: number) => {
-        animationFrameId = requestAnimationFrame(update);
-        if (!isVisible) {
-          lastTime = t; // avoid huge delta when we resume
-          lastRender = t;
-          return;
-        }
-        // Mobile FPS cap: skip frames that arrive sooner than the interval so we
-        // render ~30fps instead of ~60. lastTime is left untouched on skipped
-        // frames so the accumulated delta keeps motion at the same speed.
-        if (frameIntervalMs > 0 && t - lastRender < frameIntervalMs) {
-          return;
-        }
-        lastRender = t;
-        const delta = t - lastTime;
-        lastTime = t;
-        elapsed += delta * speed;
-        program.uniforms.uTime.value = elapsed * 0.001;
+        const handleMouseMove = (e: MouseEvent) => {
+          const rect = container.getBoundingClientRect();
+          const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+          const y = -(((e.clientY - rect.top) / rect.height) * 2 - 1);
+          mouseRef.current = { x, y };
+        };
 
         if (moveParticlesOnHover) {
-          particles.position.x = -mouseRef.current.x * particleHoverFactor;
-          particles.position.y = -mouseRef.current.y * particleHoverFactor;
-        } else {
-          particles.position.x = 0;
-          particles.position.y = 0;
+          container.addEventListener("mousemove", handleMouseMove);
         }
 
-        if (!disableRotation) {
-          particles.rotation.x = Math.sin(elapsed * 0.0002) * 0.1;
-          particles.rotation.y = Math.cos(elapsed * 0.0005) * 0.15;
-          particles.rotation.z += 0.01 * speed;
+        const count = particleCount;
+        const positions = new Float32Array(count * 3);
+        const randoms = new Float32Array(count * 4);
+        const colors = new Float32Array(count * 3);
+        const palette =
+          particleColors && particleColors.length > 0 ? particleColors : defaultColors;
+
+        for (let i = 0; i < count; i++) {
+          let x, y, z, len;
+          do {
+            x = Math.random() * 2 - 1;
+            y = Math.random() * 2 - 1;
+            z = Math.random() * 2 - 1;
+            len = x * x + y * y + z * z;
+          } while (len > 1 || len === 0);
+          const r = Math.cbrt(Math.random());
+          positions.set([x * r, y * r, z * r], i * 3);
+          randoms.set([Math.random(), Math.random(), Math.random(), Math.random()], i * 4);
+          const col = hexToRgb(palette[Math.floor(Math.random() * palette.length)]);
+          colors.set(col, i * 3);
         }
 
-        renderer.render({ scene: particles, camera });
-      };
+        geometry = new Geometry(gl, {
+          position: { size: 3, data: positions },
+          random: { size: 4, data: randoms },
+          color: { size: 3, data: colors },
+        });
 
-      animationFrameId = requestAnimationFrame(update);
+        program = new Program(gl, {
+          vertex,
+          fragment,
+          uniforms: {
+            uTime: { value: 0 },
+            uSpread: { value: particleSpread },
+            uBaseSize: { value: particleBaseSize * dpr },
+            uSizeRandomness: { value: sizeRandomness },
+            uAlphaParticles: { value: alphaParticles ? 1 : 0 },
+          },
+          transparent: true,
+          depthTest: false,
+        });
 
-      // Store resize handler for cleanup
-      (container as ParticleContainer)._particleResize = resize;
-      (container as ParticleContainer)._particleMouseMove = moveParticlesOnHover
-        ? handleMouseMove
-        : null;
-    });
+        particles = new Mesh(gl, { mode: gl.POINTS, geometry, program });
+
+        let lastTime = performance.now();
+        let lastRender = lastTime;
+        let elapsed = 0;
+
+        const update = (t: number) => {
+          animationFrameId = requestAnimationFrame(update);
+          if (!isVisible) {
+            lastTime = t; // avoid huge delta when we resume
+            lastRender = t;
+            return;
+          }
+          // Mobile FPS cap: skip frames that arrive sooner than the interval so we
+          // render ~30fps instead of ~60. lastTime is left untouched on skipped
+          // frames so the accumulated delta keeps motion at the same speed.
+          if (frameIntervalMs > 0 && t - lastRender < frameIntervalMs) {
+            return;
+          }
+          lastRender = t;
+          const delta = t - lastTime;
+          lastTime = t;
+          elapsed += delta * speed;
+          program.uniforms.uTime.value = elapsed * 0.001;
+
+          if (moveParticlesOnHover) {
+            particles.position.x = -mouseRef.current.x * particleHoverFactor;
+            particles.position.y = -mouseRef.current.y * particleHoverFactor;
+          } else {
+            particles.position.x = 0;
+            particles.position.y = 0;
+          }
+
+          if (!disableRotation) {
+            particles.rotation.x = Math.sin(elapsed * 0.0002) * 0.1;
+            particles.rotation.y = Math.cos(elapsed * 0.0005) * 0.15;
+            particles.rotation.z += 0.01 * speed;
+          }
+
+          renderer.render({ scene: particles, camera });
+        };
+
+        animationFrameId = requestAnimationFrame(update);
+
+        // Store resize handler for cleanup
+        (container as ParticleContainer)._particleResize = resize;
+        (container as ParticleContainer)._particleMouseMove = moveParticlesOnHover
+          ? handleMouseMove
+          : null;
+      });
+    };
 
     // Pause the loop when the canvas is offscreen, multiple instances on one page
-    // would otherwise keep burning GPU time on hidden sections.
+    // would otherwise keep burning GPU time on hidden sections. The same
+    // observer kicks off the deferred init the first time we come into range.
     const visibilityObserver = new IntersectionObserver(
       (entries) => {
         isVisible = entries[0]?.isIntersecting ?? true;
+        if (isVisible) start();
       },
-      { rootMargin: "100px" },
+      { rootMargin: "200px" },
     );
     visibilityObserver.observe(container);
 

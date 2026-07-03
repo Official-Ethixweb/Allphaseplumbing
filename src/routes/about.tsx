@@ -9,8 +9,8 @@ import { CTABanner } from "@/components/sections/CTABanner";
 import { StarBorder } from "@/components/ui/StarBorder";
 import { useSiteOptions } from "@/hooks/use-site-options";
 import { Play, Phone, ShieldCheck, Clock, Award, Wrench } from "lucide-react";
-import skylineBg from "@/assets/seattle-skyline.jpg";
-import teamImg from "@/assets/team.jpg";
+import skylineBg from "@/assets/seattle-skyline.webp";
+import teamImg from "@/assets/team.webp";
 import { Masonry } from "@/components/ui/Masonry";
 import Particles from "@/components/ui/Particles";
 

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Outlet,
@@ -10,9 +10,25 @@ import {
 } from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
-import { CouponsSidePopout } from "@/components/layout/CouponsSidePopout";
-import { MobileBottomNav } from "@/components/layout/MobileBottomNav";
-import { ChatbotWidget } from "@/components/layout/ChatbotWidget";
+
+/* Floating overlay widgets are code-split and mounted after the page is loaded
+   and idle: none of them are part of the first paint, and keeping them out of
+   the critical bundle cuts hydration work on every route. All are position:
+   fixed overlays, so late mounting causes no layout shift. */
+const CouponsSidePopout = lazy(() =>
+  import("@/components/layout/CouponsSidePopout").then((m) => ({ default: m.CouponsSidePopout })),
+);
+const MobileBottomNav = lazy(() =>
+  import("@/components/layout/MobileBottomNav").then((m) => ({ default: m.MobileBottomNav })),
+);
+const ChatbotWidget = lazy(() =>
+  import("@/components/layout/ChatbotWidget").then((m) => ({ default: m.ChatbotWidget })),
+);
+const AccessibilityWidget = lazy(() =>
+  import("@/components/layout/AccessibilityWidget").then((m) => ({
+    default: m.AccessibilityWidget,
+  })),
+);
 
 function NotFoundComponent() {
   return (
@@ -99,13 +115,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
       { rel: "apple-touch-icon", href: "/favicon.svg" },
-      // LCP: preload hero poster so first paint is instant
-      {
-        rel: "preload",
-        as: "image",
-        href: "/videos/seattle-bg-poster.jpg",
-        fetchPriority: "high",
-      },
+      // Hero poster preload lives in the homepage route head (index.tsx) —
+      // only the homepage renders the video hero.
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       // Google Fonts CSS is loaded non-render-blocking via the inline script in
@@ -120,7 +131,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 /* Google Fonts stylesheet, loaded asynchronously so it never blocks render. */
 const FONTS_HREF =
-  "https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap";
+  "https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap";
 
 function RootShell({ children }: { children: React.ReactNode }) {
   return (
@@ -151,6 +162,27 @@ function RootShell({ children }: { children: React.ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+
+  /* Mount the floating widgets once the page has loaded and the main thread is
+     idle. They never render on the server, so the SSR payload shrinks too. */
+  const [widgetsReady, setWidgetsReady] = useState(false);
+  useEffect(() => {
+    const idle = window.requestIdleCallback ?? ((cb: () => void) => window.setTimeout(cb, 200));
+    let cancelled = false;
+    const start = () =>
+      idle(() => {
+        if (!cancelled) setWidgetsReady(true);
+      });
+    if (document.readyState === "complete") {
+      start();
+    } else {
+      window.addEventListener("load", start, { once: true });
+    }
+    return () => {
+      cancelled = true;
+      window.removeEventListener("load", start);
+    };
+  }, []);
 
   useEffect(() => {
     // 1. Define the Intersection Observer
@@ -229,12 +261,17 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <Outlet />
-      {!isLandingPage && (
-        <>
-          <CouponsSidePopout />
-          <MobileBottomNav />
-          <ChatbotWidget />
-        </>
+      {widgetsReady && (
+        <Suspense fallback={null}>
+          <AccessibilityWidget />
+          {!isLandingPage && (
+            <>
+              <CouponsSidePopout />
+              <MobileBottomNav />
+              <ChatbotWidget />
+            </>
+          )}
+        </Suspense>
       )}
     </QueryClientProvider>
   );
