@@ -319,7 +319,7 @@ export function Header() {
               <span className="text-[#1E3A6E] font-bold text-[24px] tracking-wide">
                 Licensed &amp; Insured
               </span>
-              <span className="text-[#6B9FE4] font-bold text-[21px] mt-0.5 self-end mr-0">
+              <span className="text-[#4A7BC4] font-bold text-[21px] mt-0.5 self-end mr-0">
                 Available 24/7
               </span>
               <span className="text-[#1E3A6E] font-semibold text-[14px] tracking-wide mt-0.5 self-end">

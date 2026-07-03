@@ -70,6 +70,10 @@ export function CouponsSidePopout() {
       }}
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
+      onFocus={() => setOpen(true)}
+      onBlur={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget)) setOpen(false);
+      }}
     >
       {/* Tab, vertical pill, attached to the left side of the panel.
           Icon at the top, "Coupons" label running top-to-bottom below. */}

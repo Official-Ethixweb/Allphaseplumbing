@@ -459,6 +459,14 @@ body {
   transform: translateY(0) !important;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .heading-pre-animate {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
 /* ─── Generic scroll reveal for cards & list items ───
    Hidden until the global IntersectionObserver (see __root.tsx) adds
    `.reveal-in`. Stagger groups of items with an inline transition-delay. */

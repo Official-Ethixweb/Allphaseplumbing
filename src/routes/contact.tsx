@@ -586,7 +586,10 @@ function ContactServiceAreaSection({
             {showCities && (
               <div
                 key="cities-list"
-                className="mt-5 flex-1 overflow-y-auto rounded-2xl border border-white/10 divide-y divide-white/10 animate-in fade-in slide-in-from-bottom-2 duration-400"
+                role="region"
+                aria-label="Cities we serve"
+                tabIndex={0}
+                className="mt-5 flex-1 overflow-y-auto rounded-2xl border border-white/10 divide-y divide-white/10 animate-in fade-in slide-in-from-bottom-2 duration-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5C842]"
                 style={{
                   background: "rgba(255,255,255,0.05)",
                   maxHeight: "320px",

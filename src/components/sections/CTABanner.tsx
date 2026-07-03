@@ -165,6 +165,7 @@ export function CTABanner() {
                     name="service"
                     value={form.service}
                     onChange={handleChange}
+                    aria-label="Service needed"
                     className={`${inputCls} text-gray-500`}
                     required
                   >

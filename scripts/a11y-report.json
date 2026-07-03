@@ -1,0 +1,12 @@
+[
+  {
+    "route": "/services/plumbing/toilet-installation [desktop]",
+    "violationCount": 0,
+    "violations": []
+  },
+  {
+    "route": "/services/plumbing/toilet-installation [mobile]",
+    "violationCount": 0,
+    "violations": []
+  }
+]

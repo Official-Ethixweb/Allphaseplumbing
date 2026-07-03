@@ -113,7 +113,7 @@ export function Services() {
     <section className="py-20 bg-[#f7f9fc]">
       <div className="container mx-auto px-4">
         <div className="text-center mb-14">
-          <span className="inline-block text-[24px] font-bold uppercase tracking-widest text-[#F5C842] mb-3">
+          <span className="inline-block text-[24px] font-bold uppercase tracking-widest text-[#A67400] mb-3">
             What We Do
           </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#1E3A6E] leading-tight">

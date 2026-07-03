@@ -320,7 +320,7 @@ function ServicesCatalog() {
     <section className="py-16 sm:py-20 bg-[#f7f9fc]">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <span className="inline-block text-[13px] sm:text-[15px] font-bold uppercase tracking-widest text-[#6B9FE4] mb-3">
+          <span className="inline-block text-[13px] sm:text-[15px] font-bold uppercase tracking-widest text-[#3A66AD] mb-3">
             What We Do
           </span>
           <h2
@@ -396,7 +396,7 @@ export function HowItWorks() {
     <section className="py-16 sm:py-20 bg-[#eef4fb]">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <span className="inline-block text-[13px] sm:text-[15px] font-bold uppercase tracking-widest text-[#6B9FE4] mb-3">
+          <span className="inline-block text-[13px] sm:text-[15px] font-bold uppercase tracking-widest text-[#3A66AD] mb-3">
             Simple Process
           </span>
           <h2
@@ -441,7 +441,7 @@ export function WhyChooseUs() {
       <div className="container mx-auto px-4 max-w-6xl">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           <div>
-            <span className="inline-block text-[13px] sm:text-[15px] font-bold uppercase tracking-widest text-[#6B9FE4] mb-3">
+            <span className="inline-block text-[13px] sm:text-[15px] font-bold uppercase tracking-widest text-[#3A66AD] mb-3">
               The All Phase Difference
             </span>
             <h2
@@ -551,7 +551,7 @@ function FAQ() {
     <section className="py-16 sm:py-20 bg-[#f7f9fc]">
       <div className="container mx-auto px-4 max-w-3xl">
         <div className="text-center mb-10">
-          <span className="inline-block text-[13px] sm:text-[15px] font-bold uppercase tracking-widest text-[#6B9FE4] mb-3">
+          <span className="inline-block text-[13px] sm:text-[15px] font-bold uppercase tracking-widest text-[#3A66AD] mb-3">
             FAQ
           </span>
           <h2
