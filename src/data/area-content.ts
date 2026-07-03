@@ -14,7 +14,7 @@
  * so no new image assets are required, keeping LCP light.
  */
 
-import seattleSkyline from "@/assets/seattle-skyline.jpg";
+import seattleSkyline from "@/assets/seattle-skyline.webp";
 import { SERVICE_AREA_CITIES, getCityBySlug, type CityInfo } from "@/data/service-area-cities";
 
 export type AreaService = {

@@ -4,14 +4,9 @@ import { StarBorder } from "@/components/ui/StarBorder";
 import Particles from "@/components/ui/Particles";
 import mascot from "@/assets/better-mascot.webp";
 import { useSiteOptions } from "@/hooks/use-site-options";
-import { gsap } from "gsap";
-import { SplitText as GSAPSplitText } from "gsap/SplitText";
-import { useGSAP } from "@gsap/react";
 import { Recaptcha } from "@/components/ui/Recaptcha";
 import { useRecaptchaGate } from "@/hooks/use-recaptcha-gate";
 import { submitLeadFromForm } from "@/lib/lead-form";
-
-gsap.registerPlugin(GSAPSplitText, useGSAP);
 
 /* PC (lg+) keeps every tagline to two lines. */
 const HERO_TAGLINES_PC: readonly (readonly string[])[] = [
@@ -52,12 +47,23 @@ function CyclingSplitText({
     }
   }, []);
 
-  useGSAP(
-    () => {
-      if (!fontsLoaded || !ref.current) return;
-      const el = ref.current;
+  /* GSAP + SplitText are loaded on demand here (not statically) so ~100KB of
+     animation code stays off the critical path. The first tagline is already
+     SSR'd as real text; the animation simply takes over once fonts + gsap are
+     ready. */
+  useEffect(() => {
+    if (!fontsLoaded || !ref.current) return;
+    const el = ref.current;
+    let killed = false;
+    let cleanup: (() => void) | null = null;
+
+    Promise.all([import("gsap"), import("gsap/SplitText")]).then(([gsapMod, splitMod]) => {
+      if (killed || !el.isConnected) return;
+      const gsap = gsapMod.gsap;
+      const GSAPSplitText = splitMod.SplitText;
+      gsap.registerPlugin(GSAPSplitText);
+
       let split: InstanceType<typeof GSAPSplitText> | null = null;
-      let killed = false;
       const tweens: gsap.core.Tween[] = [];
       const delayedCalls: gsap.core.Tween[] = [];
 
@@ -122,8 +128,7 @@ function CyclingSplitText({
 
       playLine(0);
 
-      return () => {
-        killed = true;
+      cleanup = () => {
         tweens.forEach((t) => t.kill());
         delayedCalls.forEach((d) => d.kill());
         if (split) {
@@ -134,9 +139,13 @@ function CyclingSplitText({
           }
         }
       };
-    },
-    { dependencies: [fontsLoaded, lines, intervalMs], scope: ref },
-  );
+    });
+
+    return () => {
+      killed = true;
+      cleanup?.();
+    };
+  }, [fontsLoaded, lines, intervalMs]);
 
   /* Render first tagline as real text at first paint so the H1 (LCP element)
      is never empty while fonts/GSAP load. GSAP overwrites innerHTML on start. */
@@ -236,7 +245,7 @@ export function Hero({
         loop
         playsInline
         preload="none"
-        poster="/videos/seattle-bg-poster.jpg"
+        poster="/videos/seattle-bg-poster.webp"
         className="absolute inset-0 w-full h-full object-cover pointer-events-none select-none"
         style={{ opacity: 0.8 }}
         aria-hidden="true"

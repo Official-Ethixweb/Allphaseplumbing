@@ -4,7 +4,7 @@ import { Menu, X, Phone, ChevronDown, CalendarCheck } from "lucide-react";
 import { TopBar } from "./TopBar";
 import { useSiteOptions } from "@/hooks/use-site-options";
 import { SOCIAL_LINKS } from "@/lib/social-links";
-import textLogo from "@/assets/App updated logo.png";
+import textLogo from "@/assets/app-text-logo.webp";
 import { StarBorder } from "@/components/ui/StarBorder";
 import { PillNavItem } from "./PillNavItem";
 import { Instagram, Facebook } from "lucide-react";
@@ -216,7 +216,11 @@ export function Header() {
       <div className="lg:hidden bg-white border-b border-gray-100">
         <div className="flex items-center justify-between px-3 py-2.5 gap-2">
           <Link to="/" className="shrink-0">
-            <img src={textLogo} alt="All Phase Plumbing" className="h-[58px] w-auto object-contain" />
+            <img
+              src={textLogo}
+              alt="All Phase Plumbing"
+              className="h-[58px] w-auto object-contain"
+            />
           </Link>
 
           <div className="flex items-center gap-0">
@@ -272,10 +276,7 @@ export function Header() {
               LIC. #ALLPHPS793PE
             </span>
           </span>
-          <span
-            aria-hidden="true"
-            className="h-9 w-[3px] bg-white/70 shrink-0"
-          />
+          <span aria-hidden="true" className="h-9 w-[3px] bg-white/70 shrink-0" />
           <span className="inline-flex items-center gap-1.5 font-bold text-[14px] whitespace-nowrap">
             <Phone className="size-3.5" />
             {opts.phone}

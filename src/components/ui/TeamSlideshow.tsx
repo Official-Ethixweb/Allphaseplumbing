@@ -35,7 +35,7 @@ export function TeamSlideshow() {
               alt={slide.alt}
               className="w-full h-full object-cover"
               draggable={false}
-              loading={i === 0 ? "eager" : "lazy"}
+              loading="lazy"
               decoding="async"
             />
           </div>

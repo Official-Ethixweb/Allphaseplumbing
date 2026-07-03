@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Wrench } from "lucide-react";
 import { PageShell } from "@/components/layout/PageShell";
 import { fetchPosts } from "@/lib/wordpress.functions";
-import skylineBg from "@/assets/seattle-skyline.jpg";
+import skylineBg from "@/assets/seattle-skyline.webp";
 
 export const Route = createFileRoute("/blog/")({
   head: () => ({

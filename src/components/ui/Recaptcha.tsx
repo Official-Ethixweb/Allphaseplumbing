@@ -46,7 +46,15 @@ function loadRecaptchaScript(): Promise<void> {
 
 export type RecaptchaHandle = { reset: () => void };
 
-/** Google reCAPTCHA v2 "I'm not a robot" checkbox, rendered explicitly so React controls its lifecycle. */
+/**
+ * Google reCAPTCHA v2 "I'm not a robot" checkbox, rendered explicitly so React
+ * controls its lifecycle.
+ *
+ * The Google script is NOT loaded on mount — it costs ~12s of mobile main-thread
+ * time and several forms mount per page. It loads on the first user interaction
+ * with the surrounding form (focus/click/touch), which always happens before the
+ * checkbox is needed at submit time.
+ */
 export const Recaptcha = forwardRef<RecaptchaHandle, { onVerify: (token: string) => void }>(
   function Recaptcha({ onVerify }, ref) {
     const containerRef = useRef<HTMLDivElement>(null);
@@ -54,17 +62,41 @@ export const Recaptcha = forwardRef<RecaptchaHandle, { onVerify: (token: string)
     const [ready, setReady] = useState(false);
 
     useEffect(() => {
+      const el = containerRef.current;
+      if (!el) return;
       let cancelled = false;
-      loadRecaptchaScript().then(() => {
-        if (!cancelled) setReady(true);
-      });
+      const load = () => {
+        loadRecaptchaScript().then(() => {
+          if (!cancelled) setReady(true);
+        });
+      };
+
+      // If the script is already on the page (another form was used), render now
+      if (window.grecaptcha || scriptPromise) {
+        load();
+        return () => {
+          cancelled = true;
+        };
+      }
+
+      const trigger = el.closest("form") ?? el.parentElement ?? el;
+      const arm = () => {
+        trigger.removeEventListener("focusin", arm);
+        trigger.removeEventListener("pointerdown", arm);
+        load();
+      };
+      trigger.addEventListener("focusin", arm);
+      trigger.addEventListener("pointerdown", arm);
       return () => {
         cancelled = true;
+        trigger.removeEventListener("focusin", arm);
+        trigger.removeEventListener("pointerdown", arm);
       };
     }, []);
 
     useEffect(() => {
-      if (!ready || !containerRef.current || widgetId.current !== null || !window.grecaptcha) return;
+      if (!ready || !containerRef.current || widgetId.current !== null || !window.grecaptcha)
+        return;
       widgetId.current = window.grecaptcha.render(containerRef.current, {
         sitekey: SITE_KEY,
         callback: onVerify,
@@ -79,6 +111,7 @@ export const Recaptcha = forwardRef<RecaptchaHandle, { onVerify: (token: string)
       },
     }));
 
-    return <div ref={containerRef} />;
+    // min-h reserves the checkbox footprint so the deferred render doesn't shift the form
+    return <div ref={containerRef} className="min-h-[78px] min-w-[304px]" />;
   },
 );

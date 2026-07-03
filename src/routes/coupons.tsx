@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/layout/PageShell";
 import { Coupons } from "@/components/sections/Coupons";
 import { WhyUs } from "@/components/sections/WhyUs";
-import skylineBg from "@/assets/seattle-skyline.jpg";
+import skylineBg from "@/assets/seattle-skyline.webp";
 
 export const Route = createFileRoute("/coupons")({
   head: () => ({
