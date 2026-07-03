@@ -42,6 +42,9 @@ export function Footer() {
             <p className="text-[13px] text-white/55 leading-relaxed max-w-[180px]">
               Greater Seattle's trusted plumber, licensed, insured &amp; available 24/7.
             </p>
+            <p className="text-[13px] font-semibold text-white/70 tracking-wide">
+              Lic. #ALLPHPS793PE
+            </p>
             <a
               href="tel:+12067726077"
               className="inline-flex items-center gap-2 mt-1 bg-[#F5C842] text-[#1E3A6E] font-black text-[14px] px-4 py-2.5 rounded-none hover:bg-[#eec136] transition-colors w-fit"
@@ -157,7 +160,8 @@ export function Footer() {
       {/* ── Copyright bar ── */}
       <div className="relative z-10 bg-[#0f2246] border-t border-white/10 py-4 text-center">
         <p className="text-[12px] font-medium tracking-widest text-white/40 uppercase">
-          © {new Date().getFullYear()} All Phase Plumbing · All Rights Reserved · Tukwila, WA
+          © {new Date().getFullYear()} All Phase Plumbing · All Rights Reserved · Tukwila, WA ·
+          Lic. #ALLPHPS793PE
         </p>
       </div>
     </footer>

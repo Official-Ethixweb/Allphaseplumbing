@@ -264,8 +264,13 @@ export function Header() {
             boxShadow: "0 4px 10px -2px rgba(30,58,110,0.45)",
           }}
         >
-          <span className="text-[11.5px] sm:text-[12px] font-semibold tracking-[0.06em] text-white">
-            AVAILABLE 24/7 · SAME DAY SERVICE
+          <span className="flex flex-col leading-tight">
+            <span className="text-[11.5px] sm:text-[12px] font-semibold tracking-[0.06em] text-white">
+              AVAILABLE 24/7 · SAME DAY SERVICE
+            </span>
+            <span className="text-[10px] sm:text-[10.5px] font-medium tracking-[0.06em] text-white/80">
+              LIC. #ALLPHPS793PE
+            </span>
           </span>
           <span
             aria-hidden="true"
@@ -316,6 +321,9 @@ export function Header() {
               </span>
               <span className="text-[#6B9FE4] font-bold text-[21px] mt-0.5 self-end mr-0">
                 Available 24/7
+              </span>
+              <span className="text-[#1E3A6E] font-semibold text-[14px] tracking-wide mt-0.5 self-end">
+                Lic. #ALLPHPS793PE
               </span>
             </div>
 

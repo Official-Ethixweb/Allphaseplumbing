@@ -66,7 +66,10 @@ function LandingHeader({ trackingPhone }: { trackingPhone?: string }) {
             <div className="h-8 w-px bg-gray-200" />
             <div className="flex items-center gap-2">
               <ShieldCheck className="size-5 text-[#4A7BC4] shrink-0" />
-              <span className="font-bold text-[14px] leading-tight whitespace-nowrap">Licensed &amp; Insured</span>
+              <span className="flex flex-col leading-tight">
+                <span className="font-bold text-[14px] whitespace-nowrap">Licensed &amp; Insured</span>
+                <span className="font-semibold text-[11px] text-[#1E3A6E]/70 whitespace-nowrap">Lic. #ALLPHPS793PE</span>
+              </span>
             </div>
             <div className="h-8 w-px bg-gray-200" />
             <div className="flex items-center gap-2">
@@ -234,7 +237,7 @@ function LandingTrustBar({ location }: { location: string }) {
           <div className="flex flex-col items-center justify-center px-4">
             <ShieldCheck className="size-8 text-[#4A7BC4] mb-3" />
             <p className="font-bold text-[#1E3A6E] text-[15px] leading-tight">Licensed & Insured</p>
-            <p className="text-gray-500 text-xs mt-1 font-medium">WA State Licensed Plumber</p>
+            <p className="text-gray-500 text-xs mt-1 font-medium">Lic. #ALLPHPS793PE</p>
           </div>
           <div className="flex flex-col items-center justify-center px-4">
             <Clock className="size-8 text-[#4A7BC4] mb-3" />
@@ -518,7 +521,10 @@ function LandingFooter({ trackingPhone }: { trackingPhone?: string }) {
         <img src={textLogo} alt="All Phase Plumbing" className="h-[60px] w-auto object-contain mb-6 grayscale opacity-80" />
         <p className="text-gray-500 font-medium mb-2">Licensed &amp; Insured Plumbers serving Seattle</p>
         <p className="text-gray-500 font-medium mb-6">Call {phoneToUse} for 24/7 service.</p>
-        <p className="text-gray-400 text-sm">&copy; {new Date().getFullYear()} All Phase Plumbing. All rights reserved.</p>
+        <p className="text-gray-400 text-sm">
+          &copy; {new Date().getFullYear()} All Phase Plumbing. All rights reserved. · Lic.
+          #ALLPHPS793PE
+        </p>
       </div>
     </footer>
   );
