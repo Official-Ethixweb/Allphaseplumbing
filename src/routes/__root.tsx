@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Outlet,
@@ -10,6 +10,8 @@ import {
 } from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
+import { isLandingPath, getPageType } from "@/lib/page-type";
+import { trackPageView, trackPhoneClick, trackCtaClick } from "@/lib/analytics";
 
 /* Floating overlay widgets are code-split and mounted after the page is loaded
    and idle: none of them are part of the first paint, and keeping them out of
@@ -28,6 +30,9 @@ const AccessibilityWidget = lazy(() =>
   import("@/components/layout/AccessibilityWidget").then((m) => ({
     default: m.AccessibilityWidget,
   })),
+);
+const ConsentWidget = lazy(() =>
+  import("@/components/layout/ConsentWidget").then((m) => ({ default: m.ConsentWidget })),
 );
 
 function NotFoundComponent() {
@@ -133,11 +138,35 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 const FONTS_HREF =
   "https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap";
 
+/* ── Google Tag Manager (GTM-P68HPFVD → GA4 G-32603H5BWW) ────────────────────
+   GTM is the single tag host: GA4 config + all event tags live inside it, so
+   the app only pushes semantic events to the dataLayer (see src/lib/analytics.ts).
+   The init script stamps the FIRST pageview with its page_type before GTM loads,
+   so ad traffic landing directly on a landing page still gets the landing/inside
+   split on its initial GA4 page_view. The landing prefixes mirror
+   src/lib/page-type.ts — keep the two in sync. */
+const GTM_ID = "GTM-P68HPFVD";
+const GTM_DATALAYER_INIT =
+  "window.dataLayer=window.dataLayer||[];(function(){var p=location.pathname;" +
+  "var L=['/drain-cleaning','/emergency-plumber','/hydro-jetting'];" +
+  "var isL=L.some(function(x){return p===x||p.indexOf(x+'/')===0;});" +
+  "window.dataLayer.push({page_type:isL?'landing':'inside',page_path:p});})();";
+const GTM_SNIPPET =
+  "(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime()," +
+  "event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s)," +
+  "dl=l!='dataLayer'?'&l='+l:'';j.async=true;" +
+  "j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;" +
+  `f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${GTM_ID}');`;
+
 function RootShell({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <head>
         <HeadContent />
+        {/* Google Tag Manager — dataLayer init (with initial page_type) first,
+            then the container loader, as high in <head> as possible. */}
+        <script dangerouslySetInnerHTML={{ __html: GTM_DATALAYER_INIT }} />
+        <script dangerouslySetInnerHTML={{ __html: GTM_SNIPPET }} />
         {/* Non-render-blocking webfont load: inject a print-media stylesheet and
             flip it to "all" once it has downloaded (text shows immediately in a
             fallback font via display=swap, then upgrades). */}
@@ -153,6 +182,16 @@ function RootShell({ children }: { children: React.ReactNode }) {
         </noscript>
       </head>
       <body>
+        {/* Google Tag Manager (noscript) — must be immediately after <body>. */}
+        <noscript>
+          <iframe
+            src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+            title="Google Tag Manager"
+          />
+        </noscript>
         {children}
         <Scripts />
       </body>
@@ -253,10 +292,61 @@ function RootComponent() {
   }, []);
 
   const location = useRouter().state.location;
-  const isLandingPage =
-    location.pathname.startsWith("/drain-cleaning") ||
-    location.pathname.startsWith("/emergency-plumber") ||
-    location.pathname.startsWith("/hydro-jetting");
+  const isLandingPage = isLandingPath(location.pathname);
+
+  /* SPA route-change pageviews. The inline <head> script already pushed the
+     initial pageview (with page_type), so we skip the first run here and only
+     track client-side navigations — avoiding a duplicate on first load. */
+  const lastTrackedPath = useRef<string | null>(null);
+  useEffect(() => {
+    const path = location.pathname;
+    if (lastTrackedPath.current === null) {
+      lastTrackedPath.current = path;
+      return;
+    }
+    if (lastTrackedPath.current !== path) {
+      lastTrackedPath.current = path;
+      trackPageView({ page_type: getPageType(path), page_path: path });
+    }
+  }, [location.pathname]);
+
+  /* One delegated listener covers every phone link and CTA button site-wide —
+     no per-element tags. Phone clicks are suppressed on landing pages (CallRail
+     dynamic numbers already attribute those calls). CTA clicks fire for any
+     element carrying a data-gtm-cta id. Capture phase so it runs before the
+     tel: / anchor navigation. */
+  useEffect(() => {
+    const sectionOf = (el: Element): string => {
+      if (el.closest("header")) return "header";
+      if (el.closest("footer")) return "footer";
+      if (el.closest("nav")) return "nav";
+      return "body";
+    };
+    const onClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement | null;
+      if (!target?.closest) return;
+
+      const tel = target.closest('a[href^="tel:"]') as HTMLAnchorElement | null;
+      if (tel && getPageType(window.location.pathname) !== "landing") {
+        trackPhoneClick({
+          phone: (tel.getAttribute("href") || "").replace(/^tel:/, ""),
+          link_location: sectionOf(tel),
+          page_path: window.location.pathname,
+        });
+      }
+
+      const cta = target.closest("[data-gtm-cta]") as HTMLElement | null;
+      if (cta) {
+        trackCtaClick({
+          click_id: cta.dataset.gtmCta || "",
+          click_text: (cta.textContent || "").replace(/\s+/g, " ").trim().slice(0, 100),
+          page_path: window.location.pathname,
+        });
+      }
+    };
+    document.addEventListener("click", onClick, true);
+    return () => document.removeEventListener("click", onClick, true);
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -264,6 +354,7 @@ function RootComponent() {
       {widgetsReady && (
         <Suspense fallback={null}>
           <AccessibilityWidget />
+          <ConsentWidget />
           {!isLandingPage && (
             <>
               <CouponsSidePopout />

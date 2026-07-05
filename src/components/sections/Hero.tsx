@@ -1,8 +1,9 @@
 import { useState, useEffect, useRef, type CSSProperties } from "react";
-import { Star, Home, Building2, Phone } from "lucide-react";
+import { Home, Building2, Phone } from "lucide-react";
 import { StarBorder } from "@/components/ui/StarBorder";
 import Particles from "@/components/ui/Particles";
 import mascot from "@/assets/better-mascot.webp";
+import googleRatingCard from "@/assets/Group 55.png";
 import { useSiteOptions } from "@/hooks/use-site-options";
 import { Recaptcha } from "@/components/ui/Recaptcha";
 import { useRecaptchaGate } from "@/hooks/use-recaptcha-gate";
@@ -271,8 +272,12 @@ export function Hero({
       <div className="relative z-10 container mx-auto px-4 pt-28 pb-0" style={{ zoom: 0.9 }}>
         {/* ── Two-column: text LEFT ·  mascot RIGHT ── */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-end">
-          {/* LEFT, hero copy (10% larger, shifted 10% left) */}
-          <div className="pb-0 lg:pb-20 lg:-ml-10 xl:-ml-16 lg:[transform:scale(1.1)_translateX(0%)] lg:[transform-origin:top_left]">
+          {/* LEFT, hero copy (10% larger). The old negative left margin pulled
+             the copy under the fixed accessibility launcher (bottom-left)
+             whenever the container ran edge-to-edge — which happens at the lower
+             edge of every breakpoint (≈1024/1280/1536px). Use a small left inset
+             instead so the Google card / subtitle always clear the launcher. */}
+          <div className="pb-0 lg:pb-28 lg:ml-0 lg:pl-8 lg:[transform:scale(1.1)_translateX(0%)] lg:[transform-origin:top_left]">
             <span
               className="hidden sm:inline-block text-white font-bold text-[34px] tracking-wide"
               style={{
@@ -332,42 +337,18 @@ export function Hero({
               </span>
             </p>
 
-            {/* Google reviews — with mascot perched on top edge (mobile only) */}
-            <div
-              className="relative mt-6 sm:mt-8 flex w-full flex-col items-start
-                         px-4 py-3 sm:px-5 sm:py-4
-                         rounded-xl rounded-b-none sm:rounded-b-xl sm:inline-flex sm:w-auto
-                         backdrop-blur-md"
-              style={{
-                background: "rgba(255,255,255,0.9)",
-                border: "1px solid rgba(255,255,255,0.35)",
-                boxShadow: "0 8px 24px -6px rgba(15,34,70,0.35)",
-              }}
-            >
-              <p
-                className="text-[32px] sm:text-[40px] font-normal leading-none select-none"
-                style={{
-                  fontFamily: "'Product Sans','Google Sans','Inter','Poppins',sans-serif",
-                  letterSpacing: "-0.02em",
-                }}
-              >
-                <span className="text-[#4285F4]">G</span>
-                <span className="text-[#EA4335]">o</span>
-                <span className="text-[#FBBC05]">o</span>
-                <span className="text-[#4285F4]">g</span>
-                <span className="text-[#34A853]">l</span>
-                <span className="text-[#EA4335]">e</span>
-              </p>
-              <div className="flex items-center gap-2 sm:gap-2.5 mt-1.5">
-                <span className="text-[15px] sm:text-[19px] font-semibold text-[#1E3A6E]">
-                  5 Star Reviews
-                </span>
-                <div className="flex gap-0.5">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <Star key={i} className="size-[19px] sm:size-6 fill-[#FFB800] text-[#FFB800]" />
-                  ))}
-                </div>
-              </div>
+            {/* Google 5-star rating badge */}
+            <div className="mt-5 sm:mt-6 mb-3 sm:mb-0">
+              <img
+                src={googleRatingCard}
+                alt="Google 5.0 star rating — 50+ reviews"
+                className="w-full max-w-[300px] sm:max-w-[340px] h-auto select-none
+                           drop-shadow-[0_10px_28px_rgba(15,34,70,0.45)]"
+                loading="lazy"
+                decoding="async"
+                width={800}
+                height={290}
+              />
             </div>
           </div>
 
@@ -512,6 +493,7 @@ export function Hero({
                 </h2>
 
                 <form
+                  data-gtm-form="quote_request"
                   onSubmit={async (e) => {
                     e.preventDefault();
                     const form = e.currentTarget;

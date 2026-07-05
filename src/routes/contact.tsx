@@ -364,6 +364,7 @@ function ContactFormBox({
         {/* Form card */}
         <div className="mx-auto max-w-[860px] p-6 sm:p-10">
           <form
+            data-gtm-form="contact"
             onSubmit={async (e) => {
               e.preventDefault();
               const form = e.currentTarget;

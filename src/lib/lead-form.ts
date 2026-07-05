@@ -22,6 +22,7 @@
  */
 
 import { sendLeadEmail, type LeadPayload } from "@/lib/lead-email.functions";
+import { trackFormSubmit } from "@/lib/analytics";
 
 export async function submitLeadFromForm(
   form: HTMLFormElement,
@@ -50,6 +51,16 @@ export async function submitLeadFromForm(
     // are passed explicitly and should override anything read from the form.
     ...extra,
   };
+
+  // GA4 form_submit via GTM. This runs only after the caller's validation +
+  // reCAPTCHA gate passed (submitLeadFromForm is called on success only), so it
+  // never fires on a validation-failed or bot submit. form_type comes from the
+  // form's data-gtm-form attribute; form_location is the caller-supplied source.
+  trackFormSubmit({
+    form_location: extra.source,
+    form_type: form.dataset.gtmForm || "lead_form",
+    page_path: typeof window !== "undefined" ? window.location.pathname : "",
+  });
 
   try {
     await sendLeadEmail({ data: payload });
