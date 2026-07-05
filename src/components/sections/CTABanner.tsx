@@ -152,7 +152,7 @@ export function CTABanner() {
               <div className="p-5 sm:p-6">
                 <p className="text-gray-600 text-[14px] sm:text-[15px] mb-3">{opts.cta_body}</p>
 
-                <form onSubmit={handleSubmit} className="space-y-3">
+                <form data-gtm-form="quote_request" onSubmit={handleSubmit} className="space-y-3">
                   <input
                     type="text"
                     name="name"

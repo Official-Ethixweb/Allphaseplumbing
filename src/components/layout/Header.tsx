@@ -285,6 +285,7 @@ export function Header() {
         <a
           href="/#book-now"
           aria-label="Book now"
+          data-gtm-cta="book_now_header"
           className="self-end inline-flex items-center gap-1.5 px-4 py-2.5 text-[#1E3A6E] font-bold text-[14px] tracking-wide active:scale-[0.97] transition-transform"
           style={{
             background: "#F5C842",

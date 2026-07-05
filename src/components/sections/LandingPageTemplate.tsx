@@ -168,6 +168,7 @@ function LeadForm({
         </p>
 
         <form
+          data-gtm-form="quote_request"
           onSubmit={async (e) => {
             e.preventDefault();
             const form = e.currentTarget;
@@ -668,6 +669,7 @@ function EmergencyCTASection({
             CALL {phoneToUse}
           </a>
           <button
+            data-gtm-cta="get_free_quote_landing"
             className="w-full sm:w-auto inline-flex items-center justify-center bg-[#F5C842] text-[#1E3A6E] px-8 py-4 font-bold text-[15px] sm:text-lg shadow-[0_8px_20px_-6px_rgba(0,0,0,0.3)] hover:bg-[#eec136] transition-all hover:-translate-y-1 uppercase tracking-wide"
             onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" })}
           >
