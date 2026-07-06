@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WaterHeaterRouteImport } from './routes/water-heater'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as HydroJettingRouteImport } from './routes/hydro-jetting'
 import { Route as EmergencyPlumberRouteImport } from './routes/emergency-plumber'
@@ -76,6 +77,11 @@ import { Route as ServicesPlumbingBurstPipeRepairRouteImport } from './routes/se
 import { Route as ServicesPlumbingBathtubInstallationRouteImport } from './routes/services/plumbing/bathtub-installation'
 import { Route as ServicesPlumbingBackflowTestingRouteImport } from './routes/services/plumbing/backflow-testing'
 
+const WaterHeaterRoute = WaterHeaterRouteImport.update({
+  id: '/water-heater',
+  path: '/water-heater',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
@@ -451,6 +457,7 @@ export interface FileRoutesByFullPath {
   '/emergency-plumber': typeof EmergencyPlumberRoute
   '/hydro-jetting': typeof HydroJettingRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/water-heater': typeof WaterHeaterRoute
   '/areas/$city': typeof AreasCityRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/commercial/drain-cleaning': typeof CommercialDrainCleaningRoute
@@ -519,6 +526,7 @@ export interface FileRoutesByTo {
   '/emergency-plumber': typeof EmergencyPlumberRoute
   '/hydro-jetting': typeof HydroJettingRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/water-heater': typeof WaterHeaterRoute
   '/areas/$city': typeof AreasCityRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/commercial/drain-cleaning': typeof CommercialDrainCleaningRoute
@@ -588,6 +596,7 @@ export interface FileRoutesById {
   '/emergency-plumber': typeof EmergencyPlumberRoute
   '/hydro-jetting': typeof HydroJettingRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/water-heater': typeof WaterHeaterRoute
   '/areas/$city': typeof AreasCityRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/commercial/drain-cleaning': typeof CommercialDrainCleaningRoute
@@ -658,6 +667,7 @@ export interface FileRouteTypes {
     | '/emergency-plumber'
     | '/hydro-jetting'
     | '/sitemap.xml'
+    | '/water-heater'
     | '/areas/$city'
     | '/blog/$slug'
     | '/commercial/drain-cleaning'
@@ -726,6 +736,7 @@ export interface FileRouteTypes {
     | '/emergency-plumber'
     | '/hydro-jetting'
     | '/sitemap.xml'
+    | '/water-heater'
     | '/areas/$city'
     | '/blog/$slug'
     | '/commercial/drain-cleaning'
@@ -794,6 +805,7 @@ export interface FileRouteTypes {
     | '/emergency-plumber'
     | '/hydro-jetting'
     | '/sitemap.xml'
+    | '/water-heater'
     | '/areas/$city'
     | '/blog/$slug'
     | '/commercial/drain-cleaning'
@@ -863,6 +875,7 @@ export interface RootRouteChildren {
   EmergencyPlumberRoute: typeof EmergencyPlumberRoute
   HydroJettingRoute: typeof HydroJettingRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  WaterHeaterRoute: typeof WaterHeaterRoute
   AreasCityRoute: typeof AreasCityRoute
   BlogSlugRoute: typeof BlogSlugRoute
   CommercialDrainCleaningRoute: typeof CommercialDrainCleaningRoute
@@ -924,6 +937,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/water-heater': {
+      id: '/water-heater'
+      path: '/water-heater'
+      fullPath: '/water-heater'
+      preLoaderRoute: typeof WaterHeaterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
@@ -1399,6 +1419,7 @@ const rootRouteChildren: RootRouteChildren = {
   EmergencyPlumberRoute: EmergencyPlumberRoute,
   HydroJettingRoute: HydroJettingRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  WaterHeaterRoute: WaterHeaterRoute,
   AreasCityRoute: AreasCityRoute,
   BlogSlugRoute: BlogSlugRoute,
   CommercialDrainCleaningRoute: CommercialDrainCleaningRoute,
