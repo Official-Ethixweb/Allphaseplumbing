@@ -99,7 +99,7 @@ export function CouponCard({
         style={{
           left: "11.6%",
           right: "11.6%",
-          top: "9%",
+          top: "8%",
           bottom: "46%",
           background: "#FFFFFF",
           border: `4px solid #A8C4FB`,
@@ -107,7 +107,8 @@ export function CouponCard({
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          padding: "4% 5%",
+          gap: "2cqw",
+          padding: "2% 5%",
           textAlign: "center",
         }}
       >
@@ -116,7 +117,7 @@ export function CouponCard({
           style={{
             fontFamily: "Inter, sans-serif",
             color: headlineColor,
-            fontSize: headlineSize ?? "clamp(28px, 12cqw, 110px)",
+            fontSize: headlineSize ?? "clamp(22px, 11cqw, 99px)",
             letterSpacing: "-0.02em",
             display: "inline-flex",
             alignItems: "flex-start",
@@ -142,10 +143,9 @@ export function CouponCard({
           style={{
             fontFamily: "Inter, sans-serif",
             color: NAVY_TEXT,
-            fontSize: "clamp(8px, 2.7cqw, 22px)",
-            marginTop: "5%",
+            fontSize: "clamp(10px, 2.75cqw, 24px)",
             letterSpacing: "0.04em",
-            lineHeight: 1.2,
+            lineHeight: 1.15,
           }}
         >
           {description.toUpperCase()}
@@ -157,7 +157,11 @@ export function CouponCard({
         className="absolute left-0 right-0"
         style={{
           bottom: "4%",
-          textAlign: "center",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: "3cqw",
           padding: "0 13%",
           color: "#FFFFFF",
           fontFamily: "Inter, sans-serif",
@@ -166,11 +170,10 @@ export function CouponCard({
         {terms && (
           <div
             style={{
-              fontSize: "clamp(8px, 2.5cqw, 17px)",
+              fontSize: "clamp(9px, 1.95cqw, 17px)",
               fontWeight: 600,
               letterSpacing: "0.01em",
-              lineHeight: 1.22,
-              marginBottom: "3%",
+              lineHeight: 1.15,
               color: "rgba(255,255,255,0.9)",
             }}
           >
@@ -179,20 +182,19 @@ export function CouponCard({
         )}
         <div
           style={{
-            fontSize: "clamp(11px, 3.4cqw, 24px)",
+            fontSize: "clamp(9.5px, 2.4cqw, 20px)",
             fontWeight: 700,
             letterSpacing: "0.04em",
-            lineHeight: 1.3,
+            lineHeight: 1.15,
           }}
         >
           {disclaimer}
         </div>
         <div
           style={{
-            fontSize: "clamp(12px, 3.6cqw, 26px)",
+            fontSize: "clamp(10px, 2.6cqw, 22px)",
             fontWeight: 800,
             letterSpacing: "0.05em",
-            marginTop: "1%",
             color: GOLD,
           }}
         >
