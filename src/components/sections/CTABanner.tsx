@@ -205,6 +205,11 @@ export function CTABanner() {
                       Please confirm you're not a robot to continue.
                     </p>
                   )}
+                  <p className="text-[12px] leading-snug text-gray-500">
+                    By submitting this form and signing up for texts, you consent to receive messages
+                    from All Phase Plumbing. Msg &amp; data rates may apply. Reply STOP to
+                    unsubscribe. Reply HELP for help.
+                  </p>
                   <StarBorder
                     type="submit"
                     className="block w-full active:scale-[0.98] transition-all"

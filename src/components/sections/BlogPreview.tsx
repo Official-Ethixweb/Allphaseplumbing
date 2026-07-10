@@ -83,7 +83,7 @@ function OverlayBlogCard({
       />
       <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5 lg:p-6">
         {category && (
-          <span className="inline-block text-[11px] sm:text-[12px] font-bold uppercase tracking-wider text-[#F5C842] mb-1.5">
+          <span className="inline-block text-[11px] sm:text-[12px] font-bold tracking-wider text-[#F5C842] mb-1.5">
             {category}
           </span>
         )}

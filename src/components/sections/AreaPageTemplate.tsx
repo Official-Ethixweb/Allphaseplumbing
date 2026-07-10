@@ -77,7 +77,7 @@ function Hero({ area }: { area: AreaContent }) {
         </nav>
 
         <div className="max-w-3xl">
-          <span className="inline-block text-[12px] sm:text-[13px] font-bold uppercase tracking-widest text-[#F5C842] mb-3">
+          <span className="inline-block text-[12px] sm:text-[13px] font-bold tracking-widest text-[#F5C842] mb-3">
             Plumbing in {area.name}, WA &middot; Since 1989
           </span>
           <h1
@@ -210,7 +210,7 @@ function Services({ area }: { area: AreaContent }) {
     <section className="py-16 sm:py-20 bg-[#f7f9fc]">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <span className="inline-block text-[13px] sm:text-[15px] font-bold uppercase tracking-widest text-[#3A66AD] mb-3">
+          <span className="inline-block text-[13px] sm:text-[15px] font-bold tracking-widest text-[#3A66AD] mb-3">
             What We Do
           </span>
           <h2
@@ -237,7 +237,7 @@ function WhyChooseUs({ area }: { area: AreaContent }) {
     <section className="py-16 sm:py-20 bg-white">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <span className="inline-block text-[13px] sm:text-[15px] font-bold uppercase tracking-widest text-[#3A66AD] mb-3">
+          <span className="inline-block text-[13px] sm:text-[15px] font-bold tracking-widest text-[#3A66AD] mb-3">
             The All Phase Difference
           </span>
           <h2
@@ -283,7 +283,7 @@ function AreasWeCover({ area }: { area: AreaContent }) {
     <section className="py-16 sm:py-20 bg-[#eef4fb]">
       <div className="container mx-auto px-4">
         <div className="text-center mb-10">
-          <span className="inline-block text-[13px] sm:text-[15px] font-bold uppercase tracking-widest text-[#3A66AD] mb-3">
+          <span className="inline-block text-[13px] sm:text-[15px] font-bold tracking-widest text-[#3A66AD] mb-3">
             Areas We Cover
           </span>
           <h2
@@ -299,7 +299,7 @@ function AreasWeCover({ area }: { area: AreaContent }) {
         >
           {/* Neighborhoods / nearby areas (each links to its own area page) */}
           <div className="bg-white border-2 border-[#1E3A6E]/15 p-6 sm:p-8">
-            <h3 className="text-[16px] font-extrabold uppercase tracking-wide text-[#1E3A6E] mb-4">
+            <h3 className="text-[16px] font-extrabold tracking-wide text-[#1E3A6E] mb-4">
               Neighborhoods &amp; Nearby Areas
             </h3>
             <ul className="grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-1">
@@ -326,7 +326,7 @@ function AreasWeCover({ area }: { area: AreaContent }) {
           {/* ZIP codes (only when known for this city) */}
           {hasZips && (
             <div className="bg-white border-2 border-[#1E3A6E]/15 p-6 sm:p-8">
-              <h3 className="text-[16px] font-extrabold uppercase tracking-wide text-[#1E3A6E] mb-4">
+              <h3 className="text-[16px] font-extrabold tracking-wide text-[#1E3A6E] mb-4">
                 ZIP Codes
               </h3>
               <div className="flex flex-wrap gap-2">
@@ -382,7 +382,7 @@ function Testimonials({ area }: { area: AreaContent }) {
 
       <div className="relative z-10 container mx-auto px-4">
         <div className="text-center mb-12">
-          <span className="inline-block text-[13px] sm:text-[15px] font-bold uppercase tracking-widest text-[#6B9FE4] mb-3">
+          <span className="inline-block text-[13px] sm:text-[15px] font-bold tracking-widest text-[#6B9FE4] mb-3">
             Reviews
           </span>
           <h2 className="text-3xl sm:text-4xl font-black text-white leading-tight" style={HEADING_FONT}>
@@ -519,7 +519,7 @@ function FAQ({ area }: { area: AreaContent }) {
     <section className="py-16 sm:py-20 bg-[#f7f9fc]">
       <div className="container mx-auto px-4 max-w-3xl">
         <div className="text-center mb-10">
-          <span className="inline-block text-[13px] sm:text-[15px] font-bold uppercase tracking-widest text-[#3A66AD] mb-3">
+          <span className="inline-block text-[13px] sm:text-[15px] font-bold tracking-widest text-[#3A66AD] mb-3">
             FAQ
           </span>
           <h2
@@ -594,7 +594,7 @@ function Contact({ area }: { area: AreaContent }) {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start max-w-5xl mx-auto">
           {/* Left: phone + details */}
           <div>
-            <span className="inline-block text-[13px] sm:text-[15px] font-bold uppercase tracking-widest text-[#1E3A6E] mb-3">
+            <span className="inline-block text-[13px] sm:text-[15px] font-bold tracking-widest text-[#1E3A6E] mb-3">
               Get In Touch
             </span>
             <h2

@@ -92,7 +92,7 @@ export const Route = createFileRoute("/coupons")({
         />
 
         <div className="relative z-10 container mx-auto px-4 max-w-4xl text-center">
-          <h1 className="text-[38px] sm:text-[48px] lg:text-[58px] font-black uppercase tracking-wider text-primary mb-3">
+          <h1 className="text-[38px] sm:text-[48px] lg:text-[58px] font-black tracking-wider text-primary mb-3">
             Coupons
           </h1>
           <nav className="text-[13px] text-muted-foreground">

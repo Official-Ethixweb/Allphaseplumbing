@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, ReactNode } from "react";
 import { X, Send, Phone, MapPin } from "lucide-react";
-import chatbotFace from "@/assets/chatbot-face.webp";
+import chatbotFace from "@/assets/staff chatbot.png";
 import { useSiteOptions } from "@/hooks/use-site-options";
 
 /* ──────────────────────────────────────────────────────────────────────────
@@ -50,7 +50,7 @@ function MascotAvatar({ size = 44, ring = true }: { size?: number; ring?: boolea
           overflow: "hidden",
           backgroundImage: `url(${chatbotFace})`,
           backgroundSize: "cover",
-          backgroundPosition: "50% 22%",
+          backgroundPosition: "50% 28%",
         }}
       />
     </span>

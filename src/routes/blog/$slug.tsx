@@ -53,7 +53,7 @@ function ArticleHero({ title, gradient }: { title: string; gradient: string }) {
         aria-hidden="true"
       />
       <div className="relative z-10 container mx-auto px-4 max-w-4xl text-center">
-        <h1 className="text-[19px] sm:text-[24px] lg:text-[29px] font-black uppercase tracking-wide text-white leading-tight">
+        <h1 className="text-[19px] sm:text-[24px] lg:text-[29px] font-black tracking-wide text-white leading-tight">
           {title}
         </h1>
       </div>
@@ -140,7 +140,7 @@ function BlogPost() {
           ) : (
             <>
               {cat && (
-                <span className="inline-block text-xs font-semibold uppercase tracking-wider text-accent mb-3">
+                <span className="inline-block text-xs font-semibold tracking-wider text-accent mb-3">
                   {cat}
                 </span>
               )}

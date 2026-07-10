@@ -107,7 +107,7 @@ function AboutIntro() {
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* ── LEFT: copy + points + CTA ── */}
           <div>
-            <span className="inline-block text-xs sm:text-sm font-extrabold uppercase tracking-[0.25em] text-[#3A66AD] mb-3">
+            <span className="inline-block text-xs sm:text-sm font-extrabold tracking-[0.25em] text-[#3A66AD] mb-3">
               About All Phase
             </span>
 
@@ -354,7 +354,7 @@ function AboutInterview() {
 
           {/* ── RIGHT: description + team list ── */}
           <div>
-            <span className="inline-block text-xs sm:text-sm font-extrabold uppercase tracking-[0.25em] text-[#3A66AD] mb-3">
+            <span className="inline-block text-xs sm:text-sm font-extrabold tracking-[0.25em] text-[#3A66AD] mb-3">
               Meet the Crew
             </span>
             <h2
