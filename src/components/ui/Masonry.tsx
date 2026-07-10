@@ -1,68 +1,21 @@
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
-import { gsap } from "gsap";
+import { useEffect, useState } from "react";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
 import "./Masonry.css";
-
-const useMedia = (queries: string[], values: number[], defaultValue: number) => {
-  const get = () => {
-    if (typeof window === "undefined") return defaultValue;
-    return values[queries.findIndex((q) => window.matchMedia(q).matches)] ?? defaultValue;
-  };
-
-  const [value, setValue] = useState(get);
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const handler = () => setValue(get);
-    queries.forEach((q) => window.matchMedia(q).addEventListener("change", handler));
-    return () =>
-      queries.forEach((q) => window.matchMedia(q).removeEventListener("change", handler));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [queries]);
-
-  return value;
-};
-
-const useMeasure = (): [
-  React.RefObject<HTMLDivElement | null>,
-  { width: number; height: number },
-] => {
-  const ref = useRef<HTMLDivElement>(null);
-  const [size, setSize] = useState({ width: 0, height: 0 });
-
-  useLayoutEffect(() => {
-    if (!ref.current || typeof window === "undefined") return;
-    const ro = new ResizeObserver(([entry]) => {
-      const { width, height } = entry.contentRect;
-      setSize({ width, height });
-    });
-    ro.observe(ref.current);
-    return () => ro.disconnect();
-  }, []);
-
-  return [ref, size];
-};
-
-const preloadImages = async (urls: string[]) => {
-  if (typeof window === "undefined") return;
-  await Promise.all(
-    urls.map(
-      (src) =>
-        new Promise<void>((resolve) => {
-          const img = new Image();
-          img.src = src;
-          img.onload = img.onerror = () => resolve();
-        }),
-    ),
-  );
-};
 
 export type MasonryItem = {
   id: string | number;
   img: string;
   height: number;
   url: string;
+  /** Short service category shown as a gold chip (e.g. "Water Heaters"). */
+  category?: string;
+  /** Human title shown on the tile and in the lightbox. */
+  title?: string;
+  /** 1–2 sentence description shown on hover and in the lightbox. */
+  desc?: string;
+  /** SEO alt text for the photo. Falls back to the title. */
+  alt?: string;
 };
 
 interface MasonryProps {
@@ -74,201 +27,19 @@ interface MasonryProps {
   scaleOnHover?: boolean;
   hoverScale?: number;
   blurToFocus?: boolean;
-  colorShiftOnHover?: boolean;
 }
 
 export function Masonry({
   items,
+  // Keep props in signature for backward compatibility
   ease = "power3.out",
   duration = 0.6,
   stagger = 0.06,
   animateFrom = "bottom",
   scaleOnHover = true,
-  hoverScale = 0.95,
+  hoverScale = 0.96,
   blurToFocus = false,
-  colorShiftOnHover = false,
 }: MasonryProps) {
-  const columns = useMedia(
-    ["(min-width:900px)", "(min-width:600px)", "(min-width:450px)"],
-    [3, 3, 2],
-    1,
-  );
-
-  const [containerRef, { width }] = useMeasure();
-  const [imagesReady, setImagesReady] = useState(true);
-  const [isVisible, setIsVisible] = useState(false);
-
-  const getInitialPosition = (item: { x: number; y: number; w: number; h: number }) => {
-    const containerRect = containerRef.current?.getBoundingClientRect();
-    if (!containerRect || typeof window === "undefined") return { x: item.x, y: item.y };
-
-    let direction: string = animateFrom;
-
-    if (animateFrom === "random") {
-      const directions = ["top", "bottom", "left", "right"];
-      direction = directions[Math.floor(Math.random() * directions.length)];
-    }
-
-    switch (direction) {
-      case "top":
-        return { x: item.x, y: -200 };
-      case "bottom":
-        return { x: item.x, y: window.innerHeight + 200 };
-      case "left":
-        return { x: -200, y: item.y };
-      case "right":
-        return { x: window.innerWidth + 200, y: item.y };
-      case "center":
-        return {
-          x: containerRect.width / 2 - item.w / 2,
-          y: containerRect.height / 2 - item.h / 2,
-        };
-      default:
-        return { x: item.x, y: item.y + 100 };
-    }
-  };
-
-  useEffect(() => {
-    preloadImages(items.map((i) => i.img)).then(() => {
-      // background preload complete
-    });
-  }, [items]);
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.05 },
-    );
-    const el = containerRef.current;
-    if (el) {
-      observer.observe(el);
-    }
-    return () => {
-      if (el) {
-        observer.unobserve(el);
-      }
-    };
-  }, []);
-
-  const grid = useMemo(() => {
-    if (!width) return [];
-
-    const colHeights = new Array(columns).fill(0);
-    const columnWidth = width / columns;
-
-    return items.map((child) => {
-      const col = colHeights.indexOf(Math.min(...colHeights));
-      const x = columnWidth * col;
-      const height = child.height / 2;
-      const y = colHeights[col];
-
-      colHeights[col] += height;
-
-      return { ...child, x, y, w: columnWidth, h: height };
-    });
-  }, [columns, items, width]);
-
-  const hasMounted = useRef(false);
-
-  useLayoutEffect(() => {
-    if (!imagesReady || !isVisible || grid.length === 0 || typeof window === "undefined") return;
-
-    grid.forEach((item, index) => {
-      const selector = `[data-key="${item.id}"]`;
-
-      // Always set width/height instantly, no layout animation, no reflow
-      gsap.set(selector, { width: item.w, height: item.h });
-
-      if (!hasMounted.current) {
-        const initialPos = getInitialPosition(item);
-
-        // Only animate transform (x/y) + opacity, both GPU-composited, zero reflow
-        gsap.fromTo(
-          selector,
-          { opacity: 0, x: initialPos.x, y: initialPos.y },
-          {
-            opacity: 1,
-            x: item.x,
-            y: item.y,
-            duration: 0.96,
-            ease: "power3.out",
-            delay: index * stagger,
-            force3D: true,
-            overwrite: true,
-          },
-        );
-      } else {
-        // On resize: snap width/height, smoothly tween position only
-        gsap.to(selector, {
-          x: item.x,
-          y: item.y,
-          duration: duration,
-          ease: ease,
-          force3D: true,
-          overwrite: "auto",
-        });
-      }
-    });
-
-    hasMounted.current = true;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [grid, imagesReady, isVisible, stagger, animateFrom, duration, ease]);
-
-  const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>, item: (typeof grid)[0]) => {
-    const element = e.currentTarget;
-    const selector = `[data-key="${item.id}"]`;
-
-    if (scaleOnHover) {
-      gsap.to(selector, {
-        scale: hoverScale,
-        duration: 0.3,
-        ease: "power2.out",
-        force3D: true,
-        overwrite: "auto",
-      });
-    }
-
-    if (colorShiftOnHover) {
-      const overlay = element.querySelector(".color-overlay");
-      if (overlay) {
-        gsap.to(overlay, {
-          opacity: 0.3,
-          duration: 0.3,
-        });
-      }
-    }
-  };
-
-  const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>, item: (typeof grid)[0]) => {
-    const element = e.currentTarget;
-    const selector = `[data-key="${item.id}"]`;
-
-    if (scaleOnHover) {
-      gsap.to(selector, {
-        scale: 1,
-        duration: 0.3,
-        ease: "power2.out",
-        force3D: true,
-        overwrite: "auto",
-      });
-    }
-
-    if (colorShiftOnHover) {
-      const overlay = element.querySelector(".color-overlay");
-      if (overlay) {
-        gsap.to(overlay, {
-          opacity: 0,
-          duration: 0.3,
-        });
-      }
-    }
-  };
-
   const [activeImageIndex, setActiveImageIndex] = useState<number | null>(null);
 
   const handlePrev = (e?: React.MouseEvent) => {
@@ -305,62 +76,102 @@ export function Masonry({
     };
   }, [activeImageIndex]);
 
-  // Dynamic height calculation to prevent relative-container collapse
-  const containerHeight = useMemo(() => {
-    if (grid.length === 0) return 0;
-    return Math.max(...grid.map((item) => item.y + item.h)) + 12;
-  }, [grid]);
-
   return (
     <>
-      <div ref={containerRef} className="list" style={{ height: containerHeight }}>
-        {grid.map((item) => {
+      <div className="flex flex-col gap-12 sm:gap-16 md:gap-24 w-full">
+        {items.map((item, index) => {
+          const isEven = index % 2 === 0;
           return (
             <div
               key={item.id}
-              data-key={item.id}
-              className="item-wrapper"
-              style={{
-                position: "absolute",
-                left: 0,
-                top: 0,
-                width: item.w,
-                height: item.h,
-                opacity: 0,
-              }}
-              onClick={() => {
-                const idx = items.findIndex((i) => i.id === item.id);
-                if (idx !== -1) {
-                  setActiveImageIndex(idx);
-                }
-              }}
-              onMouseEnter={(e) => handleMouseEnter(e, item)}
-              onMouseLeave={(e) => handleMouseLeave(e, item)}
+              className={`flex flex-col md:flex-row gap-8 lg:gap-16 items-center ${
+                isEven ? "" : "md:flex-row-reverse"
+              }`}
             >
-              <div className="item-img" style={{ backgroundImage: `url(${item.img})` }}>
-                {colorShiftOnHover && (
-                  <div
-                    className="color-overlay"
-                    style={{
-                      position: "absolute",
-                      top: 0,
-                      left: 0,
-                      width: "100%",
-                      height: "100%",
-                      background:
-                        "linear-gradient(45deg, rgba(255,0,150,0.5), rgba(0,150,255,0.5))",
-                      opacity: 0,
-                      pointerEvents: "none",
-                      borderRadius: "8px",
-                    }}
+              {/* Image Column */}
+              <div className="w-full md:w-1/2">
+                <div
+                  onClick={() => setActiveImageIndex(index)}
+                  className="relative w-full aspect-[4/3] overflow-hidden bg-slate-100 border-[6px] border-[#1E3A6E] cursor-pointer group/img shadow-[0_15px_35px_-10px_rgba(30,58,110,0.3)] hover:shadow-[0_20px_45px_-10px_rgba(30,58,110,0.45)] transition-all duration-300 active:scale-[0.99] rounded-none"
+                >
+                  <img
+                    src={item.img}
+                    alt={item.alt ?? item.title ?? ""}
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover/img:scale-105"
                   />
+                  {/* Navy gradient overlay on hover */}
+                  <div
+                    aria-hidden="true"
+                    className="absolute inset-0 bg-gradient-to-t from-[#0b1a35]/95 via-[#0b1a35]/40 to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity duration-300"
+                  />
+                  {/* Name popup overlay on hover */}
+                  <div className="absolute inset-x-0 bottom-0 p-6 flex flex-col justify-end transform translate-y-4 opacity-0 group-hover/img:translate-y-0 group-hover/img:opacity-100 transition-all duration-300 ease-out">
+                    {item.category && (
+                      <span className="inline-block self-start bg-[#F5C842] px-2.5 py-0.5 text-xs font-bold tracking-wider text-[#1E3A6E] mb-2 uppercase rounded-none">
+                        {item.category}
+                      </span>
+                    )}
+                    {item.title && (
+                      <h4
+                        className="text-lg sm:text-xl font-black text-white leading-tight drop-shadow-sm"
+                        style={{ fontFamily: "'Poppins', sans-serif" }}
+                      >
+                        {item.title}
+                      </h4>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* Content Column */}
+              <div className="w-full md:w-1/2 flex flex-col justify-center">
+                {item.category && (
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="h-1.5 w-1.5 bg-[#F5C842]" />
+                    <span className="text-xs sm:text-sm font-extrabold tracking-[0.2em] text-[#3A66AD] uppercase">
+                      {item.category}
+                    </span>
+                  </div>
                 )}
+                {item.title && (
+                  <h3
+                    className="text-2xl sm:text-3xl font-black text-[#1E3A6E] leading-tight mb-4"
+                    style={{ fontFamily: "'Poppins', sans-serif" }}
+                  >
+                    {item.title}
+                  </h3>
+                )}
+                {item.desc && (
+                  <p className="text-gray-600 leading-relaxed text-[15px] sm:text-[16px] mb-6">
+                    {item.desc}
+                  </p>
+                )}
+                <div>
+                  <button
+                    onClick={() => setActiveImageIndex(index)}
+                    className="inline-flex items-center gap-2 text-[14px] font-extrabold text-[#1E3A6E] uppercase tracking-wider group/btn hover:text-[#3A66AD] transition-colors"
+                  >
+                    <span>View Project Details</span>
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="3"
+                      className="size-4 transform group-hover/btn:translate-x-1 transition-transform"
+                    >
+                      <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                  </button>
+                </div>
               </div>
             </div>
           );
         })}
       </div>
 
+      {/* Fullscreen Lightbox Modal */}
       {activeImageIndex !== null && (
         <div
           className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/85 backdrop-blur-md animate-in fade-in duration-300"
@@ -369,7 +180,7 @@ export function Masonry({
           {/* Close button */}
           <button
             type="button"
-            className="absolute top-4 right-4 z-50 p-2.5 bg-white/10 hover:bg-white/20 text-white lightbox-btn transition-colors active:scale-95"
+            className="absolute top-4 right-4 z-50 p-2.5 bg-white/10 hover:bg-white/20 text-white lightbox-btn transition-colors active:scale-95 rounded-none"
             onClick={handleClose}
             aria-label="Close gallery"
           >
@@ -379,7 +190,7 @@ export function Masonry({
           {/* Previous Arrow */}
           <button
             type="button"
-            className="absolute left-4 z-50 p-3 bg-white/10 hover:bg-white/20 text-white lightbox-btn transition-all active:scale-95 hover:translate-x-[-2px] disabled:opacity-50"
+            className="absolute left-4 z-50 p-3 bg-white/10 hover:bg-white/20 text-white lightbox-btn transition-all active:scale-95 hover:translate-x-[-2px] disabled:opacity-50 rounded-none"
             onClick={handlePrev}
             aria-label="Previous image"
           >
@@ -389,26 +200,54 @@ export function Masonry({
           {/* Next Arrow */}
           <button
             type="button"
-            className="absolute right-4 z-50 p-3 bg-white/10 hover:bg-white/20 text-white lightbox-btn transition-all active:scale-95 hover:translate-x-[2px] disabled:opacity-50"
+            className="absolute right-4 z-50 p-3 bg-white/10 hover:bg-white/20 text-white lightbox-btn transition-all active:scale-95 hover:translate-x-[2px] disabled:opacity-50 rounded-none"
             onClick={handleNext}
             aria-label="Next image"
           >
             <ChevronRight className="size-6 sm:size-8" />
           </button>
 
-          {/* Image Container */}
+          {/* Image + caption container */}
           <div
-            className="relative max-w-[90vw] max-h-[85vh] sm:max-w-[85vw] sm:max-h-[80vh] flex flex-col items-center animate-in zoom-in-95 duration-300 select-none"
+            className="relative max-w-[90vw] sm:max-w-[85vw] flex flex-col items-center animate-in zoom-in-95 duration-300 select-none"
             onClick={(e) => e.stopPropagation()}
           >
             <img
               src={items[activeImageIndex].img}
-              alt={`Project Gallery Image ${activeImageIndex + 1}`}
-              className="max-w-full max-h-[75vh] sm:max-h-[80vh] object-contain lightbox-img border border-white/10 shadow-2xl select-none"
+              alt={
+                items[activeImageIndex].alt ??
+                items[activeImageIndex].title ??
+                `Project gallery image ${activeImageIndex + 1}`
+              }
+              className="max-w-full max-h-[62vh] sm:max-h-[68vh] object-contain lightbox-img border border-white/10 shadow-2xl select-none rounded-none"
             />
-            {/* Image counter */}
-            <div className="mt-4 px-4 py-1.5 bg-white/10 backdrop-blur-md lightbox-badge text-white text-xs sm:text-sm font-bold tracking-widest border border-white/5">
-              {activeImageIndex + 1} / {items.length}
+            {/* Caption panel */}
+            <div className="mt-3 w-full max-w-[720px] bg-white/10 backdrop-blur-md lightbox-badge border border-white/10 px-4 py-3.5 sm:px-5 sm:py-4 text-left rounded-none">
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex flex-wrap items-center gap-2.5 min-w-0">
+                  {items[activeImageIndex].category && (
+                    <span className="bg-[#F5C842] px-2 py-0.5 text-[11px] font-bold tracking-wider text-[#1E3A6E] shrink-0 rounded-none">
+                      {items[activeImageIndex].category}
+                    </span>
+                  )}
+                  {items[activeImageIndex].title && (
+                    <h3
+                      className="text-[15px] sm:text-[17px] font-bold text-white leading-tight"
+                      style={{ fontFamily: "'Poppins', sans-serif" }}
+                    >
+                      {items[activeImageIndex].title}
+                    </h3>
+                  )}
+                </div>
+                <span className="shrink-0 text-[11px] sm:text-xs font-bold tracking-widest text-white/70">
+                  {activeImageIndex + 1} / {items.length}
+                </span>
+              </div>
+              {items[activeImageIndex].desc && (
+                <p className="mt-1.5 text-[13px] sm:text-[14px] leading-relaxed text-white/80">
+                  {items[activeImageIndex].desc}
+                </p>
+              )}
             </div>
           </div>
         </div>
@@ -416,4 +255,5 @@ export function Masonry({
     </>
   );
 }
+
 export default Masonry;
