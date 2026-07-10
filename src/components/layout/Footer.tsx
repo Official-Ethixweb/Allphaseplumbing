@@ -1,8 +1,9 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useLocation } from "@tanstack/react-router";
 import { Phone, MapPin, Clock } from "lucide-react";
 import logo from "@/assets/app-logo-white.svg";
 import mascot from "@/assets/better-mascot.webp";
 import { slugify } from "@/data/area-content";
+import { isCommercialPath } from "@/lib/page-type";
 
 const CITIES = [
   "Seattle",
@@ -18,6 +19,11 @@ const CITIES = [
 ];
 
 export function Footer() {
+  const { pathname } = useLocation();
+  // Homeowner coupons are a residential-only offer — don't surface them on
+  // commercial-facing pages.
+  const isCommercial = isCommercialPath(pathname);
+
   return (
     <footer className="relative bg-[#1E3A6E] text-white overflow-hidden">
       {/* City skyline backdrop */}
@@ -105,7 +111,7 @@ export function Footer() {
               {[
                 { label: "About Us", to: "/about" },
                 { label: "Blog", to: "/blog" },
-                { label: "Coupons", to: "/coupons" },
+                ...(isCommercial ? [] : [{ label: "Coupons", to: "/coupons" }]),
                 { label: "Contact", to: "/contact" },
               ].map(({ label, to }) => (
                 <li key={label}>

@@ -28,3 +28,14 @@ export type PageType = "landing" | "inside";
 export function getPageType(pathname: string): PageType {
   return isLandingPath(pathname) ? "landing" : "inside";
 }
+
+/**
+ * Commercial-facing routes. The homeowner coupons and the residential ad
+ * landing pages target new residential customers, so we suppress links to them
+ * on these pages (coupons side popout, footer/header coupon links).
+ */
+export const COMMERCIAL_PATH_PREFIXES = ["/commercial"] as const;
+
+export function isCommercialPath(pathname: string): boolean {
+  return COMMERCIAL_PATH_PREFIXES.some((p) => pathname === p || pathname.startsWith(`${p}/`));
+}

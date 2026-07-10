@@ -23,6 +23,8 @@ export type CouponCardProps = {
   headlineSuffix?: string;
   /** Short description below the headline, e.g. "ON YOUR NEXT DRAIN CLEANING". */
   description: string;
+  /** Eligibility fine print, shown above the disclaimer. */
+  terms?: string;
   /** Fine-print disclaimer. */
   disclaimer?: string;
   /** Expiration line. */
@@ -37,6 +39,7 @@ export function CouponCard({
   headline,
   headlineSuffix,
   description,
+  terms = "Residential homeowners only. One per household. Must show at time of service.",
   disclaimer = "OFFER NOT VALID WITH ANY OTHER OFFERS OR DISCOUNTS",
   expires = "EXPIRES 10/31/2026",
   variant = "navy",
@@ -96,8 +99,8 @@ export function CouponCard({
         style={{
           left: "11.6%",
           right: "11.6%",
-          top: "10%",
-          bottom: "35%",
+          top: "9%",
+          bottom: "46%",
           background: "#FFFFFF",
           border: `4px solid #A8C4FB`,
           display: "flex",
@@ -160,6 +163,20 @@ export function CouponCard({
           fontFamily: "Inter, sans-serif",
         }}
       >
+        {terms && (
+          <div
+            style={{
+              fontSize: "clamp(8px, 2.5cqw, 17px)",
+              fontWeight: 600,
+              letterSpacing: "0.01em",
+              lineHeight: 1.22,
+              marginBottom: "3%",
+              color: "rgba(255,255,255,0.9)",
+            }}
+          >
+            {terms}
+          </div>
+        )}
         <div
           style={{
             fontSize: "clamp(11px, 3.4cqw, 24px)",

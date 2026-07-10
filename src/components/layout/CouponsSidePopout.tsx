@@ -1,27 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "@tanstack/react-router";
 import { Tag } from "lucide-react";
-import { CouponCard, type CouponCardProps } from "@/components/sections/CouponCard";
-
-const COUPONS: (CouponCardProps & { alt: string })[] = [
-  {
-    headline: "$100",
-    headlineSuffix: "OFF",
-    description: "On Your Next Drain Cleaning",
-    alt: "$100 OFF on your next drain cleaning",
-  },
-  {
-    headline: "10%",
-    headlineSuffix: "OFF",
-    description: "On All Drain Cleaning Services",
-    alt: "10% OFF on all drain cleaning services",
-  },
-  {
-    headline: "FREE",
-    description: "Follow-Up Camera Inspection with Drain Cleaning",
-    alt: "FREE follow up camera inspection with drain cleaning",
-  },
-];
+import { CouponCard } from "@/components/sections/CouponCard";
+import { COUPONS } from "@/data/coupons";
+import { isCommercialPath } from "@/lib/page-type";
 
 const PANEL_WIDTH = 304;
 
@@ -35,7 +17,8 @@ const PANEL_WIDTH = 304;
  * user is already looking at the offers), it reappears once that section
  * leaves the viewport.
  *
- * Hidden entirely when navigating to /coupons.
+ * Hidden entirely when navigating to /coupons, and on commercial-facing pages
+ * (these are new-residential-customer offers — see isCommercialPath).
  */
 export function CouponsSidePopout() {
   const [open, setOpen] = useState(false);
@@ -58,6 +41,7 @@ export function CouponsSidePopout() {
   }, [location.pathname]);
 
   if (location.pathname.startsWith("/coupons")) return null;
+  if (isCommercialPath(location.pathname)) return null;
 
   return (
     <div
