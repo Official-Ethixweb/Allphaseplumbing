@@ -5,7 +5,7 @@ import { CouponCard } from "@/components/sections/CouponCard";
 import { COUPONS } from "@/data/coupons";
 import { isCommercialPath } from "@/lib/page-type";
 
-const PANEL_WIDTH = 304;
+const PANEL_WIDTH = 334;
 
 /**
  * Right-edge drawer. Tab is tightly sized around the "COUPONS" label and
@@ -45,7 +45,7 @@ export function CouponsSidePopout() {
 
   return (
     <div
-      className="fixed right-0 top-1/2 z-[60] hidden lg:flex items-stretch"
+      className="fixed right-0 top-1/2 z-[75] hidden lg:flex items-stretch"
       style={{
         transform: `translate(${open ? 0 : PANEL_WIDTH}px, -50%)`,
         transition: "transform 300ms ease-out, opacity 250ms ease-out",
