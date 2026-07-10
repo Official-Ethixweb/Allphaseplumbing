@@ -32,7 +32,7 @@ export function TeamSection() {
         <div className="grid lg:grid-cols-2 gap-14 items-center">
           {/* ── LEFT: text ── */}
           <div>
-            <span className="inline-block text-2xl font-bold uppercase tracking-widest text-[#4A7BC4] mb-3">
+            <span className="inline-block text-2xl font-bold tracking-widest text-[#4A7BC4] mb-3">
               {opts.team_eyebrow}
             </span>
 

@@ -33,7 +33,7 @@ function ServiceIntro({ content }: { content: ServiceLandingContent }) {
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* ── LEFT: copy + highlights + CTA ── */}
           <div>
-            <span className="inline-block text-xs sm:text-sm font-extrabold uppercase tracking-[0.25em] text-[#4A7BC4] mb-3">
+            <span className="inline-block text-xs sm:text-sm font-extrabold tracking-[0.25em] text-[#4A7BC4] mb-3">
               {content.introEyebrow}
             </span>
 

@@ -264,19 +264,6 @@ function SidebarContactCard() {
   );
 }
 
-/* ───── Inline "Call Us" CTA bar ───── */
-function CallUsLine() {
-  const opts = useSiteOptions();
-  return (
-    <p className="text-[16px] font-bold text-[#1E3A6E] my-5">
-      Call Us:{" "}
-      <a href={opts.phone_href} className="text-[#3A66AD] hover:underline">
-        {opts.phone}
-      </a>
-    </p>
-  );
-}
-
 /* ───── FAQ accordion ───── */
 function ServiceFAQ({ faqs, title }: { faqs: ServiceFAQ[]; title: string }) {
   const [openIdx, setOpenIdx] = useState<number | null>(0);
@@ -339,7 +326,7 @@ export function ServicePageTemplate({ content }: { content: ServicePageContent }
             <div>
               {/* Dominant intro heading with eyebrow */}
               {content.introEyebrow && (
-                <span className="inline-block text-[13px] sm:text-[15px] font-bold uppercase tracking-widest text-[#3A66AD] mb-3">
+                <span className="inline-block text-[13px] sm:text-[15px] font-bold tracking-widest text-[#3A66AD] mb-3">
                   {content.introEyebrow}
                 </span>
               )}
@@ -402,7 +389,6 @@ export function ServicePageTemplate({ content }: { content: ServicePageContent }
                       ))}
                     </ul>
                   )}
-                  {(block.heading || block.list) && <CallUsLine />}
                 </div>
               ))}
             </div>

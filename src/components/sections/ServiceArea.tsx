@@ -245,7 +245,7 @@ function ZipAvailabilityCheck({ onResult }: { onResult: (loc: ZipLocation | null
     >
       <div className="flex items-center gap-2 mb-1">
         <ShieldCheck className="size-4 text-[#F5C842]" />
-        <p className="text-[12px] font-bold uppercase tracking-widest text-[#F5C842]">
+        <p className="text-[12px] font-bold tracking-widest text-[#F5C842]">
           Check Your Address
         </p>
       </div>
@@ -369,7 +369,7 @@ export function ServiceArea() {
       <div className="relative z-10 container mx-auto px-4">
         {/* Heading, white text on gradient bg */}
         <div className="text-center mb-10">
-          <span className="inline-block text-2xl font-bold uppercase tracking-widest text-[#F5C842] mb-3">
+          <span className="inline-block text-2xl font-bold tracking-widest text-[#F5C842] mb-3">
             Service Area
           </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white">

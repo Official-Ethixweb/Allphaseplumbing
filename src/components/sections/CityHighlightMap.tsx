@@ -188,7 +188,7 @@ export function CityHighlightMap({ name, lat, lon, themed = false }: Props) {
       >
         <div className="container mx-auto px-4 py-16 sm:py-20">
           <div className="text-center mb-10">
-            <span className="inline-block text-[13px] sm:text-[15px] font-bold uppercase tracking-widest text-[#6B9FE4] mb-3">
+            <span className="inline-block text-[13px] sm:text-[15px] font-bold tracking-widest text-[#6B9FE4] mb-3">
               Service Map
             </span>
             <h2

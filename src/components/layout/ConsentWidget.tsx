@@ -5,11 +5,11 @@ import { trackConsentChoice } from "@/lib/analytics";
 /* ──────────────────────────────────────────────────────────────────────────
  * Cookie / tracking consent manager.
  *
- * Shows a centered modal on the visitor's first session and records their
- * choice in localStorage so it never nags a returning visitor. The choice is
- * also pushed to the GTM dataLayer (see analytics.trackConsentChoice) so tags
- * can be gated on it. Styled to match the navy hero form card — not the default
- * bright-blue consent plugin look.
+ * Shows a compact banner anchored to the lower-left corner on the visitor's
+ * first session and records their choice in localStorage so it never nags a
+ * returning visitor. The choice is also pushed to the GTM dataLayer (see
+ * analytics.trackConsentChoice) so tags can be gated on it. Styled to match the
+ * navy hero form card — not the default bright-blue consent plugin look.
  * ────────────────────────────────────────────────────────────────────────── */
 
 const STORAGE_KEY = "app-consent";
@@ -52,26 +52,18 @@ export function ConsentWidget() {
 
   return (
     <div
-      className="fixed inset-0 z-[70] flex items-center justify-center p-4"
+      className="fixed bottom-4 left-4 z-[70] w-[calc(100vw-2rem)] max-w-[400px]"
       role="dialog"
-      aria-modal="true"
       aria-labelledby="consent-title"
     >
-      {/* Backdrop */}
-      <div
-        className="absolute inset-0 bg-[#0b1a35]/60 backdrop-blur-[2px] transition-opacity duration-200"
-        style={{ opacity: visible ? 1 : 0 }}
-        aria-hidden="true"
-      />
-
       {/* Card */}
       <div
-        className="relative w-full max-w-[560px] overflow-hidden rounded-2xl bg-white transition-all duration-200"
+        className="relative w-full overflow-hidden rounded-2xl bg-white transition-all duration-200"
         style={{
           boxShadow: "0 24px 60px -12px rgba(11,26,53,0.55)",
           border: "1px solid rgba(30,58,110,0.12)",
           opacity: visible ? 1 : 0,
-          transform: visible ? "translateY(0) scale(1)" : "translateY(8px) scale(0.97)",
+          transform: visible ? "translateY(0) scale(1)" : "translateY(12px) scale(0.98)",
         }}
       >
         {/* Header */}

@@ -33,7 +33,7 @@ export function Coupons({ hideHeader = false }: { hideHeader?: boolean } = {}) {
         {!hideHeader && (
           <div className="flex flex-col items-center text-center gap-4 mb-12">
             <div>
-              <span className="inline-block text-[24px] font-semibold uppercase tracking-widest text-accent mb-3">
+              <span className="inline-block text-[24px] font-semibold tracking-widest text-accent mb-3">
                 Homeowner Coupons
               </span>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary">
