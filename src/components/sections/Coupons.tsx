@@ -1,26 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
-import { CouponCard, type CouponCardProps } from "./CouponCard";
-
-const COUPONS: (CouponCardProps & { alt: string })[] = [
-  {
-    headline: "$100",
-    headlineSuffix: "OFF",
-    description: "On Your Next Drain Cleaning",
-    alt: "$100 OFF on your next drain cleaning",
-  },
-  {
-    headline: "10%",
-    headlineSuffix: "OFF",
-    description: "On All Drain Cleaning Services",
-    alt: "10% OFF on all drain cleaning services",
-  },
-  {
-    headline: "FREE",
-    description: "Follow-Up Camera Inspection with Drain Cleaning",
-    alt: "FREE follow up camera inspection with drain cleaning",
-  },
-];
+import { CouponCard } from "./CouponCard";
+import { COUPONS } from "@/data/coupons";
 
 export function Coupons({ hideHeader = false }: { hideHeader?: boolean } = {}) {
   return (

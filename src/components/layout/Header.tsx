@@ -3,6 +3,7 @@ import { Link, useLocation } from "@tanstack/react-router";
 import { Menu, X, Phone, ChevronDown, CalendarCheck } from "lucide-react";
 import { TopBar } from "./TopBar";
 import { useSiteOptions } from "@/hooks/use-site-options";
+import { isCommercialPath } from "@/lib/page-type";
 import { SOCIAL_LINKS } from "@/lib/social-links";
 import textLogo from "@/assets/app-text-logo.webp";
 import { StarBorder } from "@/components/ui/StarBorder";
@@ -148,6 +149,9 @@ export function Header() {
 
   const location = useLocation();
   const isHomePage = location.pathname === "/";
+  // Homeowner coupons are a residential-only offer — hide the mobile menu
+  // Coupons shortcut on commercial-facing pages.
+  const isCommercial = isCommercialPath(location.pathname);
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -506,7 +510,7 @@ export function Header() {
                 )}
               </div>,
             ];
-            if (item.label === "Blog") {
+            if (item.label === "Blog" && !isCommercial) {
               nodes.push(
                 <div
                   key="mobile-coupons"
