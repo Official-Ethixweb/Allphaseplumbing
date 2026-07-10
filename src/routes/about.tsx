@@ -621,34 +621,174 @@ function CustomerReviewsBanner() {
   );
 }
 
-/* ── 11. Masonry Gallery items, real project photos ── */
+/* ── 11. Masonry Gallery items — real project photos with SEO-rich captions.
+   Each entry describes what the photo actually shows so the alt text, tile
+   caption, and lightbox description all reinforce our service keywords. ── */
 const MASONRY_ITEMS = [
-  { id: "1", img: "/projects/project-1.webp", height: 680, url: "#" },
-  { id: "2", img: "/projects/project-2.webp", height: 580, url: "#" },
-  { id: "3", img: "/projects/project-3.webp", height: 650, url: "#" },
-  { id: "4", img: "/projects/project-4.webp", height: 700, url: "#" },
-  { id: "5", img: "/projects/project-5.webp", height: 620, url: "#" },
-  { id: "6", img: "/projects/project-6.webp", height: 660, url: "#" },
-  { id: "7", img: "/projects/project-7.webp", height: 640, url: "#" },
-  { id: "8", img: "/projects/project-8.webp", height: 590, url: "#" },
-  { id: "9", img: "/projects/project-9.webp", height: 670, url: "#" },
-  { id: "10", img: "/projects/project-10.webp", height: 710, url: "#" },
-  { id: "11", img: "/projects/project-11.webp", height: 600, url: "#" },
-  { id: "12", img: "/projects/project-12.webp", height: 630, url: "#" },
+  {
+    id: "1",
+    img: "/projects/project-1.webp",
+    height: 680,
+    url: "#",
+    category: "Water Heaters",
+    title: "Water Heater Installation",
+    desc: "Commissioning a new electric water heater in a Seattle-area home — leak-tested, up to code, and ready for years of reliable hot water.",
+    alt: "All Phase Plumbing technician commissioning a newly installed electric water heater in a Seattle home",
+  },
+  {
+    id: "2",
+    img: "/projects/project-2.webp",
+    height: 580,
+    url: "#",
+    category: "Sewer Services",
+    title: "Hillside Sewer Line Service",
+    desc: "Our crew clearing a main sewer line on a steep hillside lot — the tough-access jobs Seattle terrain is famous for.",
+    alt: "All Phase Plumbing crew clearing a main sewer line beside a hillside Seattle home",
+  },
+  {
+    id: "3",
+    img: "/projects/project-3.webp",
+    height: 650,
+    url: "#",
+    category: "Commercial",
+    title: "Garbage Disposal Replacement",
+    desc: "Installing a new garbage disposal under a commercial breakroom sink, with the workspace protected from start to finish.",
+    alt: "Technician installing a new garbage disposal under a commercial breakroom sink",
+  },
+  {
+    id: "4",
+    img: "/projects/project-4.webp",
+    height: 700,
+    url: "#",
+    category: "Commercial",
+    title: "Commercial Drain Repair",
+    desc: "Diagnosing and repairing a slow breakroom drain for a local business — minimal disruption, maximum cleanup.",
+    alt: "Plumber repairing a drain inside the sink cabinet of a commercial breakroom",
+  },
+  {
+    id: "5",
+    img: "/projects/project-5.webp",
+    height: 620,
+    url: "#",
+    category: "Drain Cleaning",
+    title: "Professional Drain Cleaning",
+    desc: "Running a professional drain machine to clear a stubborn clog — cleared, flow-tested, and left spotless.",
+    alt: "All Phase technician using a professional drain cleaning machine on a clogged commercial sink line",
+  },
+  {
+    id: "6",
+    img: "/projects/project-6.webp",
+    height: 660,
+    url: "#",
+    category: "New Construction",
+    title: "Under-Slab Rough-In",
+    desc: "Setting ABS drain and waste lines for a new-construction build — laid to the line and inspection-ready.",
+    alt: "Under-slab ABS drain and waste pipe rough-in at a new construction site",
+  },
+  {
+    id: "7",
+    img: "/projects/project-7.webp",
+    height: 640,
+    url: "#",
+    category: "Fixtures",
+    title: "Sink & Faucet Installation",
+    desc: "A clean finish: new stainless sink and gooseneck faucet set into granite, sealed and ready for daily use.",
+    alt: "Newly installed stainless steel sink and gooseneck faucet in a granite countertop",
+  },
+  {
+    id: "8",
+    img: "/projects/project-8.webp",
+    height: 590,
+    url: "#",
+    category: "Remodels",
+    title: "Basement Bathroom Rough-In",
+    desc: "Opening the slab to run new drain lines for a basement bathroom addition — plumbing a whole new space.",
+    alt: "New PVC drain lines roughed in through a basement concrete slab for a bathroom addition",
+  },
+  {
+    id: "9",
+    img: "/projects/project-9.webp",
+    height: 670,
+    url: "#",
+    category: "Since 1989",
+    title: "A Craft With History",
+    desc: "Plumbing is a generational trade — the same pride in workmanship you see here drives All Phase today.",
+    alt: "Vintage photograph of two early-1900s plumbers posing with pipe and threading tools",
+  },
+  {
+    id: "10",
+    img: "/projects/project-10.webp",
+    height: 710,
+    url: "#",
+    category: "Remodels",
+    title: "Shower Valve Re-Pipe",
+    desc: "New PEX supply lines and shower valves set in the open wall during a full bathroom remodel.",
+    alt: "New PEX water lines and shower valves installed in an open framed wall during a bathroom remodel",
+  },
+  {
+    id: "11",
+    img: "/projects/project-11.webp",
+    height: 600,
+    url: "#",
+    category: "Commercial",
+    title: "Drinking Fountain Repair",
+    desc: "Servicing a commercial drinking fountain and bottle filler — from the chiller unit to the supply lines.",
+    alt: "Technician repairing a commercial drinking fountain and bottle filling station",
+  },
+  {
+    id: "12",
+    img: "/projects/project-12.webp",
+    height: 630,
+    url: "#",
+    category: "Pipe Repair",
+    title: "In-Wall Pipe Re-Route",
+    desc: "Re-routing supply and drain lines inside the wall — precise work that disappears behind the finish.",
+    alt: "Copper and ABS pipes re-routed inside a wood-framed wall during a pipe repair",
+  },
 ];
+
+/* Structured data so search engines understand the gallery photos. */
+const GALLERY_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "ImageGallery",
+  name: "All Phase Plumbing Recent Projects",
+  description:
+    "Recent plumbing projects by All Phase Plumbing across Greater Seattle — water heater installations, sewer service, drain cleaning, remodels, and commercial work.",
+  image: MASONRY_ITEMS.map((item) => ({
+    "@type": "ImageObject",
+    contentUrl: item.img,
+    name: item.title,
+    description: item.desc,
+  })),
+};
 
 function RecentProjects() {
   return (
     <section className="bg-white py-16 sm:py-20 border-t border-slate-100">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(GALLERY_SCHEMA) }}
+      />
       <div className="mx-auto px-4 max-w-[1305px]">
-        <h2
-          className="text-center text-[36px] sm:text-[44px] font-black text-[#1E3A6E] mb-12"
-          style={{ fontFamily: "'Poppins', sans-serif" }}
-        >
-          Our Recent Projects
-        </h2>
-        {/* Animated grid displaying the 12 popping image placeholders */}
-        <div className="w-full max-w-[760px] mx-auto relative min-h-[500px]">
+        {/* Header styled like the other About sections */}
+        <div className="text-center mb-12">
+          <span className="inline-block text-xs sm:text-sm font-extrabold tracking-[0.25em] text-[#3A66AD] mb-3">
+            Our Work
+          </span>
+          <h2
+            className="text-[36px] sm:text-[44px] font-black text-[#1E3A6E] leading-tight"
+            style={{ fontFamily: "'Poppins', sans-serif" }}
+          >
+            Recent projects{" "}
+            <span className="font-display-italic text-[#4A7BC4]">across Greater Seattle.</span>
+          </h2>
+          <p className="mt-4 max-w-2xl mx-auto text-[15px] sm:text-[17px] text-gray-600 leading-relaxed">
+            From emergency repairs to full remodels — a look at the craftsmanship behind every job.
+            Hover or tap any photo for the story behind it.
+          </p>
+        </div>
+        {/* Alternating project list with per-photo captions */}
+        <div className="w-full max-w-[980px] mx-auto">
           <Masonry items={MASONRY_ITEMS} />
         </div>
       </div>
