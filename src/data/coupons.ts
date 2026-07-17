@@ -26,15 +26,13 @@ export const COUPONS: Coupon[] = [
   {
     headline: "10%",
     headlineSuffix: "OFF",
-    description: "Your Next Residential Plumbing Service Call",
-    alt: "10% off your next residential plumbing service call",
+    description: "Your Next Residential Plumbing Service Call — Maximum Discount $250",
+    alt: "10% off your next residential plumbing service call, maximum discount $250",
   },
   {
-    // NOTE: amount is a placeholder — client is confirming whether this becomes
-    // $250. Update `headline` here (one place) once confirmed.
-    headline: "$100",
+    headline: "$250",
     headlineSuffix: "OFF",
     description: "Any Residential Water Heater",
-    alt: "$100 off any residential water heater",
+    alt: "$250 off any residential water heater",
   },
 ];
