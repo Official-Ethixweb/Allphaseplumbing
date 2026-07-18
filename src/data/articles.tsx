@@ -3,6 +3,8 @@ import type { ReactNode } from "react";
 export type StaticArticle = {
   slug: string;
   title: string;
+  /** ~155-char SEO meta description; falls back to a generated one if omitted. */
+  description?: string;
   date: string;
   comments: string;
   heroGradient: string;
@@ -13,6 +15,8 @@ export type StaticArticle = {
 export const STATIC_ARTICLES: StaticArticle[] = [
   {
     slug: "puget-sound-winter-plumbing-survival-guide",
+    description:
+      "Protect your Puget Sound home this winter. Learn how freeze-thaw cycles burst pipes, plus 2026 smart-plumbing tips from All Phase Plumbing in Seattle.",
     title:
       "The 2026 Puget Sound Winter Plumbing Survival Guide: Performance, Prevention, and Technology",
     date: "January 6, 2026",
@@ -236,6 +240,8 @@ export const STATIC_ARTICLES: StaticArticle[] = [
 
 STATIC_ARTICLES.push({
   slug: "handyman-vs-professional-plumber-seattle",
+  description:
+    "Handyman or licensed plumber for your Seattle home? Learn the real differences in licensing, code, and cost so you hire right the first time.",
   title: "The Difference Between a Handyman and a Professional Plumber in Seattle",
   date: "November 10, 2025",
   comments: "No Comments",
@@ -370,6 +376,8 @@ STATIC_ARTICLES.push({
 
 STATIC_ARTICLES.push({
   slug: "tankless-water-heaters-seattle-worth-upgrade",
+  description:
+    "Are tankless water heaters worth it in Seattle? Compare costs, energy savings, and lifespan to decide if an upgrade fits your Puget Sound home.",
   title: "Tankless Water Heaters in Seattle: Is It Worth the Upgrade?",
   date: "November 10, 2025",
   comments: "No Comments",
@@ -485,6 +493,8 @@ STATIC_ARTICLES.push({
 
 STATIC_ARTICLES.push({
   slug: "preventing-tree-root-damage-sewer-lines",
+  description:
+    "Seattle's mature trees can wreck your sewer line. Learn the warning signs of root intrusion and how to prevent costly damage before it starts.",
   title: "Preventing Tree Root Damage in Seattle Sewer Lines",
   date: "November 10, 2025",
   comments: "1 Comment",
@@ -621,6 +631,230 @@ STATIC_ARTICLES.push({
         Protect your home investment from the hidden threat beneath the surface. Call{" "}
         <strong>(206) 772-6077</strong> to schedule a sewer camera inspection and save yourself from
         a future plumbing catastrophe!
+      </p>
+    </>
+  ),
+});
+
+STATIC_ARTICLES.push({
+  slug: "backflow-testing-seattle-annual-guide",
+  description:
+    "Got a backflow test notice from your Seattle water district? Learn what annual backflow testing is, who needs it, and how to stay compliant this July.",
+  title: "Annual Backflow Testing in Seattle: 2026 Homeowner's Guide",
+  date: "July 18, 2026",
+  comments: "No Comments",
+  heroGradient: "linear-gradient(135deg, #1E3A6E 0%, #2d5fa8 100%)",
+  image:
+    "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=1400&q=80",
+  body: (
+    <>
+      <p>
+        If a postcard from your water district just landed in your mailbox reminding you that your{" "}
+        <strong>annual backflow test is due</strong>, you're not alone. Every July, as lawn
+        sprinklers and irrigation systems fire back up across the Puget Sound, water purveyors like{" "}
+        <strong>Seattle Public Utilities</strong>, the <strong>City of Kent</strong>, and{" "}
+        <strong>Tukwila Water</strong> send out thousands of these notices. Miss the deadline and you
+        risk fines, and in some districts, a shut-off of your water service.
+      </p>
+      <p>
+        The good news: a backflow test is fast, affordable, and legally required only once a year.
+        At <strong>All Phase Plumbing</strong>, we've been keeping Seattle-area drinking water safe
+        since 1989, and this guide walks you through exactly what backflow testing is, why
+        Washington State requires it, and how to stay compliant before summer ends.
+      </p>
+
+      <h2>What Is Backflow, and Why Is It Dangerous?</h2>
+      <p>
+        Your home's plumbing is designed to move clean water in <strong>one direction</strong>: from
+        the city main into your fixtures. <strong>Backflow</strong> is what happens when that flow
+        reverses and potentially pulls contaminated water back into the public drinking supply. The
+        two most common causes we see across King and Pierce County are:
+      </p>
+      <ul>
+        <li>
+          <strong>Backsiphonage:</strong> A sudden drop in water pressure, from a nearby water main
+          break, hydrant use, or heavy demand, creates a vacuum that siphons water backward. Think
+          of sipping through a straw in reverse.
+        </li>
+        <li>
+          <strong>Backpressure:</strong> A downstream system (like an irrigation pump or boiler)
+          pushes water back toward the main at a higher pressure than the supply.
+        </li>
+      </ul>
+      <p>
+        The real danger is what that reversed water carries. An in-ground sprinkler head sitting in a
+        puddle of lawn fertilizer, pet waste, or pesticide can pull those chemicals straight into the
+        pipe your family drinks from. That's exactly why a <strong>backflow prevention assembly</strong>{" "}
+        is installed, and why Washington requires it to be tested every year to prove it still works.
+      </p>
+
+      <h2>Why Washington State Requires Annual Testing</h2>
+      <p>
+        This isn't your water district being difficult. Backflow testing is mandated by{" "}
+        <strong>Washington Administrative Code (WAC 246-290-490)</strong>, the state's
+        Cross-Connection Control regulation, and enforced locally by every water purveyor in our
+        service area. The rule is simple: any property with a backflow assembly must have it{" "}
+        <strong>tested by a state-certified Backflow Assembly Tester (BAT) at least once every 12
+        months</strong>, and the results filed with the water district.
+      </p>
+      <p>
+        Mechanical assemblies have internal springs, seals, and check valves that wear out silently.
+        A device that passed last year can fail this year with no visible sign. Annual testing is the
+        only way anyone, including you, knows it's still protecting your water.
+      </p>
+
+      <h2>Who Needs a Backflow Test in the Seattle Area?</h2>
+      <p>
+        You almost certainly have a testable assembly if your home or business has any of the
+        following:
+      </p>
+      <ul>
+        <li>
+          An <strong>in-ground lawn irrigation or sprinkler system</strong> (the #1 reason
+          homeowners in <strong>Bellevue</strong>, <strong>Renton</strong>, and{" "}
+          <strong>Auburn</strong> get a notice).
+        </li>
+        <li>A fire suppression sprinkler system.</li>
+        <li>
+          A well or secondary water source, boiler, or a swimming pool or spa with an auto-fill line.
+        </li>
+        <li>
+          Most <strong>commercial properties</strong>, restaurants, and multi-family buildings, which
+          carry stricter requirements.
+        </li>
+      </ul>
+      <p>
+        If you received a letter with a due date, that's your district telling you an assembly is on
+        record for your address, and the clock is running.
+      </p>
+
+      <h2>What Actually Happens During a Backflow Test</h2>
+      <p>
+        Homeowners are often surprised how quick this is. A typical residential test takes{" "}
+        <strong>20 to 30 minutes</strong>. Here's the process our certified testers follow:
+      </p>
+      <ol>
+        <li>
+          We locate your assembly (usually near the water meter, in a green box by the sidewalk, or
+          on an exterior wall) and attach a calibrated test kit to its test cocks.
+        </li>
+        <li>
+          We close the shut-off valves and measure whether the internal check valves and relief valve
+          hold pressure exactly as the code requires. Your water is briefly shut off during this step.
+        </li>
+        <li>
+          We record the readings, restore your water, and, if it passes, <strong>file the certified
+          report directly with your water district</strong> so you don't have to.
+        </li>
+      </ol>
+      <p>
+        If the assembly fails, we'll explain your options on the spot, often a rebuild kit rather
+        than a full replacement, and retest once the repair is done.
+      </p>
+
+      <div className="not-prose my-6 overflow-x-auto rounded-xl border border-border">
+        <table className="w-full text-sm">
+          <thead className="bg-secondary/60 text-primary">
+            <tr>
+              <th className="text-left p-3 font-semibold border-b border-border">Situation</th>
+              <th className="text-left p-3 font-semibold border-b border-border">
+                What It Usually Means
+              </th>
+              <th className="text-left p-3 font-semibold border-b border-border">Next Step</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td className="p-3 border-b border-border">Assembly passes</td>
+              <td className="p-3 border-b border-border">Working correctly, one more compliant year</td>
+              <td className="p-3 border-b border-border">Report filed, nothing more to do</td>
+            </tr>
+            <tr>
+              <td className="p-3 border-b border-border">Assembly fails</td>
+              <td className="p-3 border-b border-border">Worn springs, seals, or a stuck check valve</td>
+              <td className="p-3 border-b border-border">Rebuild or repair, then retest</td>
+            </tr>
+            <tr>
+              <td className="p-3">No assembly found</td>
+              <td className="p-3">Required device was never installed</td>
+              <td className="p-3">Install a code-approved assembly, then test</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>What Happens If You Ignore the Notice</h2>
+      <p>
+        We get it, a piece of mail about "cross-connection control" is easy to set aside. But the
+        consequences escalate quickly:
+      </p>
+      <ul>
+        <li>
+          <strong>Reminder and penalty letters</strong> from your water district, often with a hard
+          deadline.
+        </li>
+        <li>
+          <strong>Water service termination.</strong> Many Puget Sound purveyors are authorized to
+          shut off water to non-compliant properties, and turning it back on means a test{" "}
+          <em>plus</em> a reconnection fee.
+        </li>
+        <li>Potential fines that far exceed the modest cost of the test itself.</li>
+      </ul>
+
+      <h2>Why July Is the Smart Time to Test</h2>
+      <p>
+        Backflow testing peaks in summer for a reason: irrigation season. Your sprinkler system is
+        the most common assembly, and it's back in daily use right now, which is exactly when a
+        failed device poses the highest contamination risk. Booking in July also means you're{" "}
+        <strong>ahead of the August rush</strong>, when every homeowner who procrastinated is
+        scrambling for the same certified testers. While we're on-site, it's also the ideal moment
+        to have us check your{" "}
+        <a href="/services/plumbing/outdoor-faucet-repair">outdoor faucets and hose bibs</a> and run{" "}
+        <a href="/services/plumbing/leak-detection">leak detection</a> on the irrigation lines that
+        have been dormant all winter.
+      </p>
+
+      <h2>Frequently Asked Questions (FAQ)</h2>
+      <p>
+        <strong>Q: How much does a backflow test cost in the Seattle area?</strong>
+        <br />
+        A: For a standard residential assembly it's a small, flat fee, one of the least expensive
+        plumbing services you'll pay for all year. Call <strong>(206) 772-6077</strong> for an exact
+        quote for your city and assembly type.
+      </p>
+      <p>
+        <strong>Q: How long does the test take, and will my water be off?</strong>
+        <br />
+        A: About 20 to 30 minutes. Your water is shut off only for the few minutes of the actual
+        test, then restored before we leave.
+      </p>
+      <p>
+        <strong>Q: Do I have to file the paperwork with the water district?</strong>
+        <br />
+        A: No. As certified testers, we submit the results to <strong>Seattle Public Utilities</strong>,{" "}
+        <strong>Kent</strong>, <strong>Tukwila</strong>, or whichever purveyor serves you, directly
+        on your behalf.
+      </p>
+      <p>
+        <strong>Q: My assembly failed. Do I need a whole new one?</strong>
+        <br />
+        A: Usually not. Most failures are fixed with a rebuild kit that replaces the worn internal
+        parts, far cheaper than a full replacement. We retest once the repair is complete.
+      </p>
+
+      <h2>Why Seattle Trusts All Phase Plumbing</h2>
+      <p>
+        Our testers are state-certified, our equipment is calibrated to code, and we handle the
+        district paperwork so your only job is to open the gate. From <strong>Tukwila</strong> and{" "}
+        <strong>Renton</strong> to <strong>Kent</strong>, <strong>Auburn</strong>,{" "}
+        <strong>Bellevue</strong>, and <strong>Tacoma</strong>, we've protected local water supplies
+        for over 35 years, and we can often test the same week you call.
+      </p>
+      <p>
+        Don't let that water-district notice turn into a shut-off. Call{" "}
+        <strong>(206) 772-6077</strong> or{" "}
+        <a href="/services/plumbing/backflow-testing">schedule your backflow test online</a> today,
+        and cross one more thing off your summer list.
       </p>
     </>
   ),

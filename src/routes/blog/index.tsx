@@ -79,6 +79,16 @@ const STATIC_ARTICLES = [
     img: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=800&q=80",
     imgAlt: "Tangled tree roots spreading across the ground",
   },
+  {
+    slug: "backflow-testing-seattle-annual-guide",
+    title: "Annual Backflow Testing in Seattle: 2026 Homeowner's Guide",
+    excerpt:
+      "If a postcard from your water district just reminded you that your annual backflow test is due, you're not alone. Every July…",
+    date: "July 18, 2026",
+    comments: "No Comments",
+    img: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&q=80",
+    imgAlt: "Lawn irrigation sprinkler running on a green Seattle lawn",
+  },
 ];
 
 function BlogIndex() {
