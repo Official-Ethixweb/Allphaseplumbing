@@ -8,12 +8,41 @@ import { getStaticArticle } from "@/data/articles";
 import skylineBg from "@/assets/seattle-skyline.webp";
 
 export const Route = createFileRoute("/blog/$slug")({
-  head: () => ({
-    meta: [
-      { title: "Article, All Phase Plumbing Blog" },
-      { name: "description", content: "Plumbing article from All Phase Plumbing Seattle." },
-    ],
-  }),
+  head: ({ params }) => {
+    const article = getStaticArticle(params.slug);
+
+    // WordPress-backed posts are fetched client-side, so only static articles
+    // can set per-article SEO tags at render/SSR time. Fall back for the rest.
+    if (!article) {
+      return {
+        meta: [
+          { title: "Article, All Phase Plumbing Blog" },
+          { name: "description", content: "Plumbing article from All Phase Plumbing Seattle." },
+        ],
+      };
+    }
+
+    const description =
+      article.description ??
+      `${article.title}. Expert plumbing advice from All Phase Plumbing, serving Seattle & the Puget Sound since 1989.`;
+    const canonical = `https://www.allphaseplumbing.com/blog/${article.slug}`;
+
+    return {
+      meta: [
+        { title: article.title },
+        { name: "description", content: description },
+        { property: "og:type", content: "article" },
+        { property: "og:title", content: article.title },
+        { property: "og:description", content: description },
+        { property: "og:url", content: canonical },
+        ...(article.image ? [{ property: "og:image", content: article.image }] : []),
+        { name: "twitter:card", content: "summary_large_image" },
+        { name: "twitter:title", content: article.title },
+        { name: "twitter:description", content: description },
+      ],
+      links: [{ rel: "canonical", href: canonical }],
+    };
+  },
   component: BlogPost,
 });
 
