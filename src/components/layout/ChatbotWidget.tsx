@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect, ReactNode } from "react";
 import { X, Send, Phone, MapPin } from "lucide-react";
-import chatbotFace from "@/assets/staff chatbot.png";
 import { useSiteOptions } from "@/hooks/use-site-options";
 
 /* ──────────────────────────────────────────────────────────────────────────
@@ -30,7 +29,7 @@ type UserData = {
 
 const QUICK_REPLIES = ["Book a service", "Emergency help", "Get a quote", "Hours & areas"];
 
-/* Circular mascot-face avatar with a gradient ring. */
+/* Circular default-avatar (neutral grey silhouette) with a gradient ring. */
 function MascotAvatar({ size = 44, ring = true }: { size?: number; ring?: boolean }) {
   return (
     <span
@@ -45,14 +44,14 @@ function MascotAvatar({ size = 44, ring = true }: { size?: number; ring?: boolea
       }}
     >
       <span
-        className="ap-circle block h-full w-full bg-[#eef2f7] bg-no-repeat"
-        style={{
-          overflow: "hidden",
-          backgroundImage: `url(${chatbotFace})`,
-          backgroundSize: "cover",
-          backgroundPosition: "50% 28%",
-        }}
-      />
+        className="ap-circle block h-full w-full overflow-hidden bg-[#dde7f4]"
+        aria-hidden="true"
+      >
+        <svg viewBox="0 0 40 40" className="block h-full w-full" fill="#5b7fae">
+          <circle cx="20" cy="15" r="6.4" />
+          <path d="M20 23.4c-6.2 0-11.2 4.1-11.2 9.2V40h22.4v-7.4c0-5.1-5-9.2-11.2-9.2Z" />
+        </svg>
+      </span>
     </span>
   );
 }
