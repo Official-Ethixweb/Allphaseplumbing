@@ -29,7 +29,9 @@ type UserData = {
 
 const QUICK_REPLIES = ["Book a service", "Emergency help", "Get a quote", "Hours & areas"];
 
-/* Circular default-avatar (neutral grey silhouette) with a gradient ring. */
+/* Circular avatar: accent-yellow message bubble on the brand navy, with a
+   brand-gradient ring so it separates from both the navy header and the
+   light chat background. */
 function MascotAvatar({ size = 44, ring = true }: { size?: number; ring?: boolean }) {
   return (
     <span
@@ -39,17 +41,19 @@ function MascotAvatar({ size = 44, ring = true }: { size?: number; ring?: boolea
         height: size,
         padding: ring ? 2.5 : 0,
         background: ring
-          ? "conic-gradient(from 150deg, #22d3ee, #4A7BC4, #8b5cf6, #22d3ee)"
+          ? "conic-gradient(from 150deg, #4A7BC4, #1E3A6E, #F5C842, #4A7BC4)"
           : "transparent",
       }}
     >
       <span
-        className="ap-circle block h-full w-full overflow-hidden bg-[#dde7f4]"
+        className="ap-circle block h-full w-full overflow-hidden"
+        style={{ background: "linear-gradient(135deg,#0f2246 0%,#1E3A6E 55%,#2d5fa8 100%)" }}
         aria-hidden="true"
       >
-        <svg viewBox="0 0 40 40" className="block h-full w-full" fill="#5b7fae">
-          <circle cx="20" cy="15" r="6.4" />
-          <path d="M20 23.4c-6.2 0-11.2 4.1-11.2 9.2V40h22.4v-7.4c0-5.1-5-9.2-11.2-9.2Z" />
+        <svg viewBox="0 0 40 40" className="block h-full w-full" fill="#F5C842">
+          {/* speech-bubble body + tail (same fill, so they merge into one shape) */}
+          <ellipse cx="20" cy="18.5" rx="13.5" ry="10.5" />
+          <path d="M13.5 25.5 L13.5 33.8 L20 27.2 Z" />
         </svg>
       </span>
     </span>

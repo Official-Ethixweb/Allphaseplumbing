@@ -43,6 +43,14 @@ export function CouponsSidePopout() {
   if (location.pathname.startsWith("/coupons")) return null;
   if (isCommercialPath(location.pathname)) return null;
 
+  // The container is as tall as the coupons panel while the tab is only
+  // self-center height, so it must stay inert: otherwise the empty strip above
+  // and below the tab would open the drawer (and block clicks underneath).
+  // Only the tab and the panel opt back in. The hover handlers can stay on the
+  // container because React derives mouseenter/leave from the real target's
+  // ancestor chain, so moving tab -> panel never fires a leave.
+  const childPointerEvents = sectionVisible ? "none" : "auto";
+
   return (
     <div
       className="fixed right-0 top-1/2 z-[75] hidden lg:flex items-stretch"
@@ -50,7 +58,7 @@ export function CouponsSidePopout() {
         transform: `translate(${open ? 0 : PANEL_WIDTH}px, -50%)`,
         transition: "transform 300ms ease-out, opacity 250ms ease-out",
         opacity: sectionVisible ? 0 : 1,
-        pointerEvents: sectionVisible ? "none" : "auto",
+        pointerEvents: "none",
       }}
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
@@ -61,7 +69,7 @@ export function CouponsSidePopout() {
     >
       {/* Tab, vertical pill, attached to the left side of the panel.
           Icon at the top, "Coupons" label running top-to-bottom below. */}
-      <div className="self-center">
+      <div className="self-center" style={{ pointerEvents: childPointerEvents }}>
         <Link
           to="/coupons"
           aria-label="View coupons"
@@ -82,7 +90,11 @@ export function CouponsSidePopout() {
       {/* Panel, sits to the RIGHT of the tab, pinned to viewport right edge */}
       <div
         className="bg-white shadow-[0_20px_50px_rgba(0,0,0,0.3)] p-4"
-        style={{ width: PANEL_WIDTH, ["--coupon-notch-bg" as string]: "#ffffff" }}
+        style={{
+          width: PANEL_WIDTH,
+          pointerEvents: childPointerEvents,
+          ["--coupon-notch-bg" as string]: "#ffffff",
+        }}
       >
         <div className="flex flex-col gap-3">
           {COUPONS.map((c) => (
