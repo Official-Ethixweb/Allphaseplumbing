@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import bbb from "@/assets/badge-bbb.svg";
 import angi from "@/assets/badge-angi.svg";
-import phcc from "@/assets/badge-phcc.webp";
 import peekingMascot from "@/assets/peeking mascot watermark.svg";
 import BorderGlow from "@/components/ui/BorderGlow";
+
+const phcc = "/images/afd74bdf0d77437784a458bcf7b606df.webp";
 
 const BADGES = [
   { src: bbb, alt: "BBB Accredited Business", imgClass: "h-20 sm:h-24", mobileImgClass: "h-32" },
