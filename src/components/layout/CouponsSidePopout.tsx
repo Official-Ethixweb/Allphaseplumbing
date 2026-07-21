@@ -53,7 +53,7 @@ export function CouponsSidePopout() {
 
   return (
     <div
-      className="fixed right-0 top-1/2 z-[75] hidden lg:flex items-stretch"
+      className="fixed right-0 top-1/2 z-[75] flex items-stretch"
       style={{
         transform: `translate(${open ? 0 : PANEL_WIDTH}px, -50%)`,
         transition: "transform 300ms ease-out, opacity 250ms ease-out",
