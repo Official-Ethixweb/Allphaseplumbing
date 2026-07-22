@@ -158,6 +158,19 @@ const GTM_SNIPPET =
   "j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;" +
   `f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${GTM_ID}');`;
 
+/* ── Google Ads (AW-10953093685) via gtag.js ─────────────────────────────────
+   Google Ads conversion tracking runs through gtag.js, NOT through the GTM
+   container (no container access from this repo). gtag.js and gtm.js safely
+   share the same window.dataLayer: gtag pushes Arguments objects that GTM
+   triggers ignore, so neither stack sees the other's events. The config call
+   registers the AW account once per page load; the actual conversion event is
+   fired from src/lib/lead-form.ts only after a lead reaches the server
+   (see analytics.trackAdsLeadConversion). */
+const ADS_ID = "AW-10953093685";
+const ADS_GTAG_INIT =
+  "window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}" +
+  `gtag('js',new Date());gtag('config','${ADS_ID}');`;
+
 function RootShell({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
@@ -167,6 +180,11 @@ function RootShell({ children }: { children: React.ReactNode }) {
             then the container loader, as high in <head> as possible. */}
         <script dangerouslySetInnerHTML={{ __html: GTM_DATALAYER_INIT }} />
         <script dangerouslySetInnerHTML={{ __html: GTM_SNIPPET }} />
+        {/* Google Ads gtag.js — async loader + one config call for the AW
+            account. Rendered once in the shell, so it can never duplicate on
+            SPA navigations. */}
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${ADS_ID}`} />
+        <script dangerouslySetInnerHTML={{ __html: ADS_GTAG_INIT }} />
         {/* Non-render-blocking webfont load: inject a print-media stylesheet and
             flip it to "all" once it has downloaded (text shows immediately in a
             fallback font via display=swap, then upgrades). */}
