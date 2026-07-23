@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "@tanstack/react-router";
 import { Tag } from "lucide-react";
 import { CouponCard } from "@/components/sections/CouponCard";
@@ -23,7 +23,9 @@ const PANEL_WIDTH = 334;
 export function CouponsSidePopout() {
   const [open, setOpen] = useState(false);
   const [sectionVisible, setSectionVisible] = useState(false);
+  const [isTouch, setIsTouch] = useState(false);
   const location = useLocation();
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // The section element only exists on pages that render the Coupons
@@ -40,6 +42,34 @@ export function CouponsSidePopout() {
     return () => obs.disconnect();
   }, [location.pathname]);
 
+  // Hover to reveal only works with a mouse. On touch/no-hover devices the tab
+  // becomes a tap toggle instead (see the tab's onClick and the gated hover
+  // handlers below), so we detect the input type once on mount.
+  useEffect(() => {
+    setIsTouch(window.matchMedia("(hover: none), (pointer: coarse)").matches);
+  }, []);
+
+  // While open, dismiss on an outside tap/click or Escape. Touch devices fire a
+  // synthetic event that OPENS the drawer but never a reliable one that closes
+  // it, so without this the drawer gets stuck open with no way to dismiss it.
+  useEffect(() => {
+    if (!open) return;
+    const onPointerDown = (e: Event) => {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("pointerdown", onPointerDown, true);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("pointerdown", onPointerDown, true);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
   if (location.pathname.startsWith("/coupons")) return null;
   if (isCommercialPath(location.pathname)) return null;
 
@@ -53,6 +83,7 @@ export function CouponsSidePopout() {
 
   return (
     <div
+      ref={containerRef}
       className="fixed right-0 top-1/2 z-[75] flex items-stretch"
       style={{
         transform: `translate(${open ? 0 : PANEL_WIDTH}px, -50%)`,
@@ -60,19 +91,33 @@ export function CouponsSidePopout() {
         opacity: sectionVisible ? 0 : 1,
         pointerEvents: "none",
       }}
-      onMouseEnter={() => setOpen(true)}
-      onMouseLeave={() => setOpen(false)}
-      onFocus={() => setOpen(true)}
-      onBlur={(e) => {
-        if (!e.currentTarget.contains(e.relatedTarget)) setOpen(false);
-      }}
+      onMouseEnter={isTouch ? undefined : () => setOpen(true)}
+      onMouseLeave={isTouch ? undefined : () => setOpen(false)}
+      onFocus={isTouch ? undefined : () => setOpen(true)}
+      onBlur={
+        isTouch
+          ? undefined
+          : (e) => {
+              if (!e.currentTarget.contains(e.relatedTarget)) setOpen(false);
+            }
+      }
     >
       {/* Tab, vertical pill, attached to the left side of the panel.
           Icon at the top, "Coupons" label running top-to-bottom below. */}
       <div className="self-center" style={{ pointerEvents: childPointerEvents }}>
         <Link
           to="/coupons"
-          aria-label="View coupons"
+          aria-label={isTouch ? (open ? "Hide coupons" : "Show coupons") : "View coupons"}
+          aria-expanded={isTouch ? open : undefined}
+          onClick={(e) => {
+            // Touch/no-hover devices can't hover to preview, so the tab toggles
+            // the drawer open/closed instead of navigating. Users still reach
+            // the full page via the coupon cards or "View All Coupons" below.
+            if (isTouch) {
+              e.preventDefault();
+              setOpen((o) => !o);
+            }
+          }}
           className="relative flex flex-col items-center justify-center gap-[8px] py-[17px] px-[8px]
                      bg-[#1E3A6E] text-white rounded-l-md shadow-[-6px_0_18px_-4px_rgba(0,0,0,0.35)]
                      hover:bg-[#162e58] transition-colors"
