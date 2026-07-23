@@ -73,13 +73,13 @@ export function CouponsSidePopout() {
         <Link
           to="/coupons"
           aria-label="View coupons"
-          className="relative flex flex-col items-center justify-center gap-3 py-6 px-3
+          className="relative flex flex-col items-center justify-center gap-[8px] py-[17px] px-[8px]
                      bg-[#1E3A6E] text-white rounded-l-md shadow-[-6px_0_18px_-4px_rgba(0,0,0,0.35)]
                      hover:bg-[#162e58] transition-colors"
         >
-          <Tag className="size-6 shrink-0" aria-hidden="true" />
+          <Tag className="size-[17px] shrink-0" aria-hidden="true" />
           <span
-            className="font-bold tracking-[0.3em] text-[18px] uppercase leading-none"
+            className="font-bold tracking-[0.3em] text-[13px] uppercase leading-none"
             style={{ writingMode: "vertical-rl" }}
           >
             Coupons
