@@ -1,4 +1,5 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useRouter, useCanGoBack } from "@tanstack/react-router";
+import { ArrowLeft } from "lucide-react";
 import { PageShell } from "@/components/layout/PageShell";
 import { Coupons } from "@/components/sections/Coupons";
 import { WhyUs } from "@/components/sections/WhyUs";
@@ -17,7 +18,21 @@ export const Route = createFileRoute("/coupons")({
       { property: "og:description", content: "Save on your next plumbing visit." },
     ],
   }),
-  component: () => (
+  component: CouponsPage,
+});
+
+function CouponsPage() {
+  const router = useRouter();
+  const canGoBack = useCanGoBack();
+
+  // Return to the page the user came from; if they landed here directly
+  // (e.g. from search), fall back to Home so the button never dead-ends.
+  const handleBack = () => {
+    if (canGoBack) router.history.back();
+    else router.navigate({ to: "/" });
+  };
+
+  return (
     <PageShell>
       {/* ── Hero ── */}
       <section
@@ -91,16 +106,26 @@ export const Route = createFileRoute("/coupons")({
           aria-hidden="true"
         />
 
-        <div className="relative z-10 container mx-auto px-4 max-w-4xl text-center">
-          <h1 className="text-[38px] sm:text-[48px] lg:text-[58px] font-black tracking-wider text-primary mb-3">
-            Coupons
-          </h1>
-          <nav className="text-[13px] text-muted-foreground">
-            <Link to="/" className="font-semibold text-primary hover:text-accent">
-              Home
-            </Link>{" "}
-            <span className="mx-1">-</span> <span className="font-semibold">Coupons</span>
-          </nav>
+        <div className="relative z-20 container mx-auto px-4 max-w-4xl">
+          <button
+            type="button"
+            onClick={handleBack}
+            aria-label="Go back to the previous page"
+            className="group mb-6 inline-flex size-11 items-center justify-center rounded-full border border-primary/20 bg-white/70 text-primary shadow-sm backdrop-blur-sm transition-colors hover:border-primary/40 hover:bg-white lg:hidden"
+          >
+            <ArrowLeft className="size-5 transition-transform group-hover:-translate-x-0.5" />
+          </button>
+          <div className="text-center">
+            <h1 className="text-[38px] sm:text-[48px] lg:text-[58px] font-black tracking-wider text-primary mb-3">
+              Coupons
+            </h1>
+            <nav className="text-[13px] text-muted-foreground">
+              <Link to="/" className="font-semibold text-primary hover:text-accent">
+                Home
+              </Link>{" "}
+              <span className="mx-1">-</span> <span className="font-semibold">Coupons</span>
+            </nav>
+          </div>
         </div>
       </section>
 
@@ -145,5 +170,5 @@ export const Route = createFileRoute("/coupons")({
         </div>
       </section>
     </PageShell>
-  ),
-});
+  );
+}

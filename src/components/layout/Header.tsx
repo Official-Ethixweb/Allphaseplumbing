@@ -260,12 +260,15 @@ export function Header() {
       </div>
 
       {/* Phone CTA strip — full-width under the white header, with the
-          "Available 24/7" tagline on the LEFT and the call number on the RIGHT */}
-      <div className="lg:hidden absolute top-full left-0 right-0 z-40 -mt-px flex flex-col">
+          "Available 24/7" tagline on the LEFT and the call number on the RIGHT.
+          The container is pointer-events-none so its transparent dead zones (below
+          the call bar, left of Book Now) don't swallow taps meant for page content
+          underneath (e.g. a hero back button); the two links opt back in. */}
+      <div className="lg:hidden absolute top-full left-0 right-0 z-40 -mt-px flex flex-col pointer-events-none">
         <a
           href={opts.phone_href}
           aria-label={`Call ${opts.phone}`}
-          className="flex w-full items-center justify-between gap-3 px-4 py-2.5 text-white tracking-wide active:scale-[0.99] transition-transform leading-tight"
+          className="pointer-events-auto flex w-full items-center justify-between gap-3 px-4 py-2.5 text-white tracking-wide active:scale-[0.99] transition-transform leading-tight"
           style={{
             background: "linear-gradient(135deg, #0f2246 0%, #1E3A6E 50%, #4A7BC4 100%)",
             borderBottom: "1.5px solid #1E3A6E",
@@ -290,7 +293,7 @@ export function Header() {
           href="/#book-now"
           aria-label="Book now"
           data-gtm-cta="book_now_header"
-          className="self-end inline-flex items-center gap-1.5 px-4 py-2.5 text-[#1E3A6E] font-bold text-[14px] tracking-wide active:scale-[0.97] transition-transform"
+          className="pointer-events-auto self-end inline-flex items-center gap-1.5 px-4 py-2.5 text-[#1E3A6E] font-bold text-[14px] tracking-wide active:scale-[0.97] transition-transform"
           style={{
             background: "#F5C842",
             border: "1.5px solid #1E3A6E",
